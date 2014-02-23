@@ -2,8 +2,14 @@
 
 /* mixins, variables, etc. */
 
-$friBlue: #0040FF;
-$friRed: #DF013A;
+$friColorOne: #0040FF;
+$friColorTwo: #DF013A;
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
 
 /* universal */
 
@@ -64,14 +70,14 @@ p {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: $friRed;
+  color: $friColorTwo;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
   line-height: 1;
   &:hover {
-    color: $friBlue;
+    color: $friColorOne;
     text-decoration: none;
   }
 }
@@ -80,14 +86,14 @@ p {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: $friBlue;
+  color: $friColorOne;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
   line-height: 1;
   &:hover {
-    color: $friRed;
+    color: $friColorTwo;
     text-decoration: none;
   }
 }
