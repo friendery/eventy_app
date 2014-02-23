@@ -63,5 +63,5 @@ SampleApp::Application.routes.draw do
   #     resources :products
   #   end
   
-  #Transfer test
+  #Transfer test1
 end
