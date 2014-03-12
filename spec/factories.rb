@@ -9,4 +9,10 @@ FactoryGirl.define do
       admin true
     end
   end
+  
+  factory :event do
+    title "hunger game"
+    description "Caleb Wang's Game"
+    user
+  end
 end
