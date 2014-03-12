@@ -1,13 +1,11 @@
 <div class="hero-unit" >
 	<% provide(:title, 'All users') %>
-	<h1>All users</h1>
+	<h1>All users  (<%= @users.count %>)</h1>
 
 	<%= will_paginate %>
 
-	<ul class="users">
-	  <% @users.each do |user| %>
+	<ul class="listItems">
 	    <%= render @users %>
-	  <% end %>
 	</ul>
 
 
