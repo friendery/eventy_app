@@ -2,17 +2,17 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 gem 'rails', '4.0.3'
-gem 'bootstrap-sass', '~> 2.2.2'
+gem 'bootstrap-sass', '2.3.2.0'
 gem 'bootswatch-rails'
 gem 'bcrypt-ruby', '3.1.2'
 gem 'faker', '1.1.2'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 
-gem 'sass-rails', '>= 3.2'
+gem 'sass-rails', '4.0.1'
 gem "compass-rails", "~> 1.1.6"
-  
-group :assets do
+
+group :assets do 
 end
 
 group :development, :test do
