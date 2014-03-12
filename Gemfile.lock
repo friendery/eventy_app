@@ -41,7 +41,7 @@ GEM
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
     bcrypt-ruby (3.1.2-x86-mingw32)
-    bootstrap-sass (3.1.1.0)
+    bootstrap-sass (2.2.2.0)
       sass (~> 3.2)
     bootstrap-will_paginate (0.0.9)
       will_paginate
@@ -184,7 +184,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby (= 3.1.2)
-  bootstrap-sass (~> 3.1.1)
+  bootstrap-sass (~> 2.2.2)
   bootstrap-will_paginate (= 0.0.9)
   bootswatch-rails
   capybara (= 2.1.0)

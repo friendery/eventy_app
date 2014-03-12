@@ -14,6 +14,7 @@ $grayDarker:            #222;
 $grayDark:              #333;
 $gray:                  #555;
 $grayLight:             #999;
+$grayLight2:            #ccc;
 $grayLighter:           #eee;
 $white:                 #fff;
 
@@ -24,9 +25,12 @@ $blue:                  #004E8B;
 $blueDark:              #013435;
 $green:                 #015B4E;
 $red:                   #D14432;
+$redDarker:             darken($red, 20%);
 $yellow:                #F0F1E1;
 $orange:                #F26522;
-$orange_eventy:			#D25600;
+$orange_eventy:			#b84c00;
+$orange_eventy_darker:	darken($orange_eventy, 5%);
+$orange_eventy_even_darker:	darken($orange_eventy, 15%);
 $pink:                  #A15B66;
 $purple:                #7073CF;
 
@@ -95,7 +99,7 @@ $navbarCollapseWidth:             979px;
 $navbarCollapseDesktopWidth:      $navbarCollapseWidth + 1;
 
 $navbarHeight:                    55px;
-$navbarBackground:                $blueDark;
+$navbarBackground:                $orange_eventy_darker;
 $navbarBackgroundHighlight:       $navbarBackground;
 $navbarBorder:                    darken($navbarBackground, 5%);
 

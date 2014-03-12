@@ -35,6 +35,10 @@ h6 > small,
 	}
 }
 
+a {
+  color: $redDarker;
+}
+
 hr {
 	border-top: none;
 	border-bottom: 2px solid $headingsColor;
@@ -61,6 +65,7 @@ blockquote {
 		background-color: $orange_eventy;
 		background-image: none;
 		@include box-shadow(none);
+		border-color: $grayLighter;
 	}
 
 	.brand {
@@ -68,7 +73,7 @@ blockquote {
 		font-size: 26px;
 		font-family: $headingsFontFamily;
 		font-weight: $headingsFontWeight;
-		color: $navbarLinkColor;
+		color: $white;
 
 		&:hover {
 			background-color: $navbarLinkBackgroundHover;
@@ -81,7 +86,6 @@ blockquote {
 		font-family: $headingsFontFamily;
 		font-weight: $headingsFontWeight;
 		text-shadow: none;
-		color: $navbarLinkColor;
 	}
 
 	.nav > .active > a,
@@ -111,7 +115,6 @@ blockquote {
 		margin-top: 12px;
 		@include box-shadow(none);
 		line-height: normal;
-		color: $white;
 	}
 
 	.navbar-search .search-query {
@@ -119,6 +122,10 @@ blockquote {
 		background-color: rgba(255, 255, 255, 0.4);
 		line-height: normal;
 		color: $white;
+	}
+
+	.dropdown-menu {
+		background-color: $orange_eventy_even_darker;
 	}
 
 	.dropdown-menu li > a {
@@ -594,7 +601,8 @@ input, textarea, select {
 
 .hero-unit {
 	border: none;
-	@include border-radius(0);
+	@include border-radius(3);
+	background-color: $grayLighter;
 }
 
 .thumbnail {
