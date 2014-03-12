@@ -26,6 +26,7 @@ $green:                 #015B4E;
 $red:                   #D14432;
 $yellow:                #F0F1E1;
 $orange:                #F26522;
+$orange_eventy:			#D25600;
 $pink:                  #A15B66;
 $purple:                #7073CF;
 
@@ -38,7 +39,7 @@ $textColor:             $gray;
 
 // Links
 // -------------------------
-$linkColor:             lighten($green, 10%);
+$linkColor:             lighten($orange_eventy, 10%);
 $linkColorHover:        $linkColor;
 
 
@@ -102,8 +103,8 @@ $navbarText:                      $grayLight;
 $navbarLinkColor:                 $white;
 $navbarLinkColorHover:            $white;
 $navbarLinkColorActive:           $white;
-$navbarLinkBackgroundHover:       #002425;
-$navbarLinkBackgroundActive:      $navbarLinkBackgroundHover;
+$navbarLinkBackgroundActive:      $orange_eventy;
+$navbarLinkBackgroundHover:       darken($navbarLinkBackgroundActive, 5%);
 
 $navbarBrandColor:                $navbarLinkColor;
 
@@ -132,8 +133,8 @@ $btnBackground:                     $white;
 $btnBackgroundHighlight:            darken($white, 10%);
 $btnBorder:                         darken($white, 15%);
 
-$btnPrimaryBackground:              lighten($green, 5%);
-$btnPrimaryBackgroundHighlight:     $green;
+$btnPrimaryBackground:              lighten($orange_eventy, 5%);
+$btnPrimaryBackgroundHighlight:     $orange_eventy;
 
 $btnInfoBackground:                 lighten(#2f96b4, 5%);
 $btnInfoBackgroundHighlight:        #2f96b4;
@@ -172,8 +173,8 @@ $dropdownLinkColor:             $white;
 $dropdownLinkColorHover:        $white;
 $dropdownLinkColorActive:       $white;
 
-$dropdownLinkBackgroundActive:  $green;
-$dropdownLinkBackgroundHover:   $green;
+$dropdownLinkBackgroundActive:  $orange_eventy;
+$dropdownLinkBackgroundHover:   $orange_eventy;
 
 
 
@@ -257,7 +258,7 @@ $tooltipArrowColor:       $tooltipBackground;
 $popoverBackground:       #fff;
 $popoverArrowWidth:       10px;
 $popoverArrowColor:       #fff;
-$popoverTitleBackground:  $green;
+$popoverTitleBackground:  $orange_eventy;
 
 // Special enhancement for popovers
 $popoverArrowOuterWidth:  $popoverArrowWidth + 1;

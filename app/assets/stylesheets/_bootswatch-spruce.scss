@@ -58,6 +58,7 @@ blockquote {
 .navbar {
 
 	.navbar-inner {
+		background-color: $orange_eventy;
 		background-image: none;
 		@include box-shadow(none);
 	}
@@ -67,6 +68,7 @@ blockquote {
 		font-size: 26px;
 		font-family: $headingsFontFamily;
 		font-weight: $headingsFontWeight;
+		color: $navbarLinkColor;
 
 		&:hover {
 			background-color: $navbarLinkBackgroundHover;
@@ -79,6 +81,7 @@ blockquote {
 		font-family: $headingsFontFamily;
 		font-weight: $headingsFontWeight;
 		text-shadow: none;
+		color: $navbarLinkColor;
 	}
 
 	.nav > .active > a,
@@ -108,6 +111,7 @@ blockquote {
 		margin-top: 12px;
 		@include box-shadow(none);
 		line-height: normal;
+		color: $white;
 	}
 
 	.navbar-search .search-query {
@@ -181,7 +185,7 @@ navbar-inverse {
 
 div.subnav {
 
-	background-color: $green;
+	background-color: $orange_eventy;
 	background-image: none;
 	border-color: transparent;
 	@include border-radius(0);
@@ -222,7 +226,7 @@ div.subnav {
 
 	.disabled > a,
 	.disabled > a:hover {
-		background-color: lighten($green, 10%);
+		background-color: lighten($orange_eventy, 10%);
 		color: $white;
 	}
 }
@@ -232,7 +236,7 @@ div.subnav {
 	border-color: transparent;
 
 	& > li > a {
-		background-color: $green;
+		background-color: $orange_eventy;
 		color: $white;
 
 		&:hover {
@@ -265,7 +269,7 @@ div.subnav {
 .nav-pills {
 
 	& > li > a {
-		background-color: $green;
+		background-color: $orange_eventy;
 		color: $white;
 
 		&:hover {
@@ -305,7 +309,7 @@ div.subnav {
 	}
 
 	li > a:hover {
-		background-color: $green;
+		background-color: $orange_eventy;
 		color: $white;
 	}
 
@@ -323,7 +327,7 @@ div.subnav {
 
 .breadcrumb {
 
-	background-color: $green;
+	background-color: $orange_eventy;
 	background-image: none;
 	@include box-shadow(none);
 	border-color: transparent;
@@ -355,7 +359,7 @@ div.subnav {
 .pagination {
 
 	ul {
-		background-color: $green;
+		background-color: $orange_eventy;
 		background-image: none;
 		@include box-shadow(none);
 		border-color: transparent;
@@ -365,7 +369,7 @@ div.subnav {
 
 	ul > li > a,
 	ul > li > span {
-		background-color: $green;
+		background-color: $orange_eventy;
 		border-color: transparent;
 		color: $white;
 
@@ -385,7 +389,7 @@ div.subnav {
 	ul > .disabled > a:hover,
 	ul > .disabled > span,
 	ul > .disabled > span:hover {
-		background-color: lighten($green, 10%);
+		background-color: lighten($orange_eventy, 10%);
 		color: $white;
 	}
 }
@@ -395,7 +399,7 @@ div.subnav {
 	li > a,
 	li > span {
 		border: none;
-		background-color: $green;
+		background-color: $orange_eventy;
 		color: $white;
 
 		&:hover {
@@ -405,7 +409,7 @@ div.subnav {
 
 	.disabled a,
 	.disabled a:hover {
-		background-color: lighten($green, 10%);
+		background-color: lighten($orange_eventy, 10%);
 		color: $white;
 	}
 }
@@ -452,7 +456,7 @@ div.subnav {
 
 .table th,
 .table-striped tbody tr:nth-child(odd) th {
-	background-color: $green;
+	background-color: $orange_eventy;
 	color: $white;
 }
 
@@ -513,11 +517,11 @@ input, textarea, select {
 .control-group.success {
 
 	label, .help-block, .help-inline {
-		color: $green;
+		color: $orange_eventy;
 	}
 
 	input, select, textarea {
-		border: 1px solid $green;
+		border: 1px solid $orange_eventy;
 		color: $textColor;
 	}
 }
@@ -555,7 +559,7 @@ input, textarea, select {
 .badge,
 .label {
 
-	background-color: $green;
+	background-color: $orange_eventy;
 	text-shadow: none;
 }
 
@@ -625,7 +629,7 @@ input, textarea, select {
 
 .modal-header {
 	padding: 12px 15px 6px;
-	background-color: $green;
+	background-color: $orange_eventy;
 }
 
 .modal-body,

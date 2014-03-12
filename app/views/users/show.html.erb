@@ -1,20 +1,14 @@
-<% provide(:title, @user.name)%>
-<div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
-  </aside>
-  <div class="span8">
-      <% if @user.events.any? %>
-        <h3>Events (<%= @user.events.count %>)</h3>
-        <ol class="events">
-          <%= render @events %>
-        </ol>
-        <%= will_paginate @events %>
-      <% end %>
-    </div>
+<div class="container jumbotron" >
+	<% provide(:title, @user.name)%>
+	<div class="row">
+	  <aside class="span4">
+	    <section>
+	      <h1>
+	        <%= gravatar_for @user %>
+	        <%= @user.name %>
+	      </h1>
+	    </section>
+	  </aside>
+	</div>
 </div>
+
