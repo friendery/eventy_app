@@ -6,8 +6,18 @@
 }
 
 
-/* footer */
 
+body {
+  /* navbar padding top */ 
+  padding-top: 80px;                                                   
+  /* background photo */
+  background-image: url('/assets/home/home_page_cover_photo_1.jpg'); 
+  background-size: 1600px 1100px;
+  background-attachment:fixed;
+}
+
+
+/* footer */
 footer {
   margin-top: 45px;
   padding-top: 5px;

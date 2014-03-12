@@ -11,10 +11,25 @@
  *= require_self
  */
 
+
 @import "compass";
 
-@import 'variables';
-@import 'bootswatch';
+
+
+
+/*
+@import 'variables-flatly';
+@import 'bootswatch-flatly';
 @import 'bootstrap-responsive.min';
-@import 'bootstrap.min';
+@import 'bootstrap.min-flatly';
+
+*/
+
+@import 'variables-spruce';
+@import 'bootswatch-spruce';
+@import 'bootstrap-responsive.min';
+@import 'bootstrap.min-spruce';
+
+
+
 @import 'custom';
