@@ -9,6 +9,15 @@
 	      </h1>
 	    </section>
 	  </aside>
+	  
+	  <div class="span8">
+	      <% if @user.events.any? %>
+	        <h3>Events (<%= @user.events.count %>)</h3>
+	        <ol class="events">
+	          <%= render @events %>
+	        </ol>
+	        <%= will_paginate @events %>
+	      <% end %>
+	    </div>
 	</div>
 </div>
-
