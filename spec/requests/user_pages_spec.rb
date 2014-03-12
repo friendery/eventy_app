@@ -130,4 +130,23 @@ describe "UserPages" do
       specify { expect(user.reload.email).to eq new_email }
     end
   end
+  
+  describe "profile page" do
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:m1) { FactoryGirl.create(:event, user: user, title: "Bar", description: "Foo") }
+    let!(:m2) { FactoryGirl.create(:event, user: user, title: "Foo", description: "Bar") }
+
+    before { visit user_path(user) }
+
+    it { should have_content(user.name) }
+    it { should have_title(user.name) }
+
+    describe "events" do
+      it { should have_content(m1.title) }
+      it { should have_content(m2.title) }
+      it { should have_content(m1.description) }
+      it { should have_content(m2.description) }
+      it { should have_content(user.events.count) }
+    end
+  end
 end

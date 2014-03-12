@@ -6,7 +6,7 @@ namespace :db do
                  password: "foobar",
                  password_confirmation: "foobar",
                  admin: true)
-    99.times do |n|
+    6.times do |n|
       name  = Faker::Name.name
       email = "example-#{n+1}@railstutorial.org"
       password  = "password"
@@ -14,6 +14,13 @@ namespace :db do
                    email: email,
                    password: password,
                    password_confirmation: password)
+    end
+    
+    users = User.all(limit: 6)
+    50.times do
+      title = "Hunger Game"
+      description = Faker::Lorem.sentence(5)
+      users.each { |user| user.events.create!(title: title, description: description) }
     end
   end
 end
