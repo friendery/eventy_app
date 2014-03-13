@@ -11,11 +11,11 @@
  *= require_self
  */
  
-@import 'bootstrap'; 
-
-@import 'variables-spruce';
 @import "compass";
 
+
+@import 'variables-spruce';
+@import 'bootstrap'; 
 @import 'bootswatch-spruce';
 
 /*
