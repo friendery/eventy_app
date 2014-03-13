@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :signed_in_user
+  before_action :correct_user,  only: :destroy
 
   def new
     @event = Event.new
@@ -14,13 +15,25 @@ class EventsController < ApplicationController
       render 'static_pages/home'
     end
   end
+  
+  def show
+    @event = current_user.events.find_by(id: params[:id])
+  end
 
   def destroy
+    @user = current_user
+    @event.destroy
+    redirect_to @user
   end
 
   private
 
     def event_params
       params.require(:event).permit(:title, :description)
+    end
+    
+    def correct_user
+      @event = current_user.events.find_by(id: params[:id])
+      redirect_to root_url if @event.nil?
     end
 end
