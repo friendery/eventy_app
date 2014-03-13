@@ -12,4 +12,10 @@
 		<%= @event.title %>
 	    <%= @event.description %>
 	  </div>
+	  <section>
+	    <%= render 'shared/stats' %>
+	  </section>
+	  <div class="span8">
+	    <%= render 'join_form' if signed_in? %>
+	  </div>
 	</div>
