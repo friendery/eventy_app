@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140313135527) do
+ActiveRecord::Schema.define(version: 20140314112513) do
 
   create_table "eventjoinings", force: true do |t|
     t.integer  "user_id"

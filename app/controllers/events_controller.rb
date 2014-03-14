@@ -17,7 +17,12 @@ class EventsController < ApplicationController
   end
   
   def show
-    @event = current_user.events.find_by(id: params[:id])
+    @event = Event.find(params[:id])
+  end
+  
+  def members
+    @event = Event.find(params[:id])
+    @eventjoinings = @event.eventjoinings.all
   end
 
   def destroy

@@ -1,0 +1,13 @@
+<% if @eventjoinings.any? %>
+  Members join already:
+  <br>
+  <% @eventjoinings.each do |eventjoining| %>
+	  <%= User.find_by(id: eventjoining.user_id).name %> 
+      <br>
+  <% end %>
+  <br>
+  Created by: 
+  <%= User.find_by(@event.user_id).name %>
+<% else %>
+	no one join now
+<% end %>

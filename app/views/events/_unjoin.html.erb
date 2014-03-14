@@ -1,5 +1,5 @@
 
-<%= form_for(@event.relationships.find_by(user_id: current_user.id),
+<%= form_for(@event.eventjoinings.find_by(user_id: current_user.id),
              html: { method: :delete }) do |f| %>
   <%= f.submit "Unjoin", class: "btn btn-large" %>
 <% end %>

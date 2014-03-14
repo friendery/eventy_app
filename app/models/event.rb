@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
   belongs_to :user
-  has_many :eventjoinings
+  has_many :eventjoinings, dependent: :destroy
   default_scope -> { order('created_at DESC') }
   validates :description, presence: true
   validates :title, presence: true, length: { maximum: 30 }

@@ -1,5 +1,6 @@
 class CreateEventjoinings < ActiveRecord::Migration
   def change
+    drop_table :eventjoinings
     create_table :eventjoinings do |t|
       t.integer :user_id
       t.integer :event_id

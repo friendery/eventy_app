@@ -1,4 +1,7 @@
-<%= form_for(@event.eventjoinings.build(user_id: current_user.id)) do |f| %>
-  <div><%= f.hidden_field :user_id %></div>
+<%= form_for(@event.eventjoinings.build(user_id: current_user.id, event_id: @event.id)) do |f| %>
+  <div>
+	  <%= f.hidden_field :user_id %>
+	  <%= f.hidden_field :event_id %>
+  </div>
   <%= f.submit "Join", class: "btn btn-large btn-primary" %>
 <% end %>
