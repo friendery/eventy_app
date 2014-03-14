@@ -2,9 +2,14 @@
   Members join already:
   <br>
   <% @eventjoinings.each do |f| %>
-	  <%= User.find_by(id: f.user_id).name %> 
+	  <%= User.find_by(id: f.user_id).name %>
+	  <br>
+	  Joined at <%= f.created_at %> 
       <br>
+	  <br>
   <% end %>
+  <br>
+  <br>
   <br>
   Created by: 
   <%= User.find_by(id: @event.user_id).name %>

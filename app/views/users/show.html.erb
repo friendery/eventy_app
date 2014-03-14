@@ -19,4 +19,15 @@
 		   		</div>
 		  </div>
 	   <% end %>
+	   Joined Events:
+	   <br>
+	   <% @user.eventjoinings.each do |f| %>
+	 	  <%= Event.find_by(id: f.user_id).title %>
+		  <br>
+		  Joined at
+		  <%= f.created_at %>
+	      <br>
+		  <br>
+	   <% end %>
+	   <br>
 	</div>
