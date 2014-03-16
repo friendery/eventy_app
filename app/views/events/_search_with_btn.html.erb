@@ -1,0 +1,10 @@
+
+<%= form_tag( { :controller => 'events', :action => 'search' }, {:method => 'get', :class => 'navbar-form'} ) do %>
+	<div class="row-fluid">
+		<%= text_field_tag :search, params[:search], :id => 'search_field', :class => 'span3',  :placeholder => "What"%>
+		<%= text_field_tag :search, params[:search], :id => 'search_field', :class => 'span3',  :placeholder => "When"%>
+		<%= text_field_tag :search, params[:search], :id => 'search_field', :class => 'span3',  :placeholder => "Where"%>
+		<%= submit_tag "Search", :name => nil, :class=> "btn span3" %>
+
+	</div>
+<% end %>
