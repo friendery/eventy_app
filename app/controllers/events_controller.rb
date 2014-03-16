@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :signed_in_user
-  before_action :correct_user,  only: :destroy
+  before_action :correct_user,  only: [:edit, :update, :destroy]
 
   def new
     @event = Event.new
@@ -33,6 +33,19 @@ class EventsController < ApplicationController
   
   def search
       @events = Event.search(params[:search])
+  end
+  
+  def edit
+    @event = Event.find(params[:id])
+  end
+
+  def update
+    if @event.update_attributes(event_params)
+      flash[:success] = "Event updated"
+      redirect_to @event
+    else
+      render 'edit'
+    end
   end
 
   private

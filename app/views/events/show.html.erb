@@ -18,4 +18,8 @@
 	  <div class="span8">
 	    <%= render 'join_form' if signed_in? %>
 	  </div>
+	  
+	  <% if current_user?(@event.user) %>
+	  	<%= link_to "edit", edit_event_path, class: "btn btn-large btn-primary" %>
+	  <% end %>
 	</div>

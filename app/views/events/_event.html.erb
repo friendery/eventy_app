@@ -2,12 +2,13 @@
   <%= link_to event.title, event%>
   <br>
   <span class="content"><%= event.description %></span>
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(event.created_at) %> ago.
-  </span>
   <% if current_user?(event.user) %>
   	<%= link_to "delete", event, method: :delete,
 								 data: { confirm: "You sure?" },
 								 title: event.title %>
   <% end %>
+  <br>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(event.created_at) %> ago.
+  </span>
 </li>

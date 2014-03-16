@@ -22,21 +22,24 @@
 				          <%= render @events %>
 				        </ol>
 				        <div class="pull-right">
-				        	<%= will_paginate @events%>
+				        	<%= will_paginate @events %>
 				   		</div>
 				  </div>
 			   <% end %>
 		</div>
 		<div id="joined-events" class="span6">
 			<h3>Joined Events:</h3>
-			   <% @user.eventjoinings.each do |f| %>
-
+			<% if @user.eventjoinings.any? %>
+				<div class="span12">
+			      <% @user.eventjoinings.each do |f| %>
 	  				<% @joinedevent = Event.find_by(id: f.event_id) %>
 	  				<% @createTime = f.created_at %>
 					<ol class="listItems">
 					    <%= render 'events/join_history', joinedevent: @joinedevent, createTime: @createTime %>
 					</ol>
-			   <% end %>
-		   <br>
+			      <% end %>
+
+				</div>
+			<% end %>
 		</div>
 	</div>
