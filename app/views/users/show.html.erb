@@ -22,7 +22,8 @@
 	   Joined Events:
 	   <br>
 	   <% @user.eventjoinings.each do |f| %>
-	 	  <%= Event.find_by(id: f.user_id).title %>
+	 	  <% @joinedevent = Event.find_by(id: f.event_id) %>
+		  <%= link_to @joinedevent.title, @joinedevent %>
 		  <br>
 		  Joined at
 		  <%= f.created_at %>

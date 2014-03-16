@@ -17,4 +17,9 @@ class Event < ActiveRecord::Base
   def unjoin!(join_user)
     eventjoinings.find_by(user_id: join_user.id).destroy
   end
+  
+  def self.search(search)
+    search_condition = "%" + search + "%"
+    find(:all, :conditions => ['title LIKE ? OR description LIKE ?', search_condition, search_condition])
+  end
 end

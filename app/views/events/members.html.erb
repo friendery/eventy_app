@@ -2,7 +2,8 @@
   Members join already:
   <br>
   <% @eventjoinings.each do |f| %>
-	  <%= User.find_by(id: f.user_id).name %>
+	  <% @user = User.find_by(id: f.user_id) %>
+	  <%= link_to @user.name, @user %>
 	  <br>
 	  Joined at <%= f.created_at %> 
       <br>

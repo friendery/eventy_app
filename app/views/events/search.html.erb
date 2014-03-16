@@ -1,0 +1,9 @@
+<div class="hero-unit" >
+	<% provide(:title, 'Result') %>
+	<h1>All results  (<%= @events.count %>)</h1>
+
+
+	<ul class="listItems">
+	    <%= render @events %>
+	</ul>
+

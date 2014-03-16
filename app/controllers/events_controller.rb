@@ -30,6 +30,10 @@ class EventsController < ApplicationController
     @event.destroy
     redirect_to @user
   end
+  
+  def search
+      @events = Event.search(params[:search])
+  end
 
   private
 

@@ -5,6 +5,9 @@ SampleApp::Application.routes.draw do
     member do
       get :members
     end
+    collection do
+      get :search
+    end
   end
   resources :eventjoinings, only: [:create, :destroy]
   root to: 'static_pages#home'
