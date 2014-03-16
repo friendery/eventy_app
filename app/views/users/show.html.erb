@@ -1,34 +1,42 @@
 <div class="hero-unit" >
 	<% provide(:title, @user.name)%>
 	<div class="row-fluid">
-	  <div class="span12">
-	    <section>
-	      <h1>
-	        <%= gravatar_for @user %>
-	        <%= @user.name %>'s Events (<%= @user.events.count %>)
-	      </h1>
-	    </section>
-	  </div>
-	  <% if @user.events.any? %>
-		  <div class="span12">
-		        <ol class="listItems">
-		          <%= render @events %>
-		        </ol>
-		        <div class="pull-right">
-		        	<%= will_paginate @events%>
-		   		</div>
-		  </div>
-	   <% end %>
-	   Joined Events:
-	   <br>
-	   <% @user.eventjoinings.each do |f| %>
-	 	  <% @joinedevent = Event.find_by(id: f.event_id) %>
-		  <%= link_to @joinedevent.title, @joinedevent %>
-		  <br>
-		  Joined at
-		  <%= f.created_at %>
-	      <br>
-		  <br>
-	   <% end %>
-	   <br>
+		<div id="profile-header" class="span12">
+			  <div>
+			    <section>
+			      <h1>
+			        <%= gravatar_for @user %>
+			        <%= @user.name %>'s Events (<%= @user.events.count %>)
+			      </h1>
+			    </section>
+			  </div>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+		<div id="created-events" class="span6">
+			<h3>Created Events:</h3>
+			  <% if @user.events.any? %>
+				  <div class="span12">
+				        <ol class="listItems">
+				          <%= render @events %>
+				        </ol>
+				        <div class="pull-right">
+				        	<%= will_paginate @events%>
+				   		</div>
+				  </div>
+			   <% end %>
+		</div>
+		<div id="joined-events" class="span6">
+			<h3>Joined Events:</h3>
+			   <% @user.eventjoinings.each do |f| %>
+
+	  				<% @joinedevent = Event.find_by(id: f.event_id) %>
+	  				<% @createTime = f.created_at %>
+					<ol class="listItems">
+					    <%= render 'events/join_history', joinedevent: @joinedevent, createTime: @createTime %>
+					</ol>
+			   <% end %>
+		   <br>
+		</div>
 	</div>

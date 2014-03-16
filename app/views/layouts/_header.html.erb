@@ -1,33 +1,37 @@
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="navbar-inner">
     <div class="container">
-      <div class="navbar-header">
-        <%= link_to "Eventy", root_path, id: "logo", class: "navbar-brand brand" %>
-      </div>
- <%= render 'events/search'%>
-      <div id="navbar-main" class="navbar-collapse">
-        <ul class="nav navbar-nav pull-right">
-          <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "Help", help_path %></li>
-          <% if signed_in? %>
-            <li><%= link_to "Users", users_path %></li>
-            <li id="fat-menu" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Account <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                <li><%= link_to "Profile", current_user %></li>
-                <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-                <li class="divider"></li>
-                <li>
-                  <%= link_to "Sign out", signout_path, method: "delete" %>
-                </li>
-              </ul>
-            </li>
-          <% else %>
-            <li><%= link_to "Sign in", signin_path %></li>
-          <% end %>
-        </ul>
+      <div class="row-fluid">
+        <div class="navbar-header">
+          <%= link_to "Eventy", root_path, id: "logo", class: "navbar-brand brand" %>
+        </div>
+        <div class="navbar-search">
+          <%= render 'events/search_simple'%>
+        </div>
+        <div id="navbar-main" class="navbar-collapse">
+          <ul class="nav navbar-nav pull-right">
+            <li><%= link_to "Home", root_path %></li>
+            <li><%= link_to "Help", help_path %></li>
+            <% if signed_in? %>
+              <li><%= link_to "Users", users_path %></li>
+              <li id="fat-menu" class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Account <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Profile", current_user %></li>
+                  <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+                  <li class="divider"></li>
+                  <li>
+                    <%= link_to "Sign out", signout_path, method: "delete" %>
+                  </li>
+                </ul>
+              </li>
+            <% else %>
+              <li><%= link_to "Sign in", signin_path %></li>
+            <% end %>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
