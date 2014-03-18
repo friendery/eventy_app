@@ -19,7 +19,7 @@ class Event < ActiveRecord::Base
   end
   
   def self.search(search)
-    search_condition = "%" + search + "%"
-    find(:all, :conditions => ['title LIKE ? OR description LIKE ?', search_condition, search_condition])
+    search_condition = "%" + search.downcase + "%"
+    find(:all, :conditions => ['lower(title) LIKE ? OR lower(description) LIKE ?', search_condition, search_condition])
   end
 end

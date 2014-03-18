@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :signed_in_user
+  before_action :signed_in_user, except: [:search]
   before_action :correct_user,  only: [:edit, :update, :destroy]
 
   def new
@@ -10,7 +10,7 @@ class EventsController < ApplicationController
     @event = current_user.events.build(event_params)
     if @event.save
       flash[:success] = "Event created!"
-      redirect_to root_url
+      redirect_to @event
     else
       render 'static_pages/home'
     end
