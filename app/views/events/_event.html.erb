@@ -1,4 +1,6 @@
 <li>
+  <%= image_tag event.avatar.url(:thumb) %>
+  <br>
   <%= link_to event.title, event%>
   <br>
   <span class="content"><%= event.description %></span>

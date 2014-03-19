@@ -1,10 +1,12 @@
 class Event < ActiveRecord::Base
-  belongs_to :user
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   has_many :eventjoinings, dependent: :destroy
   default_scope -> { order('created_at DESC') }
   validates :description, presence: true
   validates :title, presence: true, length: { maximum: 30 }
   validates :user_id, presence: true
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+  belongs_to :user
   
   def join?(join_user)
     eventjoinings.find_by(user_id: join_user.id)

@@ -8,6 +8,9 @@ gem 'bcrypt-ruby', '3.1.2'
 gem 'faker', '1.1.2'
 gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
+gem 'dragonfly', '~> 1.0.3'
+gem "paperclip", "~> 4.1"
+gem 'aws-sdk'
 
 gem 'sass-rails', '4.0.1'
 gem "compass-rails", "~> 1.1.6"

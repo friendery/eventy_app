@@ -26,4 +26,15 @@ SampleApp::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+  
+  Paperclip.options[:command_path] = "/usr/local/bin/"
+  
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => ENV['elasticbeanstalk-ap-southeast-1-482302107434'],
+      :access_key_id => ENV['AKIAJZFZWBVEMR3GAVDA'],
+      :secret_access_key => ENV['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']
+    }
+  }
 end
