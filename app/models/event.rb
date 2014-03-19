@@ -1,4 +1,5 @@
 class Event < ActiveRecord::Base
+  dragonfly_accessor :image
   belongs_to :user
   has_many :eventjoinings, dependent: :destroy
   default_scope -> { order('created_at DESC') }

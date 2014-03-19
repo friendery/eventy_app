@@ -71,6 +71,9 @@ GEM
     compass-rails (1.1.6)
       compass (>= 0.12.2)
     diff-lcs (1.2.5)
+    dragonfly (1.0.3)
+      multi_json (~> 1.0)
+      rack
     erubis (2.7.0)
     execjs (2.0.2)
     factory_girl (4.2.0)
@@ -190,6 +193,7 @@ DEPENDENCIES
   capybara (= 2.1.0)
   coffee-rails (= 4.0.1)
   compass-rails (~> 1.1.6)
+  dragonfly (~> 1.0.3)
   factory_girl_rails (= 4.2.1)
   faker (= 1.1.2)
   jbuilder (= 1.0.2)
