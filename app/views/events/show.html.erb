@@ -8,6 +8,7 @@
 	      </h1>
 	    </section>
 	  </div>
+	  <%= image_tag @event.image.url if @event.image_stored? %>
 	  <div class="field">
 	    <%= @event.description %>
 	  </div>
