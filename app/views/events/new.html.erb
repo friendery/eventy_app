@@ -12,6 +12,8 @@
 
         <%= f.label :description %>
         <%= f.text_area :description %><br>
+		
+		<%= f.file_field :avatar %>
 
         <%= f.submit "Create Event", class: "btn btn-large btn-primary" %>
       <% end %>

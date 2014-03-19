@@ -1,4 +1,6 @@
 <li>
+  <%= image_tag @joinedevent.avatar.url(:thumb) %>
+  <br>
   <%= link_to @joinedevent.title, @joinedevent%>
   <br>
   <span class="content"><%= @joinedevent.description %></span>

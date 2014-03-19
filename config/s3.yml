@@ -1,0 +1,14 @@
+development:
+  bucket: elasticbeanstalk-ap-southeast-1-482302107434-dev
+  access_key_id: AKIAJZFZWBVEMR3GAVDA
+  secret_access_key: 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
+
+test:
+  bucket: <elasticbeanstalk-ap-southeast-1-482302107434>-test
+  access_key_id: AKIAJZFZWBVEMR3GAVDA
+  secret_access_key: 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
+
+production:
+  bucket: elasticbeanstalk-ap-southeast-1-482302107434-production
+  access_key_id: AKIAJZFZWBVEMR3GAVDA
+  secret_access_key: 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
