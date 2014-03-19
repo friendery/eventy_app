@@ -6,7 +6,7 @@
 			    <section>
 			      <h1>
 			        <%= gravatar_for @user %>
-			        <%= @user.name %>'s Events (<%= @user.events.count %>)
+			        <%= @user.name %>'s Events
 			      </h1>
 			    </section>
 			  </div>
@@ -15,7 +15,7 @@
 
 	<div class="row-fluid">
 		<div id="created-events" class="span6">
-			<h3>Created Events:</h3>
+			<h3>Created Events (<%= @user.events.count %>):</h3>
 			  <% if @user.events.any? %>
 				  <div class="span12">
 				        <ol class="listItems">
@@ -28,7 +28,7 @@
 			   <% end %>
 		</div>
 		<div id="joined-events" class="span6">
-			<h3>Joined Events:</h3>
+			<h3>Joined Events (<%= @user.eventjoinings.count %>):</h3>
 			<% if @user.eventjoinings.any? %>
 				<div class="span12">
 			      <% @user.eventjoinings.each do |f| %>

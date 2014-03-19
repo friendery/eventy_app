@@ -5,8 +5,14 @@
   box-sizing: border-box;
 }
 
+
+/* normalize search bar vertical pos */ 
 .navbar .navbar-search {
   margin-top: 7px;
+}
+
+h1 {
+  padding-bottom: 30px;
 }
 
 body {
@@ -59,10 +65,10 @@ footer {
 
 .listItems {
   list-style: none;
-  margin: 10px 0 0 0;
+  margin: 0px 0 0px 0;
 
   li {
-    padding: 10px 0;
+    padding: 3px 0 13px;
     border-bottom: 1px solid $grayLight;
   }
 }

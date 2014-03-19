@@ -1,19 +1,22 @@
-<% if @eventjoinings.any? %>
-  Members join already:
-  <br>
-  <% @eventjoinings.each do |f| %>
-	  <% @user = User.find_by(id: f.user_id) %>
-	  <%= link_to @user.name, @user %>
-	  <br>
-	  Joined at <%= f.created_at %> 
-      <br>
-	  <br>
+
+<div class="hero-unit" >
+  <% if @eventjoinings.any? %>
+    <h2>Members joined already:</h2>
+    <br>
+    <% @eventjoinings.each do |f| %>
+  	  <% @user = User.find_by(id: f.user_id) %>
+  	  <%= link_to @user.name, @user %>
+  	  <br>
+      Joined <%= time_ago_in_words(f.created_at) %> ago.
+        <br>
+  	  <br>
+    <% end %>
+    <br>
+    <br>
+    <br>
+    Created by: 
+    <%= User.find_by(id: @event.user_id).name %>
+  <% else %>
+  	no one join now
   <% end %>
-  <br>
-  <br>
-  <br>
-  Created by: 
-  <%= User.find_by(id: @event.user_id).name %>
-<% else %>
-	no one join now
-<% end %>
+</div>
