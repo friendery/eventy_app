@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140319100851) do
+ActiveRecord::Schema.define(version: 20140319171739) do
 
   create_table "eventjoinings", force: true do |t|
     t.integer  "user_id"
@@ -30,13 +30,6 @@ ActiveRecord::Schema.define(version: 20140319100851) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "img"
-    t.string   "image_uid"
-    t.string   "image_name"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
   end
 
   add_index "events", ["user_id", "created_at"], name: "index_events_on_user_id_and_created_at"
