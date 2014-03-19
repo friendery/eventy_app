@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: eventy
+  api_key: '262953257234423'
+  api_secret: Tsl_pJ9wuK95limYUSjos4NCBB4
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: eventy
+  api_key: '262953257234423'
+  api_secret: Tsl_pJ9wuK95limYUSjos4NCBB4
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: eventy
+  api_key: '262953257234423'
+  api_secret: Tsl_pJ9wuK95limYUSjos4NCBB4
+  enhance_image_tag: true
+  static_image_support: false

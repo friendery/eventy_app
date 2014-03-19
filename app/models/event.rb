@@ -1,17 +1,11 @@
 class Event < ActiveRecord::Base
-  has_attached_file :avatar,
-       :storage => :s3,
-       :s3_credentials => "#{Rails.root}/config/s3.yml",
-       :path => "/:style/:id/:filename",
-       :url  => ":s3_domain_url",
-       :styles => { :medium => "300x300>", :thumb => "100x100>" }
   has_many :eventjoinings, dependent: :destroy
   default_scope -> { order('created_at DESC') }
   validates :description, presence: true
   validates :title, presence: true, length: { maximum: 30 }
   validates :user_id, presence: true
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   belongs_to :user
+  mount_uploader :avatar, AvatarUploader
   
   def join?(join_user)
     eventjoinings.find_by(user_id: join_user.id)
