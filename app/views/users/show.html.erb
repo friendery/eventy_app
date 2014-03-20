@@ -5,7 +5,7 @@
 			  <div>
 			    <section>
 			      <h1>
-			        <%= gravatar_for @user %>
+			        <%= image_tag @user.photo_url(:standard) %>
 			        <%= @user.name %>'s Events
 			      </h1>
 			    </section>
