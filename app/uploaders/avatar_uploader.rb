@@ -13,5 +13,9 @@ class AvatarUploader < CarrierWave::Uploader::Base
   version :thumbnail do
     resize_to_fit(100, 100)
   end
+  
+  version :icon do
+    resize_to_fit(50, 50)
+  end
 
 end
