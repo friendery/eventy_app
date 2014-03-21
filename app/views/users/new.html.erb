@@ -16,9 +16,10 @@
         <%= f.label :password %>
         <%= f.password_field :password %>
 
-        <%= f.label :password_confirmation, "Confirmation" %>
+        <%= f.label :password_confirmation, "Password Confirmation" %>
         <%= f.password_field :password_confirmation %>
 		
+		<%= f.label :Photo %>
 		<%= f.file_field :photo %>
 
         <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
