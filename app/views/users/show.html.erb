@@ -8,6 +8,13 @@
 			        <%= image_tag @user.photo_url(:standard) %>
 			        <%= @user.name %>'s Events
 			      </h1>
+				  <% if current_user?(@user) %>
+				  <% else %>
+				  	<% if current_user.friend?(@user.id) %>
+					<% else %>
+				      <%= link_to "Add Friend", friendships_path(:friend_id => @user.id), :method => :post %>
+					<% end %>
+				  <% end %>
 			    </section>
 			  </div>
 		</div>

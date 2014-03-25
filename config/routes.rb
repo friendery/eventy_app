@@ -10,6 +10,8 @@ SampleApp::Application.routes.draw do
     end
   end
   resources :eventjoinings, only: [:create, :destroy]
+  resources :friendships
+  
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'    

@@ -1,0 +1,7 @@
+<%= form_for(@user.friendships.build(userB_id: current_user.id, userA_id: @user.id)) do |f| %>
+  <div>
+	  <%= f.hidden_field :userA_id %>
+	  <%= f.hidden_field :userB_id %>
+  </div>
+  <%= f.submit "Add", class: "btn btn-large btn-primary" %>
+<% end %>
