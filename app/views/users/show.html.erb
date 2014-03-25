@@ -11,6 +11,7 @@
 				  <% if current_user?(@user) %>
 				  <% else %>
 				  	<% if current_user.friend?(@user.id) %>
+					  <%= @user.name %> is your friend!
 					<% else %>
 				      <%= link_to "Add Friend", friendships_path(:friend_id => @user.id), :method => :post %>
 					<% end %>
