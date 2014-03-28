@@ -27,14 +27,14 @@ class User < ActiveRecord::Base
   end
   
   def friend?(friend_id)
-    friendships.find_by(friend_id: friend_id)||inverse_friendships.find_by(user_id: friend_id)
+    #friendships.find_by(friend_id: friend_id)||inverse_friendships.find_by(user_id: friend_id)
     # Status: 3 status for friendship in total and uncomment following codes once add status into
     # friendship table
-    #if a = friendships.find_by(friend_id: friend_id)||inverse_friendships.find_by(user_id: friend_id)
-      #b = a.status
-    #else
-      #b = 'not_friend'
-    #end
+    if a = friendships.find_by(friend_id: friend_id)||inverse_friendships.find_by(user_id: friend_id)
+      b = a.status
+    else
+      b = 'not_friend'
+    end
   end
 
   private

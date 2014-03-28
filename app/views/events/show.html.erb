@@ -24,6 +24,16 @@
 		  <div class="span6">
 			  <% if current_user?(@event.user) %>
 			  	<%= link_to "edit", edit_event_path, class: "btn btn-large btn-primary" %>
+				<br>
+				<% @event.eventjoinings.each do |f| %>
+				  <% if f.status == 'pending' %>
+				    <% @user = User.find_by(id: f.user_id) %>
+				    <%= link_to @user.name, @user %> is pending for your approval.
+					<%= link_to "Approve", eventjoining_path(:status => 'approved', :id => f.id), :method => :patch %>
+					<%= link_to "Reject", eventjoining_path(:user_id => @user.id, :id => f.id), :method => :delete %>
+				  <% else %>
+				  <% end %>
+				<% end %>
 			  <% end %>
 		  </div>
 	  </div>

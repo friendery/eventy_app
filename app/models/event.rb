@@ -8,11 +8,15 @@ class Event < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
   
   def join?(join_user)
-    eventjoinings.find_by(user_id: join_user.id)
+    if a = eventjoinings.find_by(user_id: join_user.id)
+      b = a.status
+    else
+      b = 'false'
+    end
   end
   
-  def join!(join_user)
-    eventjoinings.create!(user_id: join_user.id)
+  def join!(join_user, join_status)
+    eventjoinings.create!(user_id: join_user.id, status: join_status)
   end
   
   def unjoin!(join_user)

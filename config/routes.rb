@@ -9,7 +9,7 @@ SampleApp::Application.routes.draw do
       get :search
     end
   end
-  resources :eventjoinings, only: [:create, :destroy]
+  resources :eventjoinings, only: [:create, :destroy, :update]
   resources :friendships
   
   match '/signup',  to: 'users#new',            via: 'get'

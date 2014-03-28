@@ -1,7 +1,37 @@
-<%= form_for(@event.eventjoinings.build(user_id: current_user.id, event_id: @event.id)) do |f| %>
-  <div>
-	  <%= f.hidden_field :user_id %>
-	  <%= f.hidden_field :event_id %>
-  </div>
-  <%= f.submit "Join", class: "btn btn-large btn-primary" %>
+<% @creator = User.find_by(id: @event.user_id) %>
+<% status = @creator.friend?(current_user.id) %>
+<% if current_user?(@creator) || status == 'approved' %>
+  <%= form_for(@event.eventjoinings.build(user_id: current_user.id, event_id: @event.id, status: 'approved')) do |f| %>
+    <div>
+	<%= f.hidden_field :user_id %>
+	<%= f.hidden_field :event_id %>
+	<%= f.hidden_field :status %>
+    </div>
+    <%= f.submit "Join", class: "btn btn-large btn-primary" %>
+  <% end %>
+  
+<% else %>
+  <%= form_for(@event.eventjoinings.build(user_id: current_user.id, event_id: @event.id, status: 'pending')) do |f| %>
+    <div>
+	<%= f.hidden_field :user_id %>
+	<%= f.hidden_field :event_id %>
+	<%= f.hidden_field :status %>
+    </div>
+    <%= f.submit "Request", class: "btn btn-large btn-primary" %>
+  <% end %>
+  
 <% end %>
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+

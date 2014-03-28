@@ -1,6 +1,9 @@
 <div id="join_form">
-<% if @event.join?(current_user) %>
+<% status = @event.join?(current_user) %>
+<% if status == 'approved' %>
   <%= render 'unjoin' %>
+<% elsif status == 'pending' %>
+  Pending for event creator's approval!
 <% else %>
   <%= render 'join' %>
 <% end %>

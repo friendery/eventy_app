@@ -16,6 +16,13 @@ class FriendshipsController < ApplicationController
     @friendshipOne = current_user.friendships
     @friendshipTwo = current_user.inverse_friendships
   end
+  
+  def update
+    @friendship = current_user.inverse_friendships.find(params[:id])
+    @friendship.status = 'approved'
+    @friendship.save
+    redirect_to friendships_path
+  end 
 
   def destroy
     if params[:inverse] == 'false'

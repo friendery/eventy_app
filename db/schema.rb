@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140325124823) do
+ActiveRecord::Schema.define(version: 20140328065334) do
 
   create_table "eventjoinings", force: true do |t|
     t.integer  "user_id"
     t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status",     default: "pending"
   end
 
   add_index "eventjoinings", ["event_id"], name: "index_eventjoinings_on_event_id"
@@ -40,6 +41,7 @@ ActiveRecord::Schema.define(version: 20140325124823) do
     t.integer  "friend_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status",     default: "request"
   end
 
   create_table "users", force: true do |t|

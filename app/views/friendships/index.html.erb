@@ -5,18 +5,28 @@
 	<ul class="listItems">
 	    <% @friendshipOne.each do |f| %>
 		  <% @friend = User.find_by(id: f.friend_id) %>
-  	      <%= image_tag @friend.photo_url(:icon) %>
-    	  <%= link_to @friend.name, @friend %>
-		  <%= link_to "Unfriend", friendship_path(:inverse => 'false', :id => f.id), :method => :delete %>
-		  <br>
+		  <% if f.status == 'request' %>
+		    Pending for <%= link_to @friend.name, @friend %> approval.
+		  <% else %>
+  	        <%= image_tag @friend.photo_url(:icon) %>
+    	    <%= link_to @friend.name, @friend %>
+		    <%= link_to "Unfriend", friendship_path(:inverse => 'false', :id => f.id), :method => :delete %>
+		    <br>
+		  <% end %>
 		<% end %>
 		
 	    <% @friendshipTwo.each do |f| %>
 		  <% @friend = User.find_by(id: f.user_id) %>
-  	      <%= image_tag @friend.photo_url(:icon) %>
-    	  <%= link_to @friend.name, @friend %>
-		  <%= link_to "Unfriend", friendship_path(:inverse => 'true', :id => f.id), :method => :delete %>
-		  <br>
+		  <% if f.status == 'request'%>
+		    <%= link_to @friend.name, @friend %> is pending for your approval.
+			<%= link_to "Approve", friendship_path(:status => 'approved', :id => f.id), :method => :patch %>
+			<%= link_to "Reject", friendship_path(:inverse => 'true', :id => f.id), :method => :delete %>
+		  <% else %>
+  	        <%= image_tag @friend.photo_url(:icon) %>
+    	    <%= link_to @friend.name, @friend %>
+		    <%= link_to "Unfriend", friendship_path(:inverse => 'true', :id => f.id), :method => :delete %>
+		    <br>
+		  <% end %>
 		<% end %>
 		
 	</ul>
