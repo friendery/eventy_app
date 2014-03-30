@@ -40,11 +40,14 @@ ActiveRecord::Schema.define(version: 20140330091821) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image_uid"
+    t.string   "image_name"
     t.string   "avatar"
     t.string   "date"
-    t.integer  "capacity"
+    t.integer  "capacity",                    default: 0
     t.text     "lat"
     t.text     "lng"
+    t.text     "administrative_area_level_1"
     t.text     "region"
   end
 

@@ -19,16 +19,16 @@
         <%= f.label :capacity %>
         <%= f.text_field :capacity %>
 		
-	    <div class="well">
-	      <div id="datetimepicker1" class="input-append date">
-	        <!--<input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input> -->
-	        <%= f.text_field :date, :as => :datetime_picker %>
-	        <span class="add-on">
-	          <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-	          </i>
-	        </span>
-	      </div>
-	    </div>
+        <%= f.label :event_date %>
+      <div id="datetimepicker1" class="input-append date">
+        <!--<input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input> -->
+        <%= f.text_field :date, :as => :datetime_picker %>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphw">
+          </i>
+        </span>
+      </div>
+
 	    <script type="text/javascript">
 	      $(function() {
 	        $('#datetimepicker1').datetimepicker({
@@ -50,20 +50,30 @@
 	      <input name="country" type="hidden" value="" />
 
 	      <label>Region</label>
-		  <%= f.text_field :region %>
+		  <%= f.text_field :region, :readonly => true %>
 	    </div>
 
 	    <script>
+
+			// construct Google Map location object from latitude and longitude
+			function createGoogleMapLocation(latlong, longitude){
+				return new google.maps.LatLng(latlong, longitude);
+			}
+
 	      $(function(){
+
+	      	// Mark the location based on event lat and lng
+	      	var event_location = createGoogleMapLocation($("input[name='event[lat]']").val(),$("input[name='event[lng]']").val());
         
 	        var available_regions = ["Kowloon", "Hong Kong Island", "New Territories"];
 	        var trial = 0; // workaround for sometimes search by click doesn't work
 
 	        var options = {
 	          map: ".map_canvas",
-	          details: "form"
+	          details: "form",
+	          location: event_location
 	        };
-        
+
 	        $("#geocomplete").geocomplete(options)
 	          .bind("geocode:result", function(event, result){
 
@@ -107,6 +117,10 @@
 	        $("#find").click(function(){
 	          $("#geocomplete").trigger("geocode");
 	        });
+
+	        setTimeout('$("#find").click();', 250);
+
+
 	      });
 	    </script>
 	    <!-- event location: END -->
