@@ -21,3 +21,11 @@
 
 en:
   hello: "Hello world"
+
+  datepicker:
+    dformat: '%d/%m/%Y'        # display format of the date (this is the default, can be ommited)
+    pformat: 'dd/MM/yyyy'      # picking format of the date (this is the default, can be ommited)
+    weekstart: 0               # the week starts on Sunday (this is the default, can be ommited)
+  timepicker:
+    dformat: '%R'              # display format of the time (this is the default, can be ommited)
+    pformat: 'hh:mm'           # picking format of the time (this is the default, can be ommited)
