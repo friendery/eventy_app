@@ -8,11 +8,20 @@
 	      </h1>
 	    </section>
 	  </div>
-	  <%= image_tag @event.avatar_url(:standard) %>
+	  <%= link_to image_tag(@event.avatar_url(:standard)), @event %>
+	  <br>
+	  Event date: 
 	  <%= @event.date %>
 	  <div class="field">
 	    <%= @event.description %>
 	  </div>
+	  <br>
+	  Created by:
+	  <br>
+	  <% @creator = User.find_by(id: @event.user_id)%>
+	  <%= link_to image_tag(@creator.photo_url(:icon)), @creator %>
+	  <%= link_to @creator.name, @creator %>
+	  <br>
 	  <br>
 	  <div class="row-fluid">
 		  <div class="span12">
@@ -22,21 +31,74 @@
 		  <div class="span6">
 		    <%= render 'join_form' if signed_in? %>
 		  </div>
-		  <div class="span6">
+		  
+		  
+		  <div class="span12">
 			  <% if current_user?(@event.user) %>
 			  	<%= link_to "edit", edit_event_path, class: "btn btn-large btn-primary" %>
 				<br>
-				<% @event.eventjoinings.each do |f| %>
-				  <% if f.status == 'pending' %>
-				    <% @user = User.find_by(id: f.user_id) %>
-				    <%= link_to @user.name, @user %> is pending for your approval.
-					<%= link_to "Approve", eventjoining_path(:status => 'approved', :id => f.id), :method => :patch %>
-					<%= link_to "Reject", eventjoining_path(:user_id => @user.id, :id => f.id), :method => :delete %>
-				  <% else %>
+				Pending List:
+				<br>
+				<% if @event.eventjoinings.where(status: 'approved').count < @event.capacity%>
+				  <% @event.eventjoinings.each do |f| %>
+				  
+				    <% if f.status == 'pending' %>
+				      <% @user = User.find_by(id: f.user_id) %>
+					  <%= link_to image_tag(@user.photo_url(:icon)), @user %>
+				      <%= link_to @user.name, @user %> is pending for your approval.
+					  <%= link_to "Approve", eventjoining_path(:status => 'approved', :id => f.id), :method => :patch %>
+					  <%= link_to "Reject", eventjoining_path(:user_id => @user.id, :id => f.id), :method => :delete %>
+					  <br>
+				    <% else %>
+				    <% end %>
+					
 				  <% end %>
+				  
+				<% else %>
+				
+				  <% if @event.eventjoinings.where(status: 'pending').count > 0 %>
+				    Someone is pending for approval. However, this event is already full.
+				  <% else %>
+				    Nobody is pending for approval.
+			      <% end %>
+				  
 				<% end %>
+				
 			  <% end %>
+			  
+			  
 		  </div>
+		  <br>
+		  <br>
+		  <br>
+		  <br>
+		
+		<h2>Comments</h2>
+		<div class = "well">
+		<%= render @event.comments%>
+		<br>
+		<br>
+		</div>
+		
+		<% if @event.eventjoinings.find_by(user_id: current_user.id) %>
+		  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
+		    <h2>Add a comment:</h2>
+		    <%= form_for([@event, @event.comments.build(user_id: current_user.id, event_id: @event.id)]) do |f| %>
+		      <p>
+		        <%= f.label :comment %>
+		        <%= f.text_area :comment %>
+		      </p>
+		    
+			    <%= f.hidden_field :user_id %>
+			    <%= f.hidden_field :event_id %>
+		      <p>
+		        <%= f.submit %>
+		      </p>
+		    <% end %>
+		  <% else %>
+		  <% end %>
+		<% else %>
+		<% end %>
 	  </div>
 	  
 	  

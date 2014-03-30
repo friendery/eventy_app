@@ -1,0 +1,16 @@
+<p>
+  <% @user = User.find_by(id: comment.user_id) %>
+  <div class = "span 12" >
+    <%= link_to image_tag(@user.photo_url(:icon)), @user %>
+      <%= time_ago_in_words(comment.created_at) %> ago. <%= link_to @user.name, @user %>
+      <br>
+      <%= comment.comment %>
+  </div>
+
+<% if comment.user_id == current_user.id %>
+  <%= link_to 'Delete Comment', [comment.event, comment],
+               method: :delete,
+               data: { confirm: 'Are you sure?' } %>
+<% else %>
+<% end %>
+</p>

@@ -11,11 +11,15 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
   
   version :thumbnail do
-    resize_to_fit(100, 100)
+    resize_to_fill(100, 100)
+  end
+  
+  version :comment do
+    resize_to_fill(75, 75)
   end
   
   version :icon do
-    resize_to_fit(50, 50)
+    resize_to_fill(50, 50)
   end
 
 end

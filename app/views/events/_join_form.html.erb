@@ -1,10 +1,19 @@
 <div id="join_form">
-<% status = @event.join?(current_user) %>
-<% if status == 'approved' %>
-  <%= render 'unjoin' %>
-<% elsif status == 'pending' %>
-  Pending for event creator's approval!
-<% else %>
-  <%= render 'join' %>
-<% end %>
+  
+    <% status = @event.join?(current_user) %>
+	
+	
+    <% if status == 'approved' %>
+      <%= render 'unjoin' %>
+	<% else %>
+	  <% if @event.eventjoinings.where(status: 'approved').count < @event.capacity%>
+        <% if status == 'pending' %>
+          Pending for event creator's approval!
+        <% else %>
+          <%= render 'join' %>
+        <% end %>
+      <% else %>
+        Sorry, this event is already full.
+      <% end %>
+	<% end %>
 </div>
