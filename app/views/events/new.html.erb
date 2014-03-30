@@ -1,5 +1,5 @@
   <!-- load geocomplete javascript library -->
-  <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&location_type=ROOFTOP&result_type=administrative_area_level_1"></script>
+  <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&location_type=ROOFTOP&result_type=administrative_area_level_1&language=en"></script>
 
 <div class="hero-unit" >
   <% provide(:title, 'Create Event') %>
@@ -47,20 +47,13 @@
       <input id="geocomplete" type="text" placeholder="Type in an address" size="90" />
       <input id="find" type="button" value="find" />
       <div class="map_canvas"></div>
-      <label>Latitude</label>
-      <input name="lat" type="text" value="" disabled>
-
-      <label>Longitude</label>
-      <input name="lng" type="text" value="" disabled>
+	  
+	  <%= f.hidden_field(:lat)%>
+	  <%= f.hidden_field(:lng)%>
+      <input name="country" type="hidden" value="" />
 
       <label>Region</label>
-      <input name="administrative_area_level_1" type="text" value="" disabled>
-
-      <label>City</label>
-      <input name="country" type="text" value="" disabled>
-
-      <label>Street Address</label>
-      <input name="formatted_address" type="text" value="" disabled>
+	  <%= f.text_field :region, :disabled => true %>
     </div>
 
     <script>
@@ -77,16 +70,25 @@
         $("#geocomplete").geocomplete(options)
           .bind("geocode:result", function(event, result){
 
-            trial++;
+			// put values into input elements
+			for (var i=0; i< result.address_components.length; i++) {
+				var component = result.address_components[i];
+				if (component.types[0] == "administrative_area_level_1")
+					$("input[name='event[region]']").val(component.long_name);
+			}
+			$("input[name='event[lat]']").val(result.geometry.location.lat());
+			$("input[name='event[lng]']").val(result.geometry.location.lng());
+			
 
+            trial++;
             // check if input address is in Hong Kong
-            if ($("input[name='country']").val() != "Hong Kong") {
+            if ($("input[name='country']").val() != "Hong Kong" ) {
               alert("Please input an address inside Hong Kong.");
               $('#location_fields').find("input").not("#find").val('');
             }
             // check if region is either Kowloon, Hong Kong Island or New Territories
             else {
-              matched = $.inArray($("input[name='administrative_area_level_1']").val(), available_regions);
+              matched = $.inArray($("input[name='event[region]']").val(), available_regions);
               if (matched == -1) {
                 if (trial == 1) {
                   $("#find").click();
@@ -108,13 +110,6 @@
         $("#find").click(function(){
           $("#geocomplete").trigger("geocode");
         });
-
-        // $("#geocomplete").keyup(function(event){
-        //     if(event.keyCode == 13){
-        //         $("#find").click();
-        //     }
-        // });
-
       });
     </script>
     <!-- event location: END -->
