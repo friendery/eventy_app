@@ -1,5 +1,5 @@
 <li>
-  <%= image_tag event.avatar_url(:thumbnail) %>
+  <%= link_to image_tag(event.avatar_url(:thumbnail)), event %>
   <br>
   <%= link_to event.title, event%>
   <br>

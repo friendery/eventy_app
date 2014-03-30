@@ -1,5 +1,5 @@
 <li>
-  <%= image_tag @joinedevent.avatar_url(:thumbnail) %>
+  <%= link_to image_tag(@joinedevent.avatar_url(:thumbnail)), @joinedevent %>
   <br>
   <%= link_to @joinedevent.title, @joinedevent%>
   <br>

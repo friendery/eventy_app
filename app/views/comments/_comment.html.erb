@@ -1,19 +1,12 @@
-<div class="well">
 <p>
-  <strong>Commenter:</strong>
   <% @user = User.find_by(id: comment.user_id) %>
-  <%= @user.name %>
-</p>
- 
-<p>
-  <strong>Comment: </strong>
-  <%= comment.title%>
-  <br>
-  <%= comment.comment %>
-</p>
+  <div class = "span 12" >
+    <%= link_to image_tag(@user.photo_url(:icon)), @user %>
+      <%= time_ago_in_words(comment.created_at) %> ago. <%= link_to @user.name, @user %>
+      <br>
+      <%= comment.comment %>
+  </div>
 
-
-<p>
 <% if comment.user_id == current_user.id %>
   <%= link_to 'Delete Comment', [comment.event, comment],
                method: :delete,
@@ -21,4 +14,3 @@
 <% else %>
 <% end %>
 </p>
-</div>

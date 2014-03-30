@@ -8,7 +8,7 @@
 	      </h1>
 	    </section>
 	  </div>
-	  <%= image_tag @event.avatar_url(:standard) %>
+	  <%= link_to image_tag(@event.avatar_url(:standard)), @event %>
 	  <br>
 	  Event date: 
 	  <%= @event.date %>
@@ -37,6 +37,7 @@
 				  
 				    <% if f.status == 'pending' %>
 				      <% @user = User.find_by(id: f.user_id) %>
+					  <%= link_to image_tag(@user.avatar_url(:icon)), @user %>
 				      <%= link_to @user.name, @user %> is pending for your approval.
 					  <%= link_to "Approve", eventjoining_path(:status => 'approved', :id => f.id), :method => :patch %>
 					  <%= link_to "Reject", eventjoining_path(:user_id => @user.id, :id => f.id), :method => :delete %>
@@ -66,16 +67,14 @@
 		  <br>
 		
 		<h2>Comments</h2>
+		<div class = "well">
 		<%= render @event.comments%>
 		<br>
-		<br>	  
+		<br>
+		</div>
 		  
 		<h2>Add a comment:</h2>
 		<%= form_for([@event, @event.comments.build(user_id: current_user.id, event_id: @event.id)]) do |f| %>
-		  <p>
-		    <%= f.label :title %>
-		    <%= f.text_field :title %>
-		  </p>
 		  <p>
 		    <%= f.label :comment %>
 		    <%= f.text_area :comment %>
