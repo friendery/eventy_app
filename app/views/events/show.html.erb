@@ -16,6 +16,13 @@
 	    <%= @event.description %>
 	  </div>
 	  <br>
+	  Created by:
+	  <br>
+	  <% @creator = User.find_by(id: @event.user_id)%>
+	  <%= link_to image_tag(@creator.photo_url(:icon)), @creator %>
+	  <%= link_to @creator.name, @creator %>
+	  <br>
+	  <br>
 	  <div class="row-fluid">
 		  <div class="span12">
 		    <%= render 'shared/stats' %>
@@ -37,7 +44,7 @@
 				  
 				    <% if f.status == 'pending' %>
 				      <% @user = User.find_by(id: f.user_id) %>
-					  <%= link_to image_tag(@user.avatar_url(:icon)), @user %>
+					  <%= link_to image_tag(@user.photo_url(:icon)), @user %>
 				      <%= link_to @user.name, @user %> is pending for your approval.
 					  <%= link_to "Approve", eventjoining_path(:status => 'approved', :id => f.id), :method => :patch %>
 					  <%= link_to "Reject", eventjoining_path(:user_id => @user.id, :id => f.id), :method => :delete %>
@@ -72,19 +79,25 @@
 		<br>
 		<br>
 		</div>
-		  
-		<h2>Add a comment:</h2>
-		<%= form_for([@event, @event.comments.build(user_id: current_user.id, event_id: @event.id)]) do |f| %>
-		  <p>
-		    <%= f.label :comment %>
-		    <%= f.text_area :comment %>
-		  </p>
+		
+		<% if @event.eventjoinings.find_by(user_id: current_user.id) %>
+		  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
+		    <h2>Add a comment:</h2>
+		    <%= form_for([@event, @event.comments.build(user_id: current_user.id, event_id: @event.id)]) do |f| %>
+		      <p>
+		        <%= f.label :comment %>
+		        <%= f.text_area :comment %>
+		      </p>
 		    
-			<%= f.hidden_field :user_id %>
-			<%= f.hidden_field :event_id %>
-		  <p>
-		    <%= f.submit %>
-		  </p>
+			    <%= f.hidden_field :user_id %>
+			    <%= f.hidden_field :event_id %>
+		      <p>
+		        <%= f.submit %>
+		      </p>
+		    <% end %>
+		  <% else %>
+		  <% end %>
+		<% else %>
 		<% end %>
 	  </div>
 	  
