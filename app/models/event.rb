@@ -1,9 +1,12 @@
 class Event < ActiveRecord::Base
   has_many :eventjoinings, dependent: :destroy
   default_scope -> { order('created_at DESC') }
+  
   validates :description, presence: true
   validates :title, presence: true, length: { maximum: 30 }
   validates :user_id, presence: true
+  validates :capacity, presence: true, numericality: { only_integer: true }
+  
   belongs_to :user
   mount_uploader :avatar, AvatarUploader
   

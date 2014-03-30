@@ -13,8 +13,8 @@
         <%= f.label :description %>
         <%= f.text_area :description %><br>
 		
-		<%= f.label :Picture %>
-		<%= f.file_field :avatar %>
+        <%= f.label :capacity %>
+        <%= f.text_field :capacity %>
 		
 	    <div class="well">
 	      <div id="datetimepicker1" class="input-append date">
@@ -35,6 +35,8 @@
 	      });
 	    </script>
 		
+		<%= f.label :Picture %>
+		<%= f.file_field :avatar %>
 	
         <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
       <% end %>
