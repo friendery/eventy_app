@@ -1,3 +1,6 @@
+  <!-- load geocomplete javascript library -->
+  <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&location_type=ROOFTOP&result_type=administrative_area_level_1&language=en"></script>
+  
 <div class="hero-unit" >
   <% provide(:title, "Edit event") %>
   <h1>Update your event</h1>
@@ -34,6 +37,79 @@
 	        });
 	      });
 	    </script>
+		
+	    <%= f.label :event_location %>
+
+	    <div id="location_fields">
+	      <input id="geocomplete" type="text" placeholder="Type in an address" size="90" />
+	      <input id="find" type="button" value="find" />
+	      <div class="map_canvas"></div>
+	  
+		  <%= f.hidden_field :lat %>
+		  <%= f.hidden_field :lng %>
+	      <input name="country" type="hidden" value="" />
+
+	      <label>Region</label>
+		  <%= f.text_field :region %>
+	    </div>
+
+	    <script>
+	      $(function(){
+        
+	        var available_regions = ["Kowloon", "Hong Kong Island", "New Territories"];
+	        var trial = 0; // workaround for sometimes search by click doesn't work
+
+	        var options = {
+	          map: ".map_canvas",
+	          details: "form"
+	        };
+        
+	        $("#geocomplete").geocomplete(options)
+	          .bind("geocode:result", function(event, result){
+
+				// put values into input elements
+				for (var i=0; i< result.address_components.length; i++) {
+					var component = result.address_components[i];
+					if (component.types[0] == "administrative_area_level_1")
+						$("input[name='event[region]']").val(component.long_name);
+				}
+				$("input[name='event[lat]']").val(result.geometry.location.lat());
+				$("input[name='event[lng]']").val(result.geometry.location.lng());
+			
+
+	            trial++;
+	            // check if input address is in Hong Kong
+	            if ($("input[name='country']").val() != "Hong Kong" ) {
+	              alert("Please input an address inside Hong Kong.");
+	              $('#location_fields').find("input").not("#find").val('');
+	            }
+	            // check if region is either Kowloon, Hong Kong Island or New Territories
+	            else {
+	              matched = $.inArray($("input[name='event[region]']").val(), available_regions);
+	              if (matched == -1) {
+	                if (trial == 1) {
+	                  $("#find").click();
+	                }
+	                else {
+	                  alert("Please input an address with either Kowloon, Hong Kong Island or New Territories as region.");
+	                  $('#location_fields').find("input").not("#find").val('');
+
+	                  trial = 0;
+	                }
+	              }
+	              else {
+	                trial = 0;
+	              }
+	            }
+
+	          });
+        
+	        $("#find").click(function(){
+	          $("#geocomplete").trigger("geocode");
+	        });
+	      });
+	    </script>
+	    <!-- event location: END -->
 		
 		<%= f.label :Picture %>
 		<%= f.file_field :avatar %>
