@@ -24,6 +24,8 @@
 		  <div class="span6">
 		    <%= render 'join_form' if signed_in? %>
 		  </div>
+		  
+		  
 		  <div class="span12">
 			  <% if current_user?(@event.user) %>
 			  	<%= link_to "edit", edit_event_path, class: "btn btn-large btn-primary" %>
@@ -32,6 +34,7 @@
 				<br>
 				<% if @event.eventjoinings.where(status: 'approved').count < @event.capacity%>
 				  <% @event.eventjoinings.each do |f| %>
+				  
 				    <% if f.status == 'pending' %>
 				      <% @user = User.find_by(id: f.user_id) %>
 				      <%= link_to @user.name, @user %> is pending for your approval.
@@ -40,16 +43,50 @@
 					  <br>
 				    <% else %>
 				    <% end %>
+					
 				  <% end %>
+				  
 				<% else %>
+				
 				  <% if @event.eventjoinings.where(status: 'pending').count > 0 %>
 				    Someone is pending for approval. However, this event is already full.
 				  <% else %>
 				    Nobody is pending for approval.
 			      <% end %>
+				  
 				<% end %>
+				
 			  <% end %>
+			  
+			  
 		  </div>
+		  <br>
+		  <br>
+		  <br>
+		  <br>
+		
+		<h2>Comments</h2>
+		<%= render @event.comments%>
+		<br>
+		<br>	  
+		  
+		<h2>Add a comment:</h2>
+		<%= form_for([@event, @event.comments.build(user_id: current_user.id, event_id: @event.id)]) do |f| %>
+		  <p>
+		    <%= f.label :title %>
+		    <%= f.text_field :title %>
+		  </p>
+		  <p>
+		    <%= f.label :comment %>
+		    <%= f.text_area :comment %>
+		  </p>
+		    
+			<%= f.hidden_field :user_id %>
+			<%= f.hidden_field :event_id %>
+		  <p>
+		    <%= f.submit %>
+		  </p>
+		<% end %>
 	  </div>
 	  
 	  

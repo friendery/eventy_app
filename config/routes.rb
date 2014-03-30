@@ -8,6 +8,7 @@ SampleApp::Application.routes.draw do
     collection do
       get :search
     end
+    resources :comments
   end
   resources :eventjoinings, only: [:create, :destroy, :update]
   resources :friendships
