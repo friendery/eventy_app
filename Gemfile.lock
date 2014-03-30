@@ -42,6 +42,7 @@ GEM
     aws_cf_signer (0.1.2)
     bcrypt-ruby (3.1.2)
     bcrypt-ruby (3.1.2-x86-mingw32)
+    bootstrap-datetimepicker-rails (0.0.11)
     bootstrap-sass (2.3.2.0)
       sass (~> 3.2)
     bootstrap-will_paginate (0.0.9)
@@ -198,6 +199,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby (= 3.1.2)
+  bootstrap-datetimepicker-rails
   bootstrap-sass (= 2.3.2.0)
   bootstrap-will_paginate (= 0.0.9)
   bootswatch-rails
