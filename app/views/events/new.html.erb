@@ -13,24 +13,23 @@
         <%= f.label :description %>
         <%= f.text_area :description %><br>
 
-    <div class="well">
+      <%= f.label :event_date %>
       <div id="datetimepicker1" class="input-append date">
         <!--<input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input> -->
         <%= f.text_field :date, :as => :datetime_picker %>
         <span class="add-on">
-          <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphw">
           </i>
         </span>
       </div>
-    </div>
-    <script type="text/javascript">
-      $(function() {
-        $('#datetimepicker1').datetimepicker({
-          language: 'pt-BR',
-          pickTime: false
+      <script type="text/javascript">
+        $(function() {
+          $('#datetimepicker1').datetimepicker({
+            language: 'pt-BR',
+            pickTime: false
+          });
         });
-      });
-    </script>
+      </script>
 
 		
 		<%= f.label :Picture %>
