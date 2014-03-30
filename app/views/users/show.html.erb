@@ -43,11 +43,14 @@
 			<% if @user.eventjoinings.any? %>
 				<div class="span12">
 			      <% @user.eventjoinings.each do |f| %>
-	  				<% @joinedevent = Event.find_by(id: f.event_id) %>
-	  				<% @createTime = f.created_at %>
-					<ol class="listItems">
+				    <% if f.status == 'approved'%>
+	  				  <% @joinedevent = Event.find_by(id: f.event_id) %>
+	  				  <% @createTime = f.created_at %>
+					  <ol class="listItems">
 					    <%= render 'events/join_history', joinedevent: @joinedevent, createTime: @createTime %>
-					</ol>
+					  </ol>
+					<% else %>
+					<% end %>
 			      <% end %>
 
 				</div>
