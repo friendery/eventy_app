@@ -5,6 +5,11 @@
   box-sizing: border-box;
 }
 
+.map_canvas { 
+  width: 300px; 
+  height: 300px; 
+  margin: 10px 20px 10px 0;
+}
 
 .glyphw{
     background-image: url(/assets/glyphicons_halflings.png);

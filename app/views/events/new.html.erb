@@ -1,3 +1,6 @@
+  <!-- load geocomplete javascript library -->
+  <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&location_type=ROOFTOP&result_type=administrative_area_level_1"></script>
+
 <div class="hero-unit" >
   <% provide(:title, 'Create Event') %>
   <h1>Create Event</h1>
@@ -13,6 +16,7 @@
         <%= f.label :description %>
         <%= f.text_area :description %><br>
 
+    <!-- event date: START -->
       <%= f.label :event_date %>
       <div id="datetimepicker1" class="input-append date">
         <!--<input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input> -->
@@ -26,10 +30,91 @@
         $(function() {
           $('#datetimepicker1').datetimepicker({
             language: 'pt-BR',
-            pickTime: false
+            pickTime: false ,
+            format: 'yyyy-MM-dd',
           });
         });
       </script>
+    <!-- event date: END -->
+
+    <!-- event location: START -->
+    <%= f.label :event_location %>
+
+    <div id="location_fields">
+      <input id="geocomplete" type="text" placeholder="Type in an address" size="90" />
+      <input id="find" type="button" value="find" />
+      <div class="map_canvas"></div>
+      <label>Latitude</label>
+      <input name="lat" type="text" value="" disabled>
+
+      <label>Longitude</label>
+      <input name="lng" type="text" value="" disabled>
+
+      <label>Region</label>
+      <input name="administrative_area_level_1" type="text" value="" disabled>
+
+      <label>City</label>
+      <input name="country" type="text" value="" disabled>
+
+      <label>Street Address</label>
+      <input name="formatted_address" type="text" value="" disabled>
+    </div>
+
+    <script>
+      $(function(){
+        
+        var available_regions = ["Kowloon", "Hong Kong Island", "New Territories"];
+        var trial = 0; // workaround for sometimes search by click doesn't work
+
+        var options = {
+          map: ".map_canvas",
+          details: "form"
+        };
+        
+        $("#geocomplete").geocomplete(options)
+          .bind("geocode:result", function(event, result){
+
+            trial++;
+
+            // check if input address is in Hong Kong
+            if ($("input[name='country']").val() != "Hong Kong") {
+              alert("Please input an address inside Hong Kong.");
+              $('#location_fields').find("input").not("#find").val('');
+            }
+            // check if region is either Kowloon, Hong Kong Island or New Territories
+            else {
+              matched = $.inArray($("input[name='administrative_area_level_1']").val(), available_regions);
+              if (matched == -1) {
+                if (trial == 1) {
+                  $("#find").click();
+                }
+                else {
+                  alert("Please input an address with either Kowloon, Hong Kong Island or New Territories as region.");
+                  $('#location_fields').find("input").not("#find").val('');
+
+                  trial = 0;
+                }
+              }
+              else {
+                trial = 0;
+              }
+            }
+
+          });
+        
+        $("#find").click(function(){
+          $("#geocomplete").trigger("geocode");
+        });
+
+        // $("#geocomplete").keyup(function(event){
+        //     if(event.keyCode == 13){
+        //         $("#find").click();
+        //     }
+        // });
+
+      });
+    </script>
+    <!-- event location: END -->
 
 		
 		<%= f.label :Picture %>
