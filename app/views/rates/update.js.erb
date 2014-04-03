@@ -1,19 +1,13 @@
-<script>
-$('#star').raty({
-  readOnly: true,
-  mark: <%= @event.average_rating %>,
-  path: '/assets'
-});
 
-$('#user_star').raty({
-  mark: <%= @rate.mark %>,
+
+$('#event_star').raty({
+  score: <%= @event.average_rate %>,
   path: '/assets',
-  click: function(mark, evt) {
+  click: function(score, evt) {
     $.ajax({
       url: '/rates/' + <%= @rate.id %>,
       type: 'PATCH',
-      data: { mark: mark }
+      data: { score: score }
     }).done(function (data){});
   }
 });
-<script>
