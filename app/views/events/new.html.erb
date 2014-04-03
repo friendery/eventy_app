@@ -47,13 +47,14 @@
       <input id="geocomplete" type="text" placeholder="Type in an address" size="90" />
       <input id="find" type="button" value="find" />
       <div class="map_canvas"></div>
-	  
-	  <%= f.hidden_field(:lat)%>
-	  <%= f.hidden_field(:lng)%>
+
       <input name="country" type="hidden" value="" />
 
       <label>Region</label>
 	  <%= f.text_field :region, :disabled => true %>
+	  
+      <label>Street Address</label>
+	  <%= f.text_field :street, :disabled => true %>
     </div>
 
     <script>
