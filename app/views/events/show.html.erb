@@ -117,24 +117,11 @@
 				    <!-- event location: END -->
 			</div>
 
->>>>>>> a43864f6611091919270330e65b1b1e1321d56f1
 	  </div>
 	  <br>
 	  <br>
 	  <div class="row-fluid">
-<<<<<<< HEAD
-		  <div class="span12">
-		    <%= render 'shared/stats' %>
-		  </div>
-		  <br>
-		  <div class="span6">
-		    <%= render 'join_form' if signed_in? %>
-		  </div> 
-=======
 
-		  
-		  
->>>>>>> a43864f6611091919270330e65b1b1e1321d56f1
 		  <div class="span12">
 			  <% if current_user?(@event.user) && @event.eventjoinings.where(status: 'pending').count > 0 %>
 				<br>
@@ -159,13 +146,9 @@
 				    <p>Nobody is pending for approval.</p>
 			      <% end %>
 				<% end %>
-<<<<<<< HEAD
+
 			  <% end %>		  
-=======
-			  <% end %>
-			  
-			  
->>>>>>> a43864f6611091919270330e65b1b1e1321d56f1
+
 		  </div>
 		  <br>
 		
