@@ -10,6 +10,35 @@
 	  </div>
 	  <%= link_to image_tag(@event.avatar_url(:standard)), @event %>
 	  <br>
+	  
+	  <!-- Show rate -->
+	  <p>Averate rate</p>
+	  <div id="star"></div>
+	  
+	  <div id="event_star"></div>
+	  
+	  <script>
+	    $('#star').raty({
+	      readOnly: true,
+	      score: <%= @event.average_rate %>,
+	      path: '/assets'
+	    });
+		
+	    $('#event_star').raty({
+	       score: <%= @rate.score %>,
+	       path: '/assets',
+	       click: function(score, evt) {
+	         $.ajax({
+	           url: '/rates/' + <%= @rate.id %>,
+	           type: 'PATCH',
+	           data: { score: score }
+	         });
+	       }
+	     })
+	  </script>
+	  
+	  <!-- end -->
+	  
 	  Event date: 
 	  <%= @event.date %>
 	  <div class="field">
@@ -30,9 +59,7 @@
 		  <br>
 		  <div class="span6">
 		    <%= render 'join_form' if signed_in? %>
-		  </div>
-		  
-		  
+		  </div> 
 		  <div class="span12">
 			  <% if current_user?(@event.user) %>
 			  	<%= link_to "edit", edit_event_path, class: "btn btn-large btn-primary" %>
@@ -41,7 +68,6 @@
 				<br>
 				<% if @event.eventjoinings.where(status: 'approved').count < @event.capacity%>
 				  <% @event.eventjoinings.each do |f| %>
-				  
 				    <% if f.status == 'pending' %>
 				      <% @user = User.find_by(id: f.user_id) %>
 					  <%= link_to image_tag(@user.photo_url(:icon)), @user %>
@@ -51,22 +77,15 @@
 					  <br>
 				    <% else %>
 				    <% end %>
-					
 				  <% end %>
-				  
 				<% else %>
-				
 				  <% if @event.eventjoinings.where(status: 'pending').count > 0 %>
 				    Someone is pending for approval. However, this event is already full.
 				  <% else %>
 				    Nobody is pending for approval.
 			      <% end %>
-				  
 				<% end %>
-				
-			  <% end %>
-			  
-			  
+			  <% end %>		  
 		  </div>
 		  <br>
 		  <br>

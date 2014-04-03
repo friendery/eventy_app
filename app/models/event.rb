@@ -4,6 +4,8 @@ class Event < ActiveRecord::Base
   
   has_many :comments, dependent: :destroy
   
+  has_many :rates, dependent: :destroy
+  
   validates :description, presence: true
   validates :title, presence: true, length: { maximum: 30 }
   validates :user_id, presence: true
@@ -31,5 +33,13 @@ class Event < ActiveRecord::Base
   def self.search(search)
     search_condition = "%" + search.downcase + "%"
     find(:all, :conditions => ['lower(title) LIKE ? OR lower(description) LIKE ?', search_condition, search_condition])
+  end
+  
+  def average_rate
+    if rates.size > 0
+      rates.sum(:score) / rates.size
+    else
+      0
+    end
   end
 end

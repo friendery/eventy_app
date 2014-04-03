@@ -18,6 +18,11 @@ class EventsController < ApplicationController
   
   def show
     @event = Event.find(params[:id])
+    if 
+      @rate = Rate.find_by(event_id: @event.id, user_id: current_user.id)
+    else
+      @rate = Rate.create(event_id: @event.id, user_id: current_user.id, mark: 0) 
+    end
   end
   
   def members
