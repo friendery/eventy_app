@@ -17,3 +17,4 @@
 //= require turbolinks
 //= require_tree .
 //= require_tree ../../../vendor/assets/javascripts
+//= require raty.min.js

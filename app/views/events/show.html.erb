@@ -6,28 +6,74 @@
 	<div class="row-fluid">
 	  <div class = "span12">
 		  <div class = "row-fluid">
-		  	<div class = "span7">
+		  	<div class = "span12">
 				    <section>
 				      <h1>
 				        <%= @event.title %>
 				      </h1>
 				    </section>
 			</div>
-		  	<div class = "span2">
-				<%= render 'shared/stats' %>
-		  	</div>
-		  	<div class = "span2">
-				<%= render 'join_form' if signed_in? %>
-		  	</div>
-		  	<div class = "span1">
-				<% if current_user?(@event.user) %>
-				  	<%= link_to "edit", edit_event_path, class: "btn btn-large btn-primary" %>
-				<% end %>
-			</div>
 		  </div>
 		</div>
 	 
 	  <br>
+	  
+	  <!-- Show rate -->
+	  
+	    <div class = "span12">
+		  <div class = "span7">
+		    <div class =  "well" >
+	          Averate rate
+	  	  	  <div id="star"></div>
+			  <%= @event.rates.count%> rates
+		    </div>
+	  
+	        <div class = "well">
+	  	  	  Rate this event:
+	  		  <div id="event_star"></div>
+		    </div>
+	  
+	  	  	<script>
+	    	  $('#star').raty({
+	      		readOnly: true,
+	      	  	score: <%= @event.average_rate %>,
+	     	   	path: '/assets'
+	    	  });
+		
+	    	  $('#event_star').raty({
+	       	   	score: <%= @rate.score %>,
+	       	 	path: '/assets',
+	       	 	click: function(score, evt) {
+	         	   $.ajax({
+	           		 url: '/rates/' + <%= @rate.id %>,
+	           	  	 type: 'PATCH',
+	           	  	 data: { score: score }
+	         		});
+	       	 	}
+	     	  })
+	  		</script>
+		  </div>
+	  
+	  <!-- end -->
+	  
+  		  <div class = "span2">
+			 <%= render 'shared/stats' %>
+  		  </div>
+  		  <div class = "span2">
+			 <%= render 'join_form' if signed_in? %>
+  		  </div>
+  		  <div class = "span1">
+			 <% if current_user?(@event.user) %>
+		  	   <%= link_to "edit", edit_event_path, class: "btn btn-large btn-primary" %>
+			 <% end %>
+		  </div>
+	    </div>
+	  
+	  Event date: 
+	  <%= @event.date %>
+	  <div class="field">
+	    <%= @event.description %>
+		
 	  <div class="row-fluid">
 		  <div id="event_left" class="span6">
 
@@ -88,8 +134,6 @@
 	  <br>
 	  <div class="row-fluid">
 
-		  
-		  
 		  <div class="span12">
 			  <% if current_user?(@event.user) && @event.eventjoinings.where(status: 'pending').count > 0 %>
 				<br>
@@ -97,7 +141,6 @@
 				<br>
 				<% if @event.eventjoinings.where(status: 'approved').count < @event.capacity%>
 				  <% @event.eventjoinings.each do |f| %>
-				  
 				    <% if f.status == 'pending' %>
 				      <% @user = User.find_by(id: f.user_id) %>
 					  <%= link_to image_tag(@user.photo_url(:icon)), @user %>
@@ -108,18 +151,16 @@
 				    <% else %>
 				    <% end %>
 				  <% end %>
-				  
 				<% else %>
-				
 				  <% if @event.eventjoinings.where(status: 'pending').count > 0 %>
 				    <p>Someone is pending for approval. However, this event is already full.</p>
 				  <% else %>
 				    <p>Nobody is pending for approval.</p>
 			      <% end %>
 				<% end %>
-			  <% end %>
-			  
-			  
+
+			  <% end %>		  
+
 		  </div>
 		  <br>
 		

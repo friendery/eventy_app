@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
   
   has_many :comments, dependent: :destroy
+  has_many :rates, dependent: :destroy
   
   before_save { self.email = email.downcase }
   before_create :create_remember_token
