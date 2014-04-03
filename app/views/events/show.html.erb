@@ -33,7 +33,7 @@
 	  	  	<script>
 		
 	    	  $('#event_star').raty({
-	       	   	score: <%= @rate.score %>,
+	       	   	score: <%= @event.average_rate %>,
 	       	 	path: '/assets',
 	       	 	click: function(score, evt) {
 	         	   $.ajax({
