@@ -1,4 +1,4 @@
-  <!-- load geocomplete javascript library -->
+  <!-- load geocomplete api -->
   <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&location_type=ROOFTOP&result_type=administrative_area_level_1&language=en"></script>
   
 <div class="hero-unit" >
@@ -38,33 +38,28 @@
 	      });
 	    </script>
 		
+
+	    <!-- event location: START -->
 	    <%= f.label :event_location %>
 
 	    <div id="location_fields">
 	      <input id="geocomplete" type="text" placeholder="Type in an address" size="90" />
 	      <input id="find" type="button" value="find" />
+	      <input name="country" type="hidden" value="" /> <!-- check if country is Hong Kong -->
+
 	      <div class="map_canvas"></div>
 	  
-		  <%= f.hidden_field :lat %>
-		  <%= f.hidden_field :lng %>
-	      <input name="country" type="hidden" value="" />
-
 	      <label>Region</label>
 		  <%= f.text_field :region, :readonly => true %>
+		  <%= f.hidden_field :street %>
+
 	    </div>
 
 	    <script>
 
-			// construct Google Map location object from latitude and longitude
-			function createGoogleMapLocation(latlong, longitude){
-				return new google.maps.LatLng(latlong, longitude);
-			}
-
 	      $(function(){
 
-	      	// Mark the location based on event lat and lng
-	      	var event_location = createGoogleMapLocation($("input[name='event[lat]']").val(),$("input[name='event[lng]']").val());
-        
+        	var event_location = $("input[name='event[street]']").val();
 	        var available_regions = ["Kowloon", "Hong Kong Island", "New Territories"];
 	        var trial = 0; // workaround for sometimes search by click doesn't work
 
@@ -83,8 +78,7 @@
 					if (component.types[0] == "administrative_area_level_1")
 						$("input[name='event[region]']").val(component.long_name);
 				}
-				$("input[name='event[lat]']").val(result.geometry.location.lat());
-				$("input[name='event[lng]']").val(result.geometry.location.lng());
+				$("input[name='event[street]']").val(result.formatted_address);
 			
 
 	            trial++;

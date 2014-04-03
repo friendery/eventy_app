@@ -52,9 +52,7 @@
 
       <label>Region</label>
 	  <%= f.text_field :region, :readonly => true %>
-	  
-      <label>Street Address</label>
-	  <%= f.text_field :region, :readonly => true %>
+	  <%= f.text_field :street %>
     </div>
 
     <script>
@@ -77,8 +75,9 @@
 				if (component.types[0] == "administrative_area_level_1")
 					$("input[name='event[region]']").val(component.long_name);
 			}
-			$("input[name='event[lat]']").val(result.geometry.location.lat());
-			$("input[name='event[lng]']").val(result.geometry.location.lng());
+      $("input[name='event[street]']").val(result.formatted_address);
+			// $("input[name='event[lat]']").val(result.geometry.location.lat());
+			// $("input[name='event[lng]']").val(result.geometry.location.lng());
 			
 
             trial++;
