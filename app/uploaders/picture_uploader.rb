@@ -1,10 +1,9 @@
 # encoding: utf-8
 
-class AvatarUploader < CarrierWave::Uploader::Base
+class PictureUploader < CarrierWave::Uploader::Base
   include Cloudinary::CarrierWave
 
   process :convert => 'png'
-  process :tags => ['event_avatar']
   
   version :standard do
     process :resize_to_fill => [150, 150, :north]
@@ -23,6 +22,6 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   def default_url
-    "/assets/user/" + [version_name, "default-avatar.png"].compact.join('_')
+    "/assets/event/" + [version_name, "default.png"].compact.join('_')
   end
 end

@@ -1,14 +1,32 @@
-<div class="hero-unit" >
+  <!-- load geocomplete api -->
+  <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&location_type=ROOFTOP&result_type=administrative_area_level_1&language=en"></script>
+
+  <div class="hero-unit" >
 	<% provide(:title, @event.title)%>
 	<div class="row-fluid">
-	  <div class="span12">
-	    <section>
-	      <h1>
-	        <%= @event.title %>
-	      </h1>
-	    </section>
-	  </div>
-	  <%= link_to image_tag(@event.avatar_url(:standard)), @event %>
+	  <div class = "span12">
+		  <div class = "row-fluid">
+		  	<div class = "span7">
+				    <section>
+				      <h1>
+				        <%= @event.title %>
+				      </h1>
+				    </section>
+			</div>
+		  	<div class = "span2">
+				<%= render 'shared/stats' %>
+		  	</div>
+		  	<div class = "span2">
+				<%= render 'join_form' if signed_in? %>
+		  	</div>
+		  	<div class = "span1">
+				<% if current_user?(@event.user) %>
+				  	<%= link_to "edit", edit_event_path, class: "btn btn-large btn-primary" %>
+				<% end %>
+			</div>
+		  </div>
+		</div>
+	 
 	  <br>
 	  
 	  <!-- Show rate -->
@@ -43,16 +61,68 @@
 	  <%= @event.date %>
 	  <div class="field">
 	    <%= @event.description %>
+		
+	  <div class="row-fluid">
+		  <div id="event_left" class="span6">
+
+			  <div> 
+			  	<%= link_to image_tag(@event.avatar_url(:standard)), @event %>
+			  </div>
+			  <h3><%= @event.description %></h3>
+
+			  <label>Event date: </label>
+			  <p><%= @event.date %></p>
+			  <div class="field">
+			  </div>
+
+			  <label>Created by: </label>
+			  <p><% @creator = User.find_by(id: @event.user_id)%>
+			  <%= link_to image_tag(@creator.photo_url(:icon)), @creator %>
+			  <%= link_to @creator.name, @creator %></p>
+
+		  </div>
+
+
+		  <div id="event_right" class="span6">
+
+				    <!-- event location: START -->
+				    <div id="location_fields">
+				      <input id="geocomplete" type="hidden" placeholder="Type in an address" size="90" />
+				      <label>Region:</label>
+					  <p><%= @event.region %></p>
+				      <label>Street Address:</label>
+					  <p><%= @event.street  %></p>
+
+				      <div class="map_canvas"></div>
+				    </div>
+
+				    <script>
+
+				      $(function(){
+
+			        	var event_location = "<%= @event.street  %>"
+				        var available_regions = ["Kowloon", "Hong Kong Island", "New Territories"];
+				        var trial = 0; // workaround for sometimes search by click doesn't work
+
+				        var options = {
+				          map: ".map_canvas",
+				          details: "form",
+				          location: event_location
+				        };
+
+				        $("#geocomplete").geocomplete(options);
+
+				      });
+				    </script>
+				    <!-- event location: END -->
+			</div>
+
+>>>>>>> a43864f6611091919270330e65b1b1e1321d56f1
 	  </div>
-	  <br>
-	  Created by:
-	  <br>
-	  <% @creator = User.find_by(id: @event.user_id)%>
-	  <%= link_to image_tag(@creator.photo_url(:icon)), @creator %>
-	  <%= link_to @creator.name, @creator %>
 	  <br>
 	  <br>
 	  <div class="row-fluid">
+<<<<<<< HEAD
 		  <div class="span12">
 		    <%= render 'shared/stats' %>
 		  </div>
@@ -60,11 +130,15 @@
 		  <div class="span6">
 		    <%= render 'join_form' if signed_in? %>
 		  </div> 
+=======
+
+		  
+		  
+>>>>>>> a43864f6611091919270330e65b1b1e1321d56f1
 		  <div class="span12">
-			  <% if current_user?(@event.user) %>
-			  	<%= link_to "edit", edit_event_path, class: "btn btn-large btn-primary" %>
+			  <% if current_user?(@event.user) && @event.eventjoinings.where(status: 'pending').count > 0 %>
 				<br>
-				Pending List:
+				<label>Pending List:</label>
 				<br>
 				<% if @event.eventjoinings.where(status: 'approved').count < @event.capacity%>
 				  <% @event.eventjoinings.each do |f| %>
@@ -80,24 +154,29 @@
 				  <% end %>
 				<% else %>
 				  <% if @event.eventjoinings.where(status: 'pending').count > 0 %>
-				    Someone is pending for approval. However, this event is already full.
+				    <p>Someone is pending for approval. However, this event is already full.</p>
 				  <% else %>
-				    Nobody is pending for approval.
+				    <p>Nobody is pending for approval.</p>
 			      <% end %>
 				<% end %>
+<<<<<<< HEAD
 			  <% end %>		  
+=======
+			  <% end %>
+			  
+			  
+>>>>>>> a43864f6611091919270330e65b1b1e1321d56f1
 		  </div>
 		  <br>
-		  <br>
-		  <br>
-		  <br>
 		
-		<h2>Comments</h2>
-		<div class = "well">
-		<%= render @event.comments%>
-		<br>
-		<br>
-		</div>
+		<% if @event.comments.count > 0 %>
+			<h2>Comments</h2>
+			<div>
+			<%= render @event.comments%>
+			<br>
+			<br>
+			</div>
+		<% end %>
 		
 		<% if @event.eventjoinings.find_by(user_id: current_user.id) %>
 		  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
