@@ -37,7 +37,7 @@ class Event < ActiveRecord::Base
   
   def average_rate
     if rates.size > 0
-      rates.sum(:score) / rates.size
+      rates.sum(:score) * 1.0 / rates.size
     else
       0
     end
