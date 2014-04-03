@@ -7,9 +7,10 @@ class Event < ActiveRecord::Base
   has_many :rates, dependent: :destroy
   
   validates :description, presence: true
-  validates :title, presence: true, length: { maximum: 30 }
-  validates :user_id, presence: true
-  validates :capacity, presence: true, numericality: { only_integer: true }
+  validates :title,       presence: true, length: { maximum: 30 }
+  validates :user_id,     presence: true
+  validates :capacity,    presence: true, numericality: { only_integer: true }
+  validates :date,        presence: true
   
   belongs_to :user
   mount_uploader :avatar, PictureUploader
@@ -30,10 +31,18 @@ class Event < ActiveRecord::Base
     eventjoinings.find_by(user_id: join_user.id).destroy
   end
   
-  def self.search(search)
-    search_condition = "%" + search.downcase + "%"
-    find(:all, :conditions => ['lower(title) LIKE ? OR lower(description) LIKE ?', search_condition, search_condition])
+  def self.search(what, date, region)
+    what_condition = "%" + what.downcase + "%"
+    date_condition = "%" + date.downcase + "%"
+    
+    if region == ""
+      find(:all, :conditions => ['lower(title) LIKE ? OR lower(description) LIKE ?', what_condition, what_condition])
+    else
+      region_condition = "%" + region.downcase + "%"
+      find(:all, :conditions => ['(lower(title) LIKE ? OR lower(description) LIKE ?) AND lower(region) LIKE ?', what_condition, what_condition, region_condition])
+    end
   end
+      
   
   def average_rate
     if rates.size > 0

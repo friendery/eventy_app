@@ -37,7 +37,7 @@ class EventsController < ApplicationController
   end
   
   def search
-      @events = Event.search(params[:search])
+      @events = Event.search(params[:what], params[:date], params[:region])
   end
   
   def edit
