@@ -1,5 +1,9 @@
 SampleApp::Application.routes.draw do
-  resources :users
+  resources :users do
+    collection do
+      get :search
+    end
+  end
   resources :sessions, only: [:new, :create, :destroy]
   resources :events do
     member do
