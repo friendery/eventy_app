@@ -1,4 +1,23 @@
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="ui borderless inverted orange menu">
+  <a class="item" href="/">
+    <h2>
+    Eventy
+    </h2>
+  </a>
+  <div class="item">
+    <%= render 'events/search_simple'%>
+  </div>
+  <div class="right menu">
+    <div class="item">
+      <%= link_to "Home", root_path, class: "ui teal button" %>
+    </div>
+    <div class="item">
+      <%= link_to "Help", help_path, class: "ui button" %>
+    </div>
+      
+    <div class="item">
+    </div>
+  </div>
   <div class="navbar-inner">
     <div class="container">
       <div class="row-fluid">
