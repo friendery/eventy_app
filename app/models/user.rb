@@ -48,6 +48,10 @@ class User < ActiveRecord::Base
              :conditions => ['lower(name) LIKE ? OR lower(email) LIKE ?', search_condition, search_condition],
              :order => 'name'
   end
+  
+  def self.rank(page)
+    paginate :per_page =>2, :page => page, :order => 'rate DESC'
+  end
 
   private
 

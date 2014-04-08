@@ -1,27 +1,21 @@
-
 <div class="hero-unit">
 	<% if signed_in? %>
-
-    <section>
-        <%= render 'shared/homepage_search' %>
-    </section>
+    	<section>
+       		<%= render 'shared/homepage_search' %>
+    	</section>
+		<br>
+		<div class="row-fluid">
+			<%= link_to "Create Event!", create_path, class: "btn btn-large btn-primary centered offset4 span4"%>
+    	</div>
+   	<% else %>
+    	<section>
+        	<%= render 'shared/homepage_search' %>
+    	</section>
+		<br>
+		<div class="row-fluid">
+			<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary centered offset4 span4"%>
+    	</div>
+	<% end %>
 	
-	<br>
-	
-	<div class="row-fluid">
-		<%= link_to "Create Event!", create_path, class: "btn btn-large btn-primary centered offset4 span4"%>
-    </div>
-
-<% else %>
-
-    <section>
-        <%= render 'shared/homepage_search' %>
-    </section>
-
-	<br>
-	
-	<div class="row-fluid">
-		<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary centered offset4 span4"%>
-    </div>
-
-<% end %>
+	<%= render 'users/top_creator' %>
+</div>

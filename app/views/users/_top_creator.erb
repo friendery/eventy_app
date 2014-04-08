@@ -1,0 +1,11 @@
+<h3>Top Creators</h3>
+<% @user.each do |f| %>
+	<% if f.events.count >= 1 %>
+  		<%= render f %>
+		Rate: 
+		<%= f.rate %>
+	<% else %>
+	<% end %>
+	<br>
+<% end %>
+<%= will_paginate @user %>
