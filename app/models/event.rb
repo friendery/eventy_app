@@ -31,15 +31,19 @@ class Event < ActiveRecord::Base
     eventjoinings.find_by(user_id: join_user.id).destroy
   end
   
-  def self.search(what, date, region)
+  def self.search(what, date, region, page)
     what_condition = "%" + what.downcase + "%"
     date_condition = "%" + date.downcase + "%"
     
     if region == ""
-      find(:all, :conditions => ['lower(title) LIKE ? OR lower(description) LIKE ?', what_condition, what_condition])
+      paginate :per_page => 30, :page => page,
+               :conditions => ['lower(title) LIKE ? OR lower(description) LIKE ?', what_condition, what_condition],
+               :order => 'created_at DESC'
     else
       region_condition = "%" + region.downcase + "%"
-      find(:all, :conditions => ['(lower(title) LIKE ? OR lower(description) LIKE ?) AND lower(region) LIKE ?', what_condition, what_condition, region_condition])
+      paginate :per_page => 30, :page => page,
+               :conditions => ['(lower(title) LIKE ? OR lower(description) LIKE ?) AND lower(region) LIKE ?', what_condition, what_condition, region_condition],
+               :order => 'created_at DESC'
     end
   end
       

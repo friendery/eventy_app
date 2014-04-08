@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @events = @user.events.paginate(page: params[:page])
-    @eventjoinings = @user.eventjoinings.paginate(page: params[:page])
+    @joinedevents = @user.joinedevents.paginate(page: params[:page], :per_page => 30).order('created_at DESC')
   end
   
   def create
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   end
   
   def search
-      @users = User.search(params[:search])
+    @users = User.search(params[:search], params[:page])
   end
   
   def friendlist

@@ -24,7 +24,7 @@
 	  		      		<div id="event_star"></div>
 	  		  		</div>
 	            	<div class="span2">
-			  			<%= @event.rates.count%> rates
+			  			<%= @event.rates.where(:score != 0).count%> rates
 	  		  		</div>
 		        </div>
 			  <% end %>

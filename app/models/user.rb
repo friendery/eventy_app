@@ -40,9 +40,13 @@ class User < ActiveRecord::Base
     end
   end
   
-  def self.search(search)
+
+  
+  def self.search(search, page)
     search_condition = "%" + search.downcase + "%"
-    find(:all, :conditions => ['lower(name) LIKE ? OR lower(email) LIKE ?', search_condition, search_condition])
+    paginate :per_page => 30, :page => page,
+             :conditions => ['lower(name) LIKE ? OR lower(email) LIKE ?', search_condition, search_condition],
+             :order => 'name'
   end
 
   private

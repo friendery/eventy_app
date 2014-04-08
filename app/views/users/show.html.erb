@@ -39,21 +39,16 @@
 			   <% end %>
 		</div>
 		<div id="joined-events" class="span6">
-			<h3>Joined Events (<%= @user.eventjoinings.count %>):</h3>
+			<h3>Joined Events (<%= @user.joinedevents.count %>):</h3>
 			<% if @user.eventjoinings.any? %>
-				<div class="span12">
-			      <% @user.eventjoinings.each do |f| %>
-				    <% if f.status == 'approved'%>
-	  				  <% @joinedevent = Event.find_by(id: f.event_id) %>
-	  				  <% @createTime = f.created_at %>
-					  <ol class="listItems">
-					    <%= render 'events/join_history', joinedevent: @joinedevent, createTime: @createTime %>
-					  </ol>
-					<% else %>
-					<% end %>
-			      <% end %>
-
-				</div>
+			  <div class="span12">
+		        <ol class="listItems">
+		          <%= render @joinedevents %>
+		        </ol>
+		        <div class="pull-right">
+		          <%= will_paginate @joinedevents %>
+		   		</div>
+			  </div>
 			<% end %>
 		</div>
 	</div>
