@@ -12,9 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require semantic-ui
-//= require semantic-ui/modal
-//= require semantic-ui/dropdown
+//= require bootstrap
+//= require bootstrap-datetimepicker
 //= require turbolinks
 //= require_tree .
 //= require_tree ../../../vendor/assets/javascripts
