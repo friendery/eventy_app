@@ -3,7 +3,7 @@
 		  <%= image_tag user.photo_url(:thumbnail) %>
 		  <%= link_to user.name, user %>
 		  <% if current_user.admin? && !current_user?(user) %>
-		      | <%= link_to "delete", user, method: :delete,
+		      <%= link_to "delete", user, method: :delete,
 		                                    data: { confirm: "You sure?" } %>
 		  <% end %>
 	</div>
