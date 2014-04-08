@@ -104,3 +104,30 @@ aside {
     margin-bottom: 5px;
   }
 }
+
+
+/* Search bar - when picker */
+.ui-dialog.success-dialog {
+    font-family: Verdana,Arial,sans-serif;
+    font-size: .8em;
+}
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+.noTitleStuff .ui-dialog-titlebar {display:none}
+
+.btn_margin {
+	width: 95%;
+}
+
+input[type="file"], input[type="image"], input[type="submit"], input[type="reset"], input[type="button"], input[type="radio"], input[type="checkbox"] {
+width: 95%;
+}
+
+
+
+/* button toggling */
+
+a.down { 
+	background: darken($orange_eventy, 5%);
+}
