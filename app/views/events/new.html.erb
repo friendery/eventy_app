@@ -29,13 +29,34 @@
           </i>
         </span>
       </div>
-      <script type="text/javascript">
+	  <script type="text/javascript">
         $(function() {
           $('#datetimepicker1').datetimepicker({
             language: 'pt-BR',
+            pickTime: false ,
+            pickSeconds: false,
+            format: 'yyyy-MM-dd',
+          });
+        });
+      </script>
+	  
+      <%= f.label :event_time %>
+      <div id="datetimepicker2" class="input-append date">
+        <!--<input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input> -->
+        <%= f.text_field :time, :as => :datetime_picker %>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphw">
+          </i>
+        </span>
+      </div>
+	  <script type="text/javascript">
+        $(function() {
+          $('#datetimepicker2').datetimepicker({
+            language: 'pt-BR',
+			pickDate: false ,
             pickTime: true ,
             pickSeconds: false,
-            format: 'yyyy-MM-dd hh:mm',
+            format: 'hh:mm',
           });
         });
       </script>

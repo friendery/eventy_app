@@ -31,20 +31,39 @@ class Event < ActiveRecord::Base
     eventjoinings.find_by(user_id: join_user.id).destroy
   end
   
-  def self.search(what, date, region, page)
-    what_condition = "%" + what.downcase + "%"
-    date_condition = "%" + date.downcase + "%"
-    
-    if region == ""
-      paginate :per_page => 30, :page => page,
-               :conditions => ['lower(title) LIKE ? OR lower(description) LIKE ?', what_condition, what_condition],
-               :order => 'created_at DESC'
+  def self.search(what, date, time_period, region)
+    what_condition = what.downcase
+    event = Event.all
+    event = event.where("lower(title) LIKE ?", "%#{what_condition}%") unless what.blank?
+    event = event.where("lower(description) LIKE ?", "%#{what_condition}%") unless what.blank?
+    event = event.where("date IS ?", "#{date}") unless date.blank?
+    event = event.where("region IS ?", "#{region}") unless region.blank?
+    if time_period == "Morning"
+      timeperiod_array = ["Midnight", "Morning", "Noon"]
+    elsif time_period == "Afternoon"
+      timeperiod_array = ["Evening", "Afternoon", "Noon"]
     else
-      region_condition = "%" + region.downcase + "%"
-      paginate :per_page => 30, :page => page,
-               :conditions => ['(lower(title) LIKE ? OR lower(description) LIKE ?) AND lower(region) LIKE ?', what_condition, what_condition, region_condition],
-               :order => 'created_at DESC'
+      timeperiod_array = ["Evening", "Night", "Midnight"]
     end
+    event = event.where("time_period in (?)", timeperiod_array) unless time_period.blank?
+    event
+  end
+  
+  def convertTime
+    if time >= "03:00" && time < "11:30"
+      period = "Morning"
+    elsif time >= "11:30" && time < "13:00"
+      period = "Noon"
+    elsif time >= "13:00" && time < "18:30"
+      period = "Afternoon"
+    elsif time >= "18:30" && time < "19:30"
+      period = "Evening"
+    elsif time >= "19:30" && time <= "23:59"
+      period = "Night"
+    else
+      period = "Midnight"
+    end
+    self.update_attribute(:time_period, period)
   end
       
   
