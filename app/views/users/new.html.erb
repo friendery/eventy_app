@@ -7,16 +7,16 @@
       <%= form_for(@user) do |f| %>
   	  <%= render 'shared/error_messages', object: f.object %>
 
-        <%= f.label :name %>
+        <%= f.label :name, class: 'required' %>
         <%= f.text_field :name %>
 
-        <%= f.label :email %>
+        <%= f.label :email, class: 'required' %>
         <%= f.text_field :email %>
 
-        <%= f.label :password %>
+        <%= f.label :password, class: 'required' %>
         <%= f.password_field :password %>
 
-        <%= f.label :password_confirmation, "Password Confirmation" %>
+        <%= f.label :password_confirmation, "Password Confirmation", class: 'required' %>
         <%= f.password_field :password_confirmation %>
 		
 		<%= f.label :Photo %>

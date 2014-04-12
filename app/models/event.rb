@@ -11,6 +11,8 @@ class Event < ActiveRecord::Base
   validates :user_id,     presence: true
   validates :capacity,    presence: true, numericality: { only_integer: true }
   validates :date,        presence: true
+  validates :time,        presence: true
+  validates :region,      presence: true
   
   belongs_to :user
   mount_uploader :avatar, PictureUploader

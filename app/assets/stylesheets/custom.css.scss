@@ -136,3 +136,21 @@ width: 95%;
 a.down { 
 	background: darken($orange_eventy, 5%);
 }
+
+/* required asterisk* to a required field label */
+label.required:after {
+	content: " *";
+	color: red
+}
+
+/* modify when field in search bar */
+
+#when input[disabled],
+select[disabled],
+textarea[disabled],
+input[readonly],
+select[readonly],
+textarea[readonly] {
+  cursor: text;
+  background-color: #ffffff;
+}

@@ -22,7 +22,7 @@
         <%= f.label :event_date %>
       <div id="datetimepicker1" class="input-append date">
         <!--<input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input> -->
-        <%= f.text_field :date, :as => :datetime_picker %>
+        <%= f.text_field :date, :as => :datetime_picker, :readonly => true %>
         <span class="add-on">
           <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphw">
           </i>
@@ -41,7 +41,7 @@
         <%= f.label :event_time %>
         <div id="datetimepicker2" class="input-append date">
           <!--<input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input> -->
-          <%= f.text_field :time, :as => :datetime_picker %>
+          <%= f.text_field :time, :as => :datetime_picker, :readonly => true %>
           <span class="add-on">
             <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphw">
             </i>

@@ -7,20 +7,73 @@
       <%= form_for(@user) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
-        <%= f.label :name %>
+        <%= f.label :name, class: 'required' %>
         <%= f.text_field :name %>
 
-        <%= f.label :email %>
+        <%= f.label :email, class: 'required'  %>
         <%= f.text_field :email %>
 
-        <%= f.label :password %>
+        <%= f.label :password, class: 'required'  %>
         <%= f.password_field :password %>
 
-        <%= f.label :password_confirmation, "Confirm Password" %>
+        <%= f.label :password_confirmation, "Confirm Password",  class: 'required'  %>
         <%= f.password_field :password_confirmation %>
 		
-		<%= f.label :Photo %>
+		<%= f.label :photo %>
 		<%= f.file_field :photo %>
+		
+        <%= f.label :hobby %>
+        <%= f.text_field :hobby %>
+		
+        <%= f.label :date_of_birth %>
+        <div id="datetimepicker1" class="input-append date">
+          <!--<input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input> -->
+          <%= f.text_field :DOB, :as => :datetime_picker, :readonly => true %>
+          <span class="add-on">
+            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphw">
+            </i>
+          </span>
+        </div>
+  	  <script type="text/javascript">
+          $(function() {
+            $('#datetimepicker1').datetimepicker({
+              language: 'pt-BR',
+              pickTime: false ,
+              pickSeconds: false,
+              format: 'yyyy-MM-dd',
+            });
+          });
+        </script>
+		
+        <%= f.label :gender %>
+		<div class="row-fluid">
+			<div class = "span3">
+        		<%= f.radio_button(:gender, "Male") %>
+				<%= label_tag(:gender_male, "Male") %>
+			</div>
+			<div class = "span3">
+       		 	<%= f.radio_button(:gender, "Female") %>
+				<%= label_tag(:gender_female, "Female") %>
+			</div>
+		</div>
+		
+        <%= f.label :address %>
+        <%= f.text_field :address %>
+		
+        <%= f.label :nationality %>
+        <%= f.text_field :nationality %>
+		
+        <%= f.label :mobile %>
+        <%= f.text_field :mobile %>
+		
+        <%= f.label :occupation %>
+        <%= f.text_field :occupation %>
+		
+        <%= f.label :personal_webpage %>
+        <%= f.text_field :webpage %>
+		
+        <%= f.label :self_introduction %>
+        <%= f.text_area :self_intro %>
 
         <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
       <% end %>
