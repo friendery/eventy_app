@@ -1,0 +1,14 @@
+<h3>What's new</h3>
+<% @event.each do |f| %>
+	  <%= link_to image_tag(f.avatar_url(:thumbnail)), f %>
+	  <br>
+	  <%= link_to f.title, f %>
+	  <br>
+	  <span class="content"><%= f.description %></span>
+	  <br>
+	  <span class="timestamp">
+	    Posted <%= time_ago_in_words(f.created_at) %> ago.
+	  </span>
+	  <br>
+<% end %>
+<%= will_paginate @event %>

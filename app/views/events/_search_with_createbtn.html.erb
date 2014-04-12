@@ -1,0 +1,33 @@
+<%= form_tag( { :controller => 'events', :action => 'search' }, {:method => 'get', :class => 'navbar-form'} ) do %>
+	<div class="row-fluid">
+	    <div id="what_field" class="span2">
+			<%= text_field_tag :what, params[:what], :placeholder => "What", :class => "btn_margin", 
+    :width => "100%" %>
+		</div>
+		
+	    <!-- event date: START -->
+	    <div id="when_field" class="span2">
+			<%= text_field_tag :when, params[:when], :placeholder => "When", :class => "btn_margin", 
+    :width => "100%" %>
+	    </div>
+	    <%= render 'shared/when_dialog' %>
+	    <!-- event date: END -->
+	    
+
+	    <div class="span2">
+			<%= select_tag(:region, options_for_select([['Where', ""], ['Hong Kong Island', "Hong Kong Island"], ['Kowloon', "Kowloon"], ['New Territories', "New Territories"]], :selected => params[:region]), :class => "btn_margin") %>
+		</div>
+
+	    <div class="span2">
+			<%= submit_tag "Search", :name => nil, :class=> "btn btn_margin" %>
+		</div>
+		
+		<div class="span2">
+			<div class="btn btn-margin btn-primary">
+			<%= link_to "Create", create_path %>
+		</div>
+    	</div>
+
+	</div>
+	
+<% end %>

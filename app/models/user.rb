@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
   
   def self.rank(page)
-    paginate :per_page =>2, :page => page, :order => 'rate DESC'
+    paginate :per_page =>5, :page => 1, :order => 'rate DESC'
   end
 
   private
