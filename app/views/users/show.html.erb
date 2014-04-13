@@ -1,5 +1,19 @@
 <div class="hero-unit" >
 	<% provide(:title, @user.name)%>
+	<%= form_for Message.new do |f| %>
+		<%= f.hidden_field :recipient_id, :value => @user.id %>
+		<div>
+			<label for="message_subject">Subject</label>
+			<%= f.text_field :subject %>
+		</div>
+		<div>
+			<label for="message_body">Message</label>
+			<%= f.text_area :body %>
+		</div>
+		<div>
+			<%= f.submit 'Send a message' %>
+		</div>
+	<% end %>
 	<div class="row-fluid">
 		<div id="profile-header" class="span12">
 			  <div>

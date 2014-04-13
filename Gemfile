@@ -15,6 +15,7 @@ gem 'cloudinary'
 
 gem 'sass-rails', '4.0.1'
 gem "compass-rails", "~> 1.1.6"
+gem 'pusher'
 
 group :assets do 
 end

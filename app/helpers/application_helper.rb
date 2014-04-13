@@ -8,4 +8,14 @@ module ApplicationHelper
        "#{base_title} | #{page_title}"
      end
    end
+   
+  def notify_count
+	  @messages = current_user.received_messages.where(new_message: true)
+	  noticount = @messages.where('msgtype=? OR msgtype=?', 'friend', 'event').count
+  end
+  
+  def msg_count
+	  @messages = current_user.received_messages.where(new_message: true)
+    msgcount = @messages.where(msgtype: 'msg').count
+  end
 end

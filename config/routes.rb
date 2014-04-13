@@ -17,6 +17,11 @@ SampleApp::Application.routes.draw do
   resources :eventjoinings, only: [:create, :destroy, :update]
   resources :friendships
   resources :rates, only: :update
+  resources :messages do
+    collection do
+      get :notification
+    end
+  end
   
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
@@ -27,6 +32,7 @@ SampleApp::Application.routes.draw do
   match '/contact', to: 'static_pages#contact', via: 'get'
   match '/create',  to: 'events#new',           via: 'get'
   root to: 'static_pages#home'
+  post 'pusher/auth'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

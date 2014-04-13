@@ -1,0 +1,8 @@
+<div class="hero-unit">
+	<h2>Your Notifications</h2>
+
+<% if @messages.any? %>
+<%= render :partial => @messages %>
+<% else %>
+<p>How sad, you have no messages.</p>
+<% end %>

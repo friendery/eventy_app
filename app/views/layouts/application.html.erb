@@ -7,10 +7,56 @@
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
+	
+	<% if signed_in? %>
+	<script src="http://js.pusherapp.com/1.9/pusher.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+	  $(function() {
+	    var pusher = new Pusher('1a52a00bf90e5760d10d'); // Replace with your app key
+	    var channel = pusher.subscribe('private-'+<%= current_user.id %>);
+		
+	    // Some useful debug msgs
+	    pusher.connection.bind('connecting', function() {
+	      $('div#status').text('Connecting to Pusher...');
+	    });
+	    pusher.connection.bind('connected', function() {
+	      $('div#status').text('Connected to Pusher!');
+	    });
+	    pusher.connection.bind('failed', function() {
+	      $('div#status').text('Connection to Pusher failed :(');
+	    });
+	    channel.bind('subscription_error', function(status) {
+	      $('div#status').text('Pusher subscription_error');
+	    });
+  	    channel.bind('new_message', function(data) {
+  	      msg = data.from + ' has sent you message: ' + data.subject;
+  	      dom_notify(msg, data.msgtype);
+  	    });
+		
+    	function dom_notify(msg, msgtype) {
+		  if (msgtype == 'msg')
+			  $('#message-count').html(parseInt($('#message-count').html())+1);
+		  else
+			  $('#notify-count').html(parseInt($('#notify-count').html())+1);
+    	  $('#notify').text(msg);
+    	  $('#notify').fadeIn();
+    	  setTimeout(function() {
+    	    $('#notify').fadeOut();
+    	  }, 2000);
+    	}
+	  });
+	</script>
+	<% end %>
+	
   </head>
   <body>
     <%= render 'layouts/header' %>
     <div class="container">
+		
+
+    <div id="status">
+	</div>
+		
 	  <% flash.each do |key, value| %>
 	    <div class="alert alert-<%= key %>"><%= value %></div>
 	  <% end %>

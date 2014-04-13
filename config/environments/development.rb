@@ -26,4 +26,10 @@ SampleApp::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+  
+  require 'pusher'
+
+  Pusher.app_id = '71690'
+  Pusher.key    = '1a52a00bf90e5760d10d'
+  Pusher.secret = '28111f9f31da06b224fb'
 end

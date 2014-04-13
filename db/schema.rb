@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140412093635) do
+ActiveRecord::Schema.define(version: 20140413134756) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -57,6 +57,22 @@ ActiveRecord::Schema.define(version: 20140412093635) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status",     default: "request"
+  end
+
+  add_index "friendships", ["friend_id"], name: "index_friendships_on_friend_id"
+  add_index "friendships", ["user_id", "friend_id"], name: "index_friendships_on_user_id_and_friend_id", unique: true
+  add_index "friendships", ["user_id"], name: "index_friendships_on_user_id"
+
+  create_table "messages", force: true do |t|
+    t.string   "subject"
+    t.text     "body"
+    t.integer  "recipient_id"
+    t.integer  "sender_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "status",       default: "unread"
+    t.boolean  "new_message",  default: true
+    t.string   "msgtype"
   end
 
   create_table "rates", force: true do |t|

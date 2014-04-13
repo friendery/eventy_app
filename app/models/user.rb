@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :rates, dependent: :destroy
   
+  has_many :received_messages, :class_name => 'Message', :foreign_key => :recipient_id
+  
   before_save { self.email = email.downcase }
   before_create :create_remember_token
   validates :name, presence: true, length: { maximum: 50 }
@@ -51,6 +53,43 @@ class User < ActiveRecord::Base
   
   def self.rank(page)
     paginate :per_page =>5, :page => 1, :order => 'rate DESC'
+  end
+  
+  def send_event_request(subject, recipient_id)
+    message = Message.new
+    message.sender_id = id
+    message.recipient_id = recipient_id
+    message.subject = subject
+    message.msgtype = 'event'
+    if message.save
+      # Send a Pusher notification
+      Pusher['private-'+recipient_id.to_s].trigger('new_message', {:from => name, :subject => message.subject, :msgtype => message.msgtype})
+    end
+  end
+  
+  def send_friend_request(subject, recipient_id)
+    message = Message.new
+    message.sender_id = id
+    message.recipient_id = recipient_id
+    message.subject = subject
+    message.msgtype = 'friend'
+    if message.save
+      # Send a Pusher notification
+      Pusher['private-'+recipient_id.to_s].trigger('new_message', {:from => name, :subject => message.subject, :msgtype => message.msgtype})
+    end
+  end
+  
+  def send_msg(subject, body, recipient_id)
+    message = Message.new
+    message.sender_id = id
+    message.recipient_id = recipient_id
+    message.subject = subject
+    message.body = body
+    message.msgtype = 'msg'
+    if message.save
+      # Send a Pusher notification
+      Pusher['private-'+recipient_id.to_s].trigger('new_message', {:from => name, :subject => message.subject, :msgtype => message.msgtype})
+    end
   end
 
   private
