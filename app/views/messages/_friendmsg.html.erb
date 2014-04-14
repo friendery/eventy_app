@@ -1,0 +1,18 @@
+<% @friendmsg.each do |f| %>
+  <% @friendship = Friendship.find_by(user_id: f.sender_id, friend_id: f.recipient_id)%>
+  <div class="message_item">
+    <h3><%= f.subject %></h3>
+    <p>From <%= link_to f.sender.name, f.sender %> <%= time_ago_in_words(f.created_at) %> ago</p>
+	<% if @friendship != nil %>
+	  <% if @friendship.status == 'request' %>
+	    <%= link_to "Approve", friendship_path(:status => 'approved', :id => @friendship.id, :msg_id => f.id), 
+		                                       :method => :patch %>
+	    <%= link_to "Reject", friendship_path(:inverse => 'true', :id => @friendship.id, :msg_id => f.id), 
+		                                      :method => :delete %>
+	  <% else %>
+	    Already approved!
+	  <% end %>
+	<% end %>
+	<%= link_to "Mark as read", message_path(:id => f.id), :method => :patch%>
+  </div>
+<% end %>
