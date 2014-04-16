@@ -11,8 +11,18 @@
         <div id="navbar-main" class="navbar-collapse">
           <ul class="nav navbar-nav pull-right">
 			 <% if signed_in? %>
-			<li><%= link_to "Notify", notification_messages_path %><span id="notify-count"><%= notify_count %></span></li>
-			<li><%= link_to "Msg", messages_path %><span id="message-count"><%= msg_count %></span></li>
+      <li>
+        <div id="noti_Container">
+            <%= link_to "Notify", messages_path %>
+            <div id="notify-count" class="noti_bubble"><%= notify_count %></div>
+        </div>
+      </li>
+			<li>
+        <div id="noti_Container">
+            <%= link_to "Msg", messages_path %>
+            <div id="message-count" class="noti_bubble"><%= msg_count %></div>
+        </div>
+      </li>
 			<% end %>
             <li><%= link_to "Explore", explore_path %></li>
             <% if signed_in? %>
