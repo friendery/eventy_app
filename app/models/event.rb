@@ -26,7 +26,8 @@ class Event < ActiveRecord::Base
   end
   
   def join!(join_user, join_status)
-    eventjoinings.create!(user_id: join_user.id, status: join_status)
+    @a = eventjoinings.create!(user_id: join_user.id, status: join_status)
+    @a.id
   end
   
   def unjoin!(join_user)
@@ -36,8 +37,8 @@ class Event < ActiveRecord::Base
   def self.search(what, date, time_period, region)
     what_condition = what.downcase
     event = Event.all
-    event = event.where("lower(title) LIKE ?", "%#{what_condition}%") unless what.blank?
-    event = event.where("lower(description) LIKE ?", "%#{what_condition}%") unless what.blank?
+    event = event.where("lower(title) LIKE ? OR lower(description) LIKE ?", 
+                        "%#{what_condition}%", "%#{what_condition}%") unless what.blank?
     event = event.where("date IS ?", "#{date}") unless date.blank?
     event = event.where("region IS ?", "#{region}") unless region.blank?
     if time_period == "Morning"

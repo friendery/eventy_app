@@ -55,24 +55,26 @@ class User < ActiveRecord::Base
     paginate :per_page =>5, :page => 1, :order => 'rate DESC'
   end
   
-  def send_event_request(subject, recipient_id)
+  def send_event_request(subject, recipient_id, eventjoining_id)
     message = Message.new
     message.sender_id = id
     message.recipient_id = recipient_id
     message.subject = subject
     message.msgtype = 'event'
+    message.body = eventjoining_id
     if message.save
       # Send a Pusher notification
       Pusher['private-'+recipient_id.to_s].trigger('new_message', {:from => name, :subject => message.subject, :msgtype => message.msgtype})
     end
   end
   
-  def send_friend_request(subject, recipient_id)
+  def send_friend_request(subject, recipient_id, friendship_id)
     message = Message.new
     message.sender_id = id
     message.recipient_id = recipient_id
     message.subject = subject
     message.msgtype = 'friend'
+    message.body = friendship_id
     if message.save
       # Send a Pusher notification
       Pusher['private-'+recipient_id.to_s].trigger('new_message', {:from => name, :subject => message.subject, :msgtype => message.msgtype})

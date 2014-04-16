@@ -5,11 +5,11 @@ class EventjoiningsController < ApplicationController
     @user = User.find(params[:eventjoining][:user_id])
     @event = Event.find(params[:eventjoining][:event_id])
     status = params[:eventjoining][:status]
-    @event.join!(@user, status)
+    eventjoining_id = @event.join!(@user, status)
     if status == "approved"
-      current_user.send_event_request("New participator!", @event.user_id)
+      current_user.send_event_request("new_joiner", @event.user_id, eventjoining_id)
     elsif status == "pending"
-      current_user.send_event_request("Event request received!", @event.user_id)
+      current_user.send_event_request("request", @event.user_id, eventjoining_id)
     end
     redirect_to @event
   end
@@ -22,6 +22,16 @@ class EventjoiningsController < ApplicationController
       @user = User.find_by(id: params[:user_id])
       @event.unjoin!(@user)
     end
+    @msg = current_user.received_messages
+    @msg = @msg.where(msgtype: 'event')
+    @msg = @msg.where(body: params[:id])
+    @msg = @msg.where(subject: 'request')
+    if @msg != nil
+      @msg.each do |f|
+        f.status = 'read'
+        f.save
+      end
+    end
     redirect_to @event
   end
   
@@ -30,7 +40,17 @@ class EventjoiningsController < ApplicationController
     @eventjoining = Eventjoining.find(params[:id])
     @eventjoining.status = 'approved'
     @eventjoining.save
-    current_user.send_event_request("Event equest approved!", @eventjoining.user_id)
+    current_user.send_event_request("approval", @eventjoining.user_id, params[:id])
+    @msg = current_user.received_messages
+    @msg = @msg.where(msgtype: 'event')
+    @msg = @msg.where(body: params[:id])
+    @msg = @msg.where(subject: 'request')
+    if @msg != nil
+      @msg.each do |f|
+        f.status = 'read'
+        f.save
+      end
+    end
     redirect_to @event
   end
 end
