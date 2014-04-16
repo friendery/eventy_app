@@ -10,7 +10,8 @@ module ApplicationHelper
    end
    
   def notify_count
-	  @messages = current_user.received_messages.where(new_message: true)
+    @messages = current_user.received_messages.where(new_message: true)
+    @messages = @messages.where(status: 'unread')
 	  noticount = @messages.where('msgtype=? OR msgtype=?', 'friend', 'event').count
   end
   

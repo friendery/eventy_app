@@ -11,7 +11,6 @@
   	        <%= image_tag @friend.photo_url(:icon) %>
     	    <%= link_to @friend.name, @friend %>
 		    <%= link_to "Unfriend", friendship_path(:inverse => 'false', :id => f.id), :method => :delete %>
-			<%= f.id %>
 		  <% end %>
 		    <br>
 		<% end %>
@@ -26,7 +25,6 @@
   	        <%= image_tag @friend.photo_url(:icon) %>
     	    <%= link_to @friend.name, @friend %>
 		    <%= link_to "Unfriend", friendship_path(:inverse => 'true', :id => f.id), :method => :delete %>
-			<%= f.id %>
 		  <% end %>
 		    <br>
 		<% end %>

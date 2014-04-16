@@ -13,14 +13,14 @@
 			 <% if signed_in? %>
       <li>
         <div id="noti_Container">
-            <%= link_to "Notify", messages_path %>
-            <div id="notify-count" class="noti_bubble"><%= notify_count %></div>
+            <%= link_to "Notify", notification_messages_path %>
+            <div id="notify-count" class="noti_bubble <% if notify_count == 0 %>hidden<% end %>"><%= notify_count %></div>
         </div>
       </li>
 			<li>
         <div id="noti_Container">
             <%= link_to "Msg", messages_path %>
-            <div id="message-count" class="noti_bubble"><%= msg_count %></div>
+            <div id="message-count" class='noti_bubble <% if msg_count == 0 %>hidden<% end %>'><%= msg_count %></div>
         </div>
       </li>
 			<% end %>
