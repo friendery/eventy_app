@@ -39,8 +39,8 @@ class Event < ActiveRecord::Base
     event = Event.all
     event = event.where("lower(title) LIKE ? OR lower(description) LIKE ?", 
                         "%#{what_condition}%", "%#{what_condition}%") unless what.blank?
-    event = event.where("date IS ?", "#{date}") unless date.blank?
-    event = event.where("region IS ?", "#{region}") unless region.blank?
+    event = event.where("date = ?", "#{date}") unless date.blank?
+    event = event.where("region = ?", "#{region}") unless region.blank?
     if time_period == "Morning"
       timeperiod_array = ["Midnight", "Morning", "Noon"]
     elsif time_period == "Afternoon"

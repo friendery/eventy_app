@@ -17,7 +17,7 @@ class MessagesController < ApplicationController
       @messages = current_user.received_messages.where(status: 'unread')
       @friendmsg = @messages.where(msgtype: 'friend')
       @eventmsg = @messages.where(msgtype: 'event')
-      @msg = current_user.received_messages.where("msgtype IS ? OR msgtype IS ?", 'friend', 'event')
+      @msg = current_user.received_messages.where("msgtype = ? OR msgtype = ?", 'friend', 'event')
       @msg.each do |f|
         f.update_attribute(:new_message, false)
       end
