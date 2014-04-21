@@ -1,6 +1,7 @@
 <h3>What's new</h3>
 <% @event.each do |f| %>
-	  <%= link_to image_tag(f.avatar_url(:thumbnail)), f %>
+	  <%#= link_to image_tag(f.avatar_url(:thumbnail)), f %>
+	  <div>Image</div>
 	  <br>
 	  <%= link_to f.title, f %>
 	  <br>

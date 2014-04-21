@@ -40,9 +40,9 @@ ActiveRecord::Schema.define(version: 20140413134756) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar"
     t.string   "date"
-    t.integer  "capacity"
+    t.integer  "capacity",                    default: 0
+    t.text     "administrative_area_level_1"
     t.text     "region"
     t.text     "street"
     t.string   "time"

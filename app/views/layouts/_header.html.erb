@@ -1,42 +1,95 @@
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="navbar-inner">
-    <div class="container">
-      <div class="row-fluid">
-        <div class="navbar-header">
-          <%= link_to "Eventy", root_path, id: "logo", class: "navbar-brand brand" %>
+<div class="navbar navbar-fixed-top navbar-primary main" role="navigation">
+    
+    <div class="navbar-header pull-left">
+        <div class="navbar-brand">
+            <a href="/" class="appbrand innerL">Eventy</a>
         </div>
-        <div class="navbar-search">
-          <%= render 'events/search_simple'%>
-        </div>
-        <div id="navbar-main" class="navbar-collapse">
-          <ul class="nav navbar-nav pull-right">
-			 <% if signed_in? %>
-			<li><%= link_to "Notify", notification_messages_path %><span id="notify-count"><%= notify_count %></span></li>
-			<li><%= link_to "Msg", messages_path %><span id="message-count"><%= msg_count %></span></li>
-			<% end %>
-            <li><%= link_to "Explore", explore_path %></li>
-            <% if signed_in? %>
-              <% if current_user.admin? %>
-                <li><%= link_to "Users", users_path %></li>
-              <% end %>
-			  <li><%= link_to "Friends", friendships_path %></li>
-              <li id="fat-menu" class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  Account <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><%= link_to "Profile", current_user %></li>
-                  <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-                  <li class="divider"></li>
-                  <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
-                </ul>
-              </li>
-            <% else %>
-              <li><%= link_to "Sign in", signin_path %></li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
     </div>
-  </div>
+  
+    <ul class="nav navbar-nav navbar-left">
+        <li class=" hidden-xs">
+            <div class="chat-controls bg-default innerAll half" id="search_bar">
+              <div class="">
+                <form class="margin-none">
+                  <div class="input-group">
+                    <input type="text" name="message" class="form-control" placeholder="Type your message ..">
+                    <div class="input-group-btn">
+                      <a type="submit" class="btn btn-primary"><i class="fa fa-search"></i></a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- <form class="navbar-form navbar-left " role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-inverse"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </form> -->
+        </li>
+        
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right hidden-xs">
+        <% if signed_in? %>
+          <li>
+              <%= link_to(notification_messages_path, {class: "menu-icon"}) do %>
+                Notifications<span class="badge badge-primary"><%= notify_count %></span>
+              <%end%>
+          </li>
+          <li>
+              <%= link_to(messages_path, {class: "menu-icon"}) do %>
+                Messages<span class="badge badge-info"><%= msg_count %></span>
+              <%end%>
+          </li>
+        <% end %>
+        <li><%= link_to "Explore", explore_path, class: 'menu-icon' %></li>
+
+        <% if signed_in? %>
+          <% if current_user.admin? %>
+            <li><%= link_to "Users", users_path, class: 'menu-icon' %></li>
+          <% end %>
+            <li><%= link_to "Friends", friendships_path, class: 'menu-icon' %></li>
+            
+
+
+    
+        <% else %>
+          <li><%= link_to "Sign in", signin_path %></li>
+        <% end %>
+
+        <%if signed_in?%>
+          <li id="fat-menu" class="dropdown">
+              <%= link_to('#', {class: "dropdown-toggle user dropdown-hover", "data-toggle"=>"dropdown"}) do %>
+                <span class="hidden-xs hidden-sm"> &nbsp; Account </span>
+                <span class="caret"></span>
+              <%end%>
+              <ul class="dropdown-menu list pull-right">
+                <li>
+                  <%= link_to(current_user) do%>
+                    Profile<i class="fa fa-user pull-right"></i>
+                  <%end%>
+                </li>
+                <li>
+                  <%= link_to(edit_user_path(current_user)) do%>
+                    Settings<i class="fa fa-pencil pull-right"></i>
+                  <%end%>
+                </li>
+                <li>
+                   <%= link_to(signout_path, {method: "delete"}) do%>
+                    Sign out<i class="fa fa-sign-out pull-right"></i>
+                  <%end%>
+                </li>
+              </ul>
+          </li>
+        
+        <%end%>
+        
+    </ul>
 </div>
+
+
+
+

@@ -12,10 +12,12 @@ class Event < ActiveRecord::Base
   validates :capacity,    presence: true, numericality: { only_integer: true }
   validates :date,        presence: true
   validates :time,        presence: true
-  validates :region,      presence: true
+  #validates :region,      presence: true
   
   belongs_to :user
-  mount_uploader :avatar, PictureUploader
+  #TODO
+  #mount_uploader :avatar, PictureUploader
+  #mount_uploader :avatar, AvatarUploader
   
   def join?(join_user)
     if a = eventjoinings.find_by(user_id: join_user.id)

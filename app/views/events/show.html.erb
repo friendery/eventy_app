@@ -1,132 +1,134 @@
   <!-- load geocomplete api -->
-  <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&location_type=ROOFTOP&result_type=administrative_area_level_1&language=en"></script>
+  <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&location_type=ROOFTOP&result_type=administrative_area_level_1&language=en"></script>-->
 
   <div class="hero-unit" >
 	<% provide(:title, @event.title)%>
-	<div class="row-fluid">
-	  <div class = "span12">
-		    <section>
-		      <h1>
-		        <%= @event.title %>
-		      </h1>
-		    </section>
-		</div>
-	</div>
-	  
-	  <!-- Show rate -->
-	    <div class = "row-fluid">
-		  <div class = "span6">	
-			
-			<% if @event.eventjoinings.find_by(user_id: current_user.id) %>
-			  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
-	            <div class = "row">
-	            	<div class="span3 offset1">
-	  		      		<div id="event_star"></div>
-	  		  		</div>
-	            	<div class="span2">
-						<% if @event.average_rate == 0%>
-							0 rates
-						<% else %>
-			  				<%= @event.rates.count%> rates
-						<% end %>
-	  		  		</div>
-		        </div>
-			  <% end %>
-			<% end %>
-	  
-	  	  	<script>
-		
-	    	  $('#event_star').raty({
-	       	   	score: <%= @event.average_rate %>,
-	       	 	path: '/assets',
-	       	 	click: function(score, evt) {
-	         	   $.ajax({
-	           		 url: '/rates/' + <%= @rate.id %>,
-	           	  	 type: 'PATCH',
-	           	  	 data: { score: score }
-	         		});
-	       	 	}
-	     	  })
-	  		</script>
-		  </div>
-	  
-	  <!-- end -->
-	  
-  		  <div class = "span2">
-			 <%= render 'shared/stats' %>
-  		  </div>
-  		  <div class = "span2">
-			 <%= render 'join_form' if signed_in? %>
-  		  </div>
-  		  <div class = "span2">
-			 <% if current_user?(@event.user) %>
-		  	   <%= link_to "edit", edit_event_path, class: "btn btn-large btn-primary" %>
-			 <% end %>
-		  </div>
-	    </div>
-	  
-	  <div class="row-fluid">
-		  <div id="event_left" class="span6">
-
-			  <div> 
-			  	<%= link_to image_tag(@event.avatar_url(:standard)), @event %>
-			  </div>
-			  <h3><%= @event.description %></h3>
-
-			  <label>Event date: </label>
-			  <p><%= @event.date %></p>
-			  <div class="field">
-			  </div>
-
-			  <label>Created by: </label>
-			  <p><% @creator = User.find_by(id: @event.user_id)%>
-			  <%= link_to image_tag(@creator.photo_url(:icon)), @creator %>
-			  <%= link_to @creator.name, @creator %></p>
-
-		  </div>
-
-
-		  <div id="event_right" class="span6">
-
-				    <!-- event location: START -->
-				    <div id="location_fields">
-				      <input id="geocomplete" type="hidden" placeholder="Type in an address" size="90" />
-				      <label>Region:</label>
-					  <p><%= @event.region %></p>
-				      <label>Street Address:</label>
-					  <p><%= @event.street  %></p>
-
-				      <div class="map_canvas"></div>
+    <div class="row" id="event_detail">
+    	<div class="col-md-6">
+    		<div class="widget">
+    			<h4 class="innerAll half margin-none border-bottom"><%= @event.title %></h4>
+    			<div class="widget-body padding-none">
+				    <%=image_tag "event-pic.jpg", class:"img-responsive"%>
+				    <%#= link_to image_tag(@event.avatar_url(:standard)), @event %>
+				    <div class="description">
+						  <p><%= @event.description %></p>					
 				    </div>
+			    </div>
+    		</div>
+    	</div>
 
-				    <script>
+    	<div class="col-md-6 col-lg-6">
+    		<div class="widget">
+					<h4 class="border-bottom margin-none innerAll half">Creator</h4>
+					<div class="border-bottom">
+				  		<div class="innerAll half">
+				  			<% @creator = User.find_by(id: @event.user_id)%>
+				  			<%= link_to @creator do%>
+				  				<span class="badge badge-primary pull-right"><%= @creator.name%></span>
+				  			<%end%>
+								<%= link_to image_tag(@creator.photo_url(:icon)), @creator %>	
+				  		</div>
+				  </div>
+				</div>
 
-				      $(function(){
+    		<div class="widget">
+					<h4 class="border-bottom margin-none innerAll half">Rate</h4>
+					<div class="border-bottom">
+				  		<div class="innerAll half">
+				  			<% if @event.eventjoinings.find_by(user_id: current_user.id) %>
+								  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
+												<% if @event.average_rate == 0%>
+														<span class="badge badge-primary pull-right">0</span>  <div id="event_star"></div>
+												<% else %>
+										  			<span class="badge badge-primary pull-right"><%= @event.rates.count%></span> <div id="event_star"></div>
+												<% end %>
+								  <% end %>
+								<% end %>		  			
+				  		</div>
+				  </div>
+				</div>
 
-			        	var event_location = "<%= @event.street  %>"
-				        var available_regions = ["Kowloon", "Hong Kong Island", "New Territories"];
-				        var trial = 0; // workaround for sometimes search by click doesn't work
+    		<div class="widget">
+					<h4 class="bg-primary innerAll half border-bottom margin-none">Event</h4>
+					<div class="innerAll half bg-primary border-bottom">
+						<div class="media innerAll half margin-none">
+							<div class="pull-left">
+								<i class="fa fa-fw fa-calendar fa-3x"></i>
+							</div>
+							<div class="media-body">
+								<p class="strong lead margin-none"><%= @event.date %></p>
+								<p class="strong margin-none"><%= @event.time %></p>
+							</div>
+						</div>
+					</div>
 
-				        var options = {
-				          map: ".map_canvas",
-				          details: "form",
-				          location: event_location
-				        };
+					<div class="innerAll half bg-gray border-bottom">
+						<div class="media innerAll half margin-none">
+							<div class="pull-left">
+								<i class="fa fa-fw fa-map-marker fa-3x"></i>
+							</div>
+							<div class="media-body">
+								<input id="geocomplete" type="hidden" placeholder="Type in an address" size="90" />
+								<p class="strong lead margin-none"><%= @event.region %></p>
+								<p class="strong margin-none"><%= @event.street  %></p>
+								<div class="map_canvas"></div>
+							</div>
+						</div>
+					</div>
 
-				        $("#geocomplete").geocomplete(options);
+					<div class="innerAll text-center half">
+						<div class="btn-group">
+							<%= render 'join_form' if signed_in? %>
+							<% if current_user?(@event.user) %>
+						  	<%= link_to "edit", edit_event_path, class: "btn btn-default" %>
+							<% end %>
+						</div>
+					</div>
+				</div>
 
-				      });
-				    </script>
-				    <!-- event location: END -->
-			</div>
+				<div class="widget">
+					<h4 class="border-bottom margin-none innerAll half">Members</h4>
+					<div class="border-bottom">
+				  		<div class="innerAll half">
+				  			<%=link_to members_event_path(@event) do%>
+				  				<span class="badge badge-primary pull-right"><%= @event.eventjoinings.count %></span> Attending
+				  			<%end%>				  			
+				  		</div>
+				  </div>
+				</div>
 
-	  </div>
-	  <br>
-	  <br>
-	  <div class="row-fluid">
+    	</div>
 
-		  <div class="span12">
-			  <% if current_user?(@event.user) && @event.eventjoinings.where(status: 'pending').count > 0 %>
+    </div>
+    
+
+	    <div class="row" id="event_comments">
+	    	<div class="widget">
+						<div class="innerAll half border-bottom">
+							<!-- <a href="" class="btn btn-primary btn-xs pull-right"><i class="fa fa-plus-circle"></i></a> -->
+							<h4 class="margin-none padding-none">Comments</h4>
+						</div>
+						<% if @event.comments.count > 0 %>
+					    <%@event.comments.each do |comment|%>
+						    <% @user = User.find_by(id: comment.user_id) %>
+								<div class="media innerAll half border-bottom margin-none">
+									<%= link_to image_tag(@user.photo_url(:icon), class: 'img-responsive img-circle'), @user, class: 'pull-left' %>
+									<div class="media-body">
+										<small class="strong pull-right"><%= time_ago_in_words(comment.created_at) %> ago</small>
+										<h5><%= link_to @user.name, @user %></h5>
+										<p><%= comment.comment %></p>
+										<% if comment.user_id == current_user.id %>
+										  <p class="label label-info"><%= link_to 'Delete Comment', [comment.event, comment],method: :delete,data: { confirm: 'Are you sure?' } %></p>
+										<% end %>
+									</div>
+								</div>
+						  <%end%>
+    				<% end %>
+					</div>
+	    </div>
+
+	  <div class="row" id="event_comment">
+	  	<% if current_user?(@event.user) && @event.eventjoinings.where(status: 'pending').count > 0 %>
 				<br>
 				<label>Pending List:</label>
 				<br>
@@ -149,41 +151,64 @@
 				    <p>Nobody is pending for approval.</p>
 			      <% end %>
 				<% end %>
+			<% end %>
 
-			  <% end %>		  
-
-		  </div>
-		  <br>
-		
-		<% if @event.comments.count > 0 %>
-			<h2>Comments</h2>
-			<div>
-			<%= render @event.comments%>
-			<br>
-			<br>
-			</div>
-		<% end %>
-		
-		<% if @event.eventjoinings.find_by(user_id: current_user.id) %>
-		  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
-		    <h2>Add a comment:</h2>
-		    <%= form_for([@event, @event.comments.build(user_id: current_user.id, event_id: @event.id)]) do |f| %>
-		      <p>
-		        <%= f.label :comment %>
-		        <%= f.text_area :comment %>
-		      </p>
-		    
-			    <%= f.hidden_field :user_id %>
-			    <%= f.hidden_field :event_id %>
-		      <p>
-		        <%= f.submit %>
-		      </p>
-		    <% end %>
-		  <% else %>
-		  <% end %>
-		<% else %>
-		<% end %>
+      <% if @event.eventjoinings.find_by(user_id: current_user.id) %>
+			  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
+			    <div class="widget row widget-inverse">
+						<!-- Widget heading -->
+						<div class="widget-head">
+							<h4 class="heading">Add a comment:</h4>
+						</div>
+						<!-- // Widget heading END -->				
+						<div class="widget-body">
+							<%= form_for([@event, @event.comments.build(user_id: current_user.id, event_id: @event.id)], html: {class: "form-horizontal", role: "form"}) do |f| %>
+								<div class="form-group">
+						        <label for="inputEmail3" class="col-sm-2 control-label">Comment</label>
+						        <div class="col-sm-10">
+						            <%= f.text_area :comment, class: "form-control", placeholder: "Say something..." %>
+						        </div>
+						    </div>
+                <%= f.hidden_field :user_id %>
+				        <%= f.hidden_field :event_id %>
+				        <div class="form-group">
+						        <div class="col-sm-offset-2 col-sm-10">
+						            <button type="submit" class="btn btn-primary">Create Comment</button>
+						        </div>
+						    </div>
+							<%end%>
+						</div>
+			    </div>
+			  <% end %>
+			<% end %>
 	  </div>
-	  
-	  
-	</div>
+
+	<script>
+	$('#event_star').raty({
+	       	   	score: <%= @event.average_rate %>,
+	       	 	path: '/assets',
+	       	 	click: function(score, evt) {
+	         	   $.ajax({
+	           		 url: '/rates/' + <%= @rate.id %>,
+	           	  	 type: 'PATCH',
+	           	  	 data: { score: score }
+	         		});
+	       	 	}
+	});
+
+
+	$(function(){
+    var event_location = "<%= @event.street  %>";
+		var available_regions = ["Kowloon", "Hong Kong Island", "New Territories"];
+		var trial = 0; // workaround for sometimes search by click doesn't work
+
+		var options = {
+			map: ".map_canvas",
+		  details: "form",
+		  location: event_location
+		};
+
+    $("#geocomplete").geocomplete(options);
+
+	});
+	</script>

@@ -14,9 +14,20 @@
 //= require jquery.ui.all
 //= require jquery_ujs
 //= require bootstrap
-//= require bootstrap-datetimepicker
+//= require bootstrap-datepicker
+//= require bootstrap-timepicker
 //= require turbolinks
 //= require_tree .
 //= require_tree ../../../vendor/assets/javascripts
 //= require raty.min.js
 //= require pusher.min.js
+//= require bootstrap-fileupload
+
+// today button
+$(function(){
+	$('#when').datepicker({
+		format: 'yyyy-mm-dd',
+		showMeridian: true,
+		autoclose: true
+	});
+});

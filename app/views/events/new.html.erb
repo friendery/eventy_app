@@ -3,145 +3,171 @@
 
 <div class="hero-unit" >
   <% provide(:title, 'Create Event') %>
-  <h1>Create Event</h1>
-
-  <div class="row">
-    <div class="span6 offset3">
-      <%= form_for(@event) do |f| %>
-  	  <%= render 'shared/error_messages', object: f.object %>
-
-        <%= f.label :title, class: 'required' %>
-        <%= f.text_field :title %>
-
-        <%= f.label :description, class: 'required' %>
-        <%= f.text_area :description %><br>
-		
-        <%= f.label :capacity, class: 'required' %>
-        <%= f.text_field :capacity %>
-
-    <!-- event date: START -->
-      <%= f.label :event_date, class: 'required' %>
-      <div id="datetimepicker1" class="input-append date">
-        <!--<input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input> -->
-        <%= f.text_field :date, :as => :datetime_picker, :readonly => true %>
-        <span class="add-on">
-          <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphw">
-          </i>
-        </span>
-      </div>
-	  <script type="text/javascript">
-        $(function() {
-          $('#datetimepicker1').datetimepicker({
-            language: 'pt-BR',
-            pickTime: false ,
-            pickSeconds: false,
-            format: 'yyyy-MM-dd',
-          });
-        });
-      </script>
-	  
-      <%= f.label :event_time, class: 'required' %>
-      <div id="datetimepicker2" class="input-append date">
-        <!--<input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input> -->
-        <%= f.text_field :time, :as => :datetime_picker, :readonly => true %>
-        <span class="add-on">
-          <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphw">
-          </i>
-        </span>
-      </div>
-	  <script type="text/javascript">
-        $(function() {
-          $('#datetimepicker2').datetimepicker({
-            language: 'pt-BR',
-			pickDate: false ,
-            pickTime: true ,
-            pickSeconds: false,
-            format: 'hh:mm',
-          });
-        });
-      </script>
-    <!-- event date: END -->
-
-    <!-- event location: START -->
-    <%= f.label :event_location, class: 'required' %>
-
-    <div id="location_fields">
-      <input id="geocomplete" type="text" placeholder="Type in an address" size="90" />
-      <input id="find" type="button" value="find" />
-      <div class="map_canvas"></div>
-
-      <input name="country" type="hidden" value="" />
-
-      <label>Region</label>
-	  <%= f.text_field :region, :readonly => true %>
-	  <%= f.hidden_field :street %>
-    </div>
-
-    <script>
-      $(function(){
-        
-        var available_regions = ["Kowloon", "Hong Kong Island", "New Territories"];
-        var trial = 0; // workaround for sometimes search by click doesn't work
-
-        var options = {
-          map: ".map_canvas",
-          details: "form"
-        };
-        
-        $("#geocomplete").geocomplete(options)
-          .bind("geocode:result", function(event, result){
-
-			// put values into input elements
-			for (var i=0; i< result.address_components.length; i++) {
-				var component = result.address_components[i];
-				if (component.types[0] == "administrative_area_level_1")
-					$("input[name='event[region]']").val(component.long_name);
-			}
-      $("input[name='event[street]']").val(result.formatted_address);
-			// $("input[name='event[lat]']").val(result.geometry.location.lat());
-			// $("input[name='event[lng]']").val(result.geometry.location.lng());
+  <div class="widget widget-inverse">
+  	<!-- Widget heading -->
+  	<div class="widget-head">
+  	  <h4 class="heading">Create Event</h4>
+  	</div>
+  	
+	<!-- // Widget heading END -->	
+  	<div class="widget-body">
+	  <%= form_for(@event) do |f| %>
+	    <div class="row">
+	    	<%= render 'shared/error_messages', object: f.object %>
+	    </div>
+	    <div class="row">
+			<div class="col-md-6">
+			    <h5>Title</h5>
+		  	    <div class="innerB">
+				  <%= f.text_field :title, placeholder: "title...", class: "form-control" %>
+		  		</div>
+				
+			    <h5>Event date</h5>
+		  	    <div class="innerB date" id="datetimepicker2">
+				  <%= f.text_field :date, placeholder: "event date...", class: "form-control" %>
+		  		</div>
+				
+			</div>
 			
-
-            trial++;
-            // check if input address is in Hong Kong
-            if ($("input[name='country']").val() != "Hong Kong" ) {
-              alert("Please input an address inside Hong Kong.");
-              $('#location_fields').find("input").not("#find").val('');
-            }
-            // check if region is either Kowloon, Hong Kong Island or New Territories
-            else {
-              matched = $.inArray($("input[name='event[region]']").val(), available_regions);
-              if (matched == -1) {
-                if (trial == 1) {
-                  $("#find").click();
-                }
-                else {
-                  alert("Please input an address with either Kowloon, Hong Kong Island or New Territories as region.");
-                  $('#location_fields').find("input").not("#find").val('');
-
-                  trial = 0;
-                }
-              }
-              else {
-                trial = 0;
-              }
-            }
-
-          });
-        
-        $("#find").click(function(){
-          $("#geocomplete").trigger("geocode");
-        });
-      });
-    </script>
-    <!-- event location: END -->
-
+			<div class="col-md-6">
+			    <h5>Capacity</h5>
+		  	  <div class="innerB">
+				  <%= f.text_field :capacity, placeholder: "capacity...", class: "form-control" %>
+		  		</div>
+			    <h5>Event time</h5>
+		  	    <div class="innerB bootstrap-timepicker">
+				    <%= f.text_field :time, placeholder: "event time...", class: "form-control" %>
+		  		</div>
+				
+			</div>
+		</div>
 		
-		<%= f.label :Picture %>
-		<%= f.hidden_field(:avatar_cache)%>
-		<%= f.file_field :avatar %>
-
-        <%= f.submit "Create Event", class: "btn btn-large btn-primary" %>
-      <% end %>
+	    <div class="row">
+			<div class="col-md-11">
+		      <h5>Event location</h5>
+	  	      <div class="innerB" id="location_fields">
+		        <input id="geocomplete" type="text" class="form-control" placeholder="Type in an address" size="90" />
+		        <div class="map_canvas"></div>
+		        <input name="country" type="hidden" value="" />
+	  		  </div>
+		    </div>
+			<div class="col-md-1">
+				<h5>&nbsp;</h5>
+				<input id="find" type="button" value="find" class="btn btn-small btn-primary"/>
+			</div>
+		</div>
+		
+	    <div class="row">
+			<div class="col-md-6">
+			    <h5>Region</h5>
+		  	    <div class="innerB">
+				  <%= f.text_field :region, :readonly => true, class: "form-control"  %>
+				  <%= f.hidden_field :street %>
+		  		</div>
+			</div>
+			
+			<div class="col-md-6">
+			    <h5>Picture</h5>
+			    <div class="innerB fileupload fileupload-new margin-none" data-provides="fileupload">
+					  	<span class="btn btn-default btn-file">
+					  		<span class="fileupload-new">Select file</span>
+					  		<span class="fileupload-exists">Change</span>
+					  		<%#= f.hidden_field(:avatar_cache)%>
+			  		    <%= f.file_field :avatar, class: "margin-none"   %>
+					  	</span>
+					  	<span class="fileupload-preview"></span>
+					  	<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+					</div>
+			</div>
+		</div>
+		
+	    <div class="row">
+		    <h5>Description</h5>
+	  	    <div class="innerB">
+	  	   	  <%= f.text_area :description, class: "form-control"    %><br>
+	  		</div>
+		</div>
+		
+	    <div class="row">
+	  	    <div class="innerB center-div">
+	  	   	  <%= f.submit "Create Event", class: "btn btn-primary" %>
+	  		</div>
+		</div>
+		
+		
+      <%end%>			
     </div>
-  </div>
+	
+  </div><!--widget widget-inverse-->
+<!-- </div>  do not close hero-unit class-->
+<script type="text/javascript">
+$(function() {
+  
+  $('#event_date').datepicker({
+	  format: 'yyyy-mm-dd',
+	  showMeridian: true,
+	  autoclose: true
+  });
+
+  $('#event_time').timepicker({
+    minuteStep: 5,
+    showInputs: false,
+    showMeridian: false
+  });
+  
+  // google map
+  var available_regions = ["Kowloon", "Hong Kong Island", "New Territories"];
+  var trial = 0; // workaround for sometimes search by click doesn't work
+
+  var options = {
+    map: ".map_canvas",
+    details: "form"
+  };
+  
+  $("#geocomplete").geocomplete(options)
+    .bind("geocode:result", function(event, result){
+
+	// put values into input elements
+	for (var i=0; i< result.address_components.length; i++) {
+		var component = result.address_components[i];
+		if (component.types[0] == "administrative_area_level_1")
+			$("input[name='event[region]']").val(component.long_name);
+	}
+  $("input[name='event[street]']").val(result.formatted_address);
+	// $("input[name='event[lat]']").val(result.geometry.location.lat());
+	// $("input[name='event[lng]']").val(result.geometry.location.lng());
+	
+
+      trial++;
+      // check if input address is in Hong Kong
+      if ($("input[name='country']").val() != "Hong Kong" ) {
+        alert("Please input an address inside Hong Kong.");
+        $('#location_fields').find("input").not("#find").val('');
+      }
+      // check if region is either Kowloon, Hong Kong Island or New Territories
+      else {
+        matched = $.inArray($("input[name='event[region]']").val(), available_regions);
+        if (matched == -1) {
+          if (trial == 1) {
+            $("#find").click();
+          }
+          else {
+            alert("Please input an address with either Kowloon, Hong Kong Island or New Territories as region.");
+            $('#location_fields').find("input").not("#find").val('');
+
+            trial = 0;
+          }
+        }
+        else {
+          trial = 0;
+        }
+      }
+
+    });
+  
+  $("#find").click(function(){
+    $("#geocomplete").trigger("geocode");
+  });
+});
+
+</script>

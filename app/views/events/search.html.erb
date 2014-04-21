@@ -1,11 +1,17 @@
 <div class="hero-unit" >
 	<% provide(:title, 'Result') %>
-	<h1>All results  (<%= @events.count %>)</h1>
-
-
-	<ul class="listItems">
-	    <%= render @events %>
-	</ul>
+	<h2 class="innerAll half bg-primary margin-none">All results  (<%= @events.count %>)</h2>
+	<div class="row" id="searched_events">
+		<div class="col-md-12">
+		  <div class="widget">
+		  	<div class="innerT">
+		  		<%@events.each do |event|%>
+		  		  <%= render :partial => 'searched_event', :locals => {event: event}%>
+					<%end%>
+	    	</div>
+			</div>
+	  </div>
+	</div>
 	
 	<%= will_paginate @events %>
 

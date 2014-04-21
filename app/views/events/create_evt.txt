@@ -1,0 +1,139 @@
+  <div class="row">
+    <div class="span6 offset3">
+      <%= form_for(@event) do |f| %>
+  	  <%= render 'shared/error_messages', object: f.object %>
+
+        <%= f.label :title, class: 'required' %>
+        <%= f.text_field :title %>
+
+        <%= f.label :description, class: 'required' %>
+        <%= f.text_area :description %><br>
+		
+        <%= f.label :capacity, class: 'required' %>
+        <%= f.text_field :capacity %>
+
+    <!-- event date: START -->
+      <%= f.label :event_date, class: 'required' %>
+      <div id="datetimepicker1" class="input-append date">
+        <!--<input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input> -->
+        <%= f.text_field :date, :as => :datetime_picker, :readonly => true %>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphw">
+          </i>
+        </span>
+      </div>
+	  <script type="text/javascript">
+        $(function() {
+          $('#datetimepicker1').datetimepicker({
+            language: 'pt-BR',
+            pickTime: false ,
+            pickSeconds: false,
+            format: 'yyyy-MM-dd',
+          });
+        });
+      </script>
+	  
+      <%= f.label :event_time, class: 'required' %>
+      <div id="datetimepicker2" class="input-append date">
+        <!--<input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input> -->
+        <%= f.text_field :time, :as => :datetime_picker, :readonly => true %>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphw">
+          </i>
+        </span>
+      </div>
+	  <script type="text/javascript">
+        $(function() {
+          $('#datetimepicker2').datetimepicker({
+            language: 'pt-BR',
+			pickDate: false ,
+            pickTime: true ,
+            pickSeconds: false,
+            format: 'hh:mm',
+          });
+        });
+      </script>
+    <!-- event date: END -->
+
+    <!-- event location: START -->
+    <%= f.label :event_location, class: 'required' %>
+
+    <div id="location_fields">
+      <input id="geocomplete" type="text" placeholder="Type in an address" size="90" />
+      <input id="find" type="button" value="find" />
+      <div class="map_canvas"></div>
+
+      <input name="country" type="hidden" value="" />
+
+      <label>Region</label>
+	  <%= f.text_field :region, :readonly => true %>
+	  <%= f.hidden_field :street %>
+    </div>
+
+    <script>
+      $(function(){
+        
+        var available_regions = ["Kowloon", "Hong Kong Island", "New Territories"];
+        var trial = 0; // workaround for sometimes search by click doesn't work
+
+        var options = {
+          map: ".map_canvas",
+          details: "form"
+        };
+        
+        $("#geocomplete").geocomplete(options)
+          .bind("geocode:result", function(event, result){
+
+			// put values into input elements
+			for (var i=0; i< result.address_components.length; i++) {
+				var component = result.address_components[i];
+				if (component.types[0] == "administrative_area_level_1")
+					$("input[name='event[region]']").val(component.long_name);
+			}
+      $("input[name='event[street]']").val(result.formatted_address);
+			// $("input[name='event[lat]']").val(result.geometry.location.lat());
+			// $("input[name='event[lng]']").val(result.geometry.location.lng());
+			
+
+            trial++;
+            // check if input address is in Hong Kong
+            if ($("input[name='country']").val() != "Hong Kong" ) {
+              alert("Please input an address inside Hong Kong.");
+              $('#location_fields').find("input").not("#find").val('');
+            }
+            // check if region is either Kowloon, Hong Kong Island or New Territories
+            else {
+              matched = $.inArray($("input[name='event[region]']").val(), available_regions);
+              if (matched == -1) {
+                if (trial == 1) {
+                  $("#find").click();
+                }
+                else {
+                  alert("Please input an address with either Kowloon, Hong Kong Island or New Territories as region.");
+                  $('#location_fields').find("input").not("#find").val('');
+
+                  trial = 0;
+                }
+              }
+              else {
+                trial = 0;
+              }
+            }
+
+          });
+        
+        $("#find").click(function(){
+          $("#geocomplete").trigger("geocode");
+        });
+      });
+    </script>
+    <!-- event location: END -->
+
+		
+		<%= f.label :Picture %>
+		<%= f.hidden_field(:avatar_cache)%>
+		<%= f.file_field :avatar %>
+
+        <%= f.submit "Create Event", class: "btn btn-large btn-primary" %>
+      <% end %>
+    </div>
