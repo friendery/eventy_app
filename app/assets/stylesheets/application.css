@@ -17,7 +17,6 @@
  *= require bootstrap-datepicker
  *= require bootstrap-timepicker
  *= require fileupload
- *= require timelines.min
  */
 
 html {
@@ -4329,7 +4328,7 @@ body {
     color: #fff;
 }
 .navbar.main.navbar-primary .navbar-brand {
-    border-right: 1px solid #853E25;
+    /*border-right: 1px solid #853E25;*/
 }
 @media (max-width:767px) {
     .navbar.main.navbar-primary .navbar-brand {
@@ -4746,6 +4745,7 @@ body {
 .hero-unit {
   padding: 60px;
   margin-bottom: 30px;
+  margin-top: 20px;
   font-size: 14px;
   font-weight: 200;
   line-height: 31.5px;
@@ -4888,4 +4888,10 @@ footer ul li {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}   
+
+.navbar.inner {
+    margin-left: 150px;
+    margin-right: 150px;
+    width: 1200px;
 }

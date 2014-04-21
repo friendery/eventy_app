@@ -31,19 +31,19 @@
 	    var pusher = new Pusher('1a52a00bf90e5760d10d'); // Replace with your app key
 	    var channel = pusher.subscribe('private-'+<%= current_user.id %>);
 		
-	    // Some useful debug msgs
-	    pusher.connection.bind('connecting', function() {
-	      $('div#status').text('Connecting to Pusher...');
-	    });
-	    pusher.connection.bind('connected', function() {
-	      $('div#status').text('Connected to Pusher!');
-	    });
-	    pusher.connection.bind('failed', function() {
-	      $('div#status').text('Connection to Pusher failed :(');
-	    });
-	    channel.bind('subscription_error', function(status) {
-	      $('div#status').text('Pusher subscription_error');
-	    });
+	    // // Some useful debug msgs
+	    // pusher.connection.bind('connecting', function() {
+	    //   $('div#status').text('Connecting to Pusher...');
+	    // });
+	    // pusher.connection.bind('connected', function() {
+	    //   $('div#status').text('Connected to Pusher!');
+	    // });
+	    // pusher.connection.bind('failed', function() {
+	    //   $('div#status').text('Connection to Pusher failed :(');
+	    // });
+	    // channel.bind('subscription_error', function(status) {
+	    //   $('div#status').text('Pusher subscription_error');
+	    // });
   	    channel.bind('new_message', function(data) {
   	      msg = data.from + ' has sent you message: ' + data.subject;
   	      dom_notify(msg, data.msgtype);
@@ -73,9 +73,9 @@
     <%= render 'layouts/header' %>
     <div class="container">
 		
-
+<!-- 
     <div id="status">
-	</div>
+	</div> -->
 		
 	  <% flash.each do |key, value| %>
 	    <div class="alert alert-<%= key %>"><%= value %></div>
