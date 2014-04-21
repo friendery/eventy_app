@@ -2,11 +2,9 @@
 	<% provide(:title, 'All friends') %>
 	<div class="widget widget-inverse">
   	<!-- Widget heading -->
-  	<div class="widget-head">
-  	  <h4 class="heading">All friends  (<%= @friendshipOne.count + @friendshipTwo.count %>)</h4>
-  	</div>
+  	  <h4 class="bg-primary innerAll half border-bottom margin-none">All friends  (<%= @friendshipOne.count + @friendshipTwo.count %>)</h4>
   	
-	    <!-- // Widget heading END -->	
+	<!-- // Widget heading END -->	
   	<div class="widget-body">
       <div class="row row-merge">
       	<% @friendshipOne.each do |f| %>

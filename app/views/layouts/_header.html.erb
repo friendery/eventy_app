@@ -59,14 +59,12 @@
           <li class=" hidden-xs">
               <div class="chat-controls innerAll half" id="search_bar">
                 <div class="">
-                  <form class="margin-none">
                     <div class="input-group">
-                      <input type="text" name="message" class="form-control" placeholder="Type your message ..">
-                      <div class="input-group-btn">
-                        <a type="submit" class="btn btn-primary"><i class="fa fa-search"></i></a>
-                      </div>
+					  <%= form_tag( { :controller => 'users', :action => 'search' }, {:method => 'get', :class => 'navbar-search'} ) do %>
+					  	<%= text_field_tag :search, params[:search], :id => 'search_field', :class => 'form-control',  :placeholder => "Search Friends"%>
+					  	<!-- <%= submit_tag "Search", :name => nil %> -->
+					  <% end %>
                     </div>
-                  </form>
                 </div>
               </div>
           </li>

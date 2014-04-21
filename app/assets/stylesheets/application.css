@@ -17,6 +17,7 @@
  *= require bootstrap-datepicker
  *= require bootstrap-timepicker
  *= require fileupload
+ *= require timelines.min
  */
 
 html {
@@ -4823,16 +4824,16 @@ input[type="file"] {
   color: #CE4E4E;
   font-size: 18px;
 }
-/************************Search Events***********************/
-#searched_events a {
+/************************list_items***********************/
+#list_items a {
   color: #CE4E4E;  
 }
 
-#searched_events .delete-event {
+#list_items .delete {
   color: #fff;
 }
 
-#searched_events .delete-event:hover {
+#list_items .delete:hover {
   color: #CE4E4E;
 }
 
@@ -4849,6 +4850,8 @@ input[type="file"] {
     margin: 0;
     padding: 0 7.5px;
 }
+/************************Explore***********************/
+
 
 /*
 *************************Footer****************************
@@ -4890,8 +4893,24 @@ footer ul li {
   box-sizing: border-box;
 }   
 
-.navbar.inner {
+/*.navbar.inner {
     margin-left: 150px;
     margin-right: 150px;
     width: 1200px;
+}
+*/
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+font-family: 'Open Sans', sans-serif;
+font-weight: 500;
+line-height: 1.1;
+color: inherit;
+}
+
+.container {
+width: 1000px;
+}
+
+.navbar.main.navbar-primary .navbar-brand {
+	border-right: 0px solid #9e2b2b; 
 }

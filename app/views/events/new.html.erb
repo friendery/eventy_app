@@ -30,7 +30,7 @@
 			</div>
 			
 			<div class="col-md-6">
-			    <h5>Capacity</h5>
+			    <h5>Number of participators</h5>
 		  	  <div class="innerB">
 				  <%= f.text_field :capacity, placeholder: "capacity...", class: "form-control" %>
 		  		</div>
@@ -47,7 +47,8 @@
 		      <h5>Event location</h5>
 	  	      <div class="innerB" id="location_fields">
 		        <input id="geocomplete" type="text" class="form-control" placeholder="Type in an address" size="90" />
-		        <div class="map_canvas"></div>
+				<br>
+		        <div class="map_canvas" style="width:694px; height:300px"></div>
 		        <input name="country" type="hidden" value="" />
 	  		  </div>
 		    </div>

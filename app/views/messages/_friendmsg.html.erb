@@ -1,3 +1,25 @@
+<div class="widget-body" id="list_items">
+  <div class="row row-merge">
+  	<% @friendmsg.each do |f| %>
+		<% @friendship = Friendship.find_by(user_id: f.sender_id, friend_id: f.recipient_id)%>
+		<% @friend = User.find_by(id: f.sender_id)%>
+	    <div class="bg-white border-bottom ">
+ 			<div class="row">
+			    <div class="col-md-12">
+				    <div class="media">
+					    <a class="pull-left" href="#">
+						    <%= image_tag @friend.photo_url(:thumbnail) %>
+					    </a>
+					    <div class="media-body innerAll half">
+						    <h4 class="media-heading padding-none"><%= link_to @friend.name, @friend %></h4>
+					    </div>
+				    </div>
+			    </div>
+		    </div><!--row-->
+	    </div>
+	  <% end %>
+	</div>
+</div>
 <% @friendmsg.each do |f| %>
   <% @friendship = Friendship.find_by(user_id: f.sender_id, friend_id: f.recipient_id)%>
   <div class="message_item">

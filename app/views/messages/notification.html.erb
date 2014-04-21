@@ -1,9 +1,11 @@
 <div class="hero-unit">
-	<h2>Your Notifications</h2>
+	<div class="widget">
+  	<!-- Widget heading -->
+  	<h2 class="bg-primary innerAll half border-bottom margin-none">Your Notifications</h2>
+	<% if @friendmsg.any? %>
+	<%= render :partial => 'messages/friendmsg' %>
+	<% end %>
+	<% if @eventmsg.any? %>
+	<%= render :partial => 'messages/eventmsg' %>
+	<% end %>
 
-<% if @friendmsg.any? %>
-<%= render :partial => 'messages/friendmsg' %>
-<% end %>
-<% if @eventmsg.any? %>
-<%= render :partial => 'messages/eventmsg' %>
-<% end %>
