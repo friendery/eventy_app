@@ -5,7 +5,7 @@ class FriendshipsController < ApplicationController
     @friendship = current_user.friendships.build(:friend_id => params[:friend_id])
     if @friendship.save
       flash[:notice] = "Requested friendship"
-      current_user.send_friend_request("Friend request received!", params[:friend_id])
+      current_user.send_friend_request("request", params[:friend_id], @friendship.id)
       redirect_to root_url
     else
       flash[:error] = "Unable to request friendship."
@@ -22,7 +22,17 @@ class FriendshipsController < ApplicationController
     @friendship = current_user.inverse_friendships.find(params[:id])
     @friendship.status = 'approved'
     @friendship.save
-    current_user.send_friend_request("Friend request approved!", @friendship.user_id)
+    current_user.send_friend_request("approval", @friendship.user_id, @friendship.id)
+    @msg = current_user.received_messages
+    @msg = @msg.where(msgtype: 'friend')
+    @msg = @msg.where(body: params[:id])
+    @msg = @msg.where(subject: 'request')
+    if @msg != nil
+      @msg.each do |f|
+        f.status = 'read'
+        f.save
+      end
+    end
     redirect_to friendships_path
   end 
 
@@ -34,6 +44,16 @@ class FriendshipsController < ApplicationController
     end
     @friendship.destroy
     flash[:notice] = "Removed friendship."
+    @msg = current_user.received_messages
+    @msg = @msg.where(msgtype: 'friend')
+    @msg = @msg.where(body: params[:id])
+    @msg = @msg.where(subject: 'request')
+    if @msg != nil
+      @msg.each do |f|
+        f.status = 'read'
+        f.save
+      end
+    end
     redirect_to friendships_path
   end
   

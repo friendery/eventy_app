@@ -154,3 +154,51 @@ textarea[readonly] {
   cursor: text;
   background-color: #ffffff;
 }
+
+#noti_Container {
+    position:relative;     /* This is crucial for the absolutely positioned element */
+    width:50px;
+    height:55px;
+}
+.noti_bubble {
+    position: absolute;
+    top: 0px;
+    right: -8px;
+    padding: 1px 2px 1px 2px;
+    background-color: #eb1400;
+    color: white;
+    font-weight: bold;
+    font-size: 0.7em;
+    border-radius: 30px;
+    box-shadow: 1px 1px 1px gray;
+
+    /* The following is CSS3, but isn't crucial for this technique to work. */
+    /* Keep in mind that if a browser doesn't support CSS3, it's fine! They just won't have rounded borders and won't have a box shadow effect. */
+    /* You can always use a background image to produce the same effect if you want to, and you can use both together so browsers without CSS3 still have the rounded/shadow look. */
+    border-radius:30px;
+    box-shadow:1px 1px 1px gray;
+}
+
+.navbar .nav > li > div {
+  padding: 20px 20px 0px;
+  font-size: 20px;
+  font-family: "Crete Round", serif;
+  font-weight: normal;
+  text-shadow: none;
+}
+
+.navbar .nav > li > div > a {
+  float: none;
+  padding: 25px 15px 17px;
+  color: white;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #9f4100;
+}
+
+.navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}

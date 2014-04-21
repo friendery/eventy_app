@@ -2,15 +2,5 @@
   <h3><%= message.subject %></h3>
   <p>From <%= message.sender.name %> <%= time_ago_in_words(message.created_at) %> ago</p>
   <p><%= message.body %></p>
-  <% if message.msgtype == 'friend' %>
-  	<% if message.subject == 'Friend request received!' %>
-	  link_to approve
-	  link_to reject
-	  link_to ignore
-	<% else %>
-	  link_to mark_as_read
-	<% end %>
-  <% elsif message.msgtype == 'event' %>
-  <% else %>
-  <% end %>
+  <%= link_to "Mark as read", message_path(:id => message.id), :method => :patch%>
 </div>

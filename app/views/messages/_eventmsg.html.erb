@@ -1,0 +1,15 @@
+<% @eventmsg.each do |f| %>
+  <% @eventjoining = Eventjoining.find_by(id: f.body) %>
+  <div class="message_item">
+    <h3><%= f.subject %></h3>
+    <p>From <%= link_to f.sender.name, f.sender %> <%= time_ago_in_words(f.created_at) %> ago</p>
+	<% if @eventjoining != nil %>
+	  <% if @eventjoining.status == 'pending' %>
+	    <%= link_to @eventjoining.user.name, @eventjoining.user %> is pending for your approval for <%= link_to @eventjoining.event.title, @eventjoining.event %>. 
+  	    <%= link_to "Approve", eventjoining_path(:status => 'approved', :id => @eventjoining.id), :method => :patch %>
+  	    <%= link_to "Reject", eventjoining_path(:user_id => f.sender_id, :id => @eventjoining.id), :method => :delete %>
+	  <% end %>
+	<% end %>
+	<%= link_to "Mark as read", message_path(:id => f.id), :method => :patch%>
+  </div>
+<% end %>

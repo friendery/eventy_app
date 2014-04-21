@@ -17,7 +17,8 @@ class MessagesController < ApplicationController
       @messages = current_user.received_messages.where(status: 'unread')
       @friendmsg = @messages.where(msgtype: 'friend')
       @eventmsg = @messages.where(msgtype: 'event')
-      @messages.each do |f|
+      @msg = current_user.received_messages.where("msgtype = ? OR msgtype = ?", 'friend', 'event')
+      @msg.each do |f|
         f.update_attribute(:new_message, false)
       end
     end
@@ -26,7 +27,10 @@ class MessagesController < ApplicationController
       @message = Message.find_by(id: params[:id])
       @message.status = 'read'
       @message.save
-      redirect_to notification_messages_path
+      if @message.msgtype == 'msg'
+        redirect_to messages_path
+      else
+        redirect_to notification_messages_path
+      end
     end
-
 end

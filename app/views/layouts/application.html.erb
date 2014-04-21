@@ -50,10 +50,14 @@
   	    });
 		
     	function dom_notify(msg, msgtype) {
-		  if (msgtype == 'msg')
+		  if (msgtype == 'msg') {
 			  $('#message-count').html(parseInt($('#message-count').html())+1);
-		  else
+			  $('#message-count').removeClass('hidden');
+		  }
+		  else {
 			  $('#notify-count').html(parseInt($('#notify-count').html())+1);
+			  $('#notify-count').removeClass('hidden');
+		  }			  
     	  $('#notify').text(msg);
     	  $('#notify').fadeIn();
     	  setTimeout(function() {

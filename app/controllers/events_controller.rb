@@ -7,8 +7,9 @@ class EventsController < ApplicationController
   end
   
   def create
-    @event = current_user.events.build(event_params)      
+    @event = current_user.events.build(event_params) 
     if @event.save
+      @event.join!(current_user, 'approved') 
       @event.convertTime
       flash[:success] = "Event created!"
       redirect_to @event
