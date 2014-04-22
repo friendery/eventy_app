@@ -44,6 +44,7 @@
 	    // channel.bind('subscription_error', function(status) {
 	    //   $('div#status').text('Pusher subscription_error');
 	    // });
+	  
   	    channel.bind('new_message', function(data) {
   	      msg = data.from + ' has sent you message: ' + data.subject;
   	      dom_notify(msg, data.msgtype);
