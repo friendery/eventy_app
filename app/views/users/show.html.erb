@@ -6,22 +6,39 @@
 		<h2 class="bg-primary innerAll half border-bottom margin-none"><%= @user.name %></h2>
 
 		  <div class="widget-body">
-				<div class="border-bottom">
-			  	<div><%= image_tag @user.photo_url(:standard) %></div>
-					<%#=image_tag 'user-pic.jpg'%>
-				</div>
-				
-				<% if current_user?(@user) %>
-				<% else %>
-					<% status = current_user.friend?(@user.id) %>
-					<% if status == 'approved' %>
-						<%= @user.name %> is your friend!
-					<% elsif status == 'request' %>
-						Friendship is pending for approval.
-					<% else %>
-						<%= link_to "Add Friend", friendships_path(:friend_id => @user.id), :method => :post %>
+
+			  	<div class="media">
+				  <a class="pull-left" href="#">
+				  	<%= image_tag(@user.photo_url(:standard), :class => "media-object") %>
+				  </a>
+				  <div class="media-body">
+				    <h4 class="media-heading">Media heading</h4>
+
+				    <% unless current_user?(@user) %>
+						<% status = @user.friend?(current_user.id) %>
+						<% if status == 'approved' %>
+					    	<small class="text-success"><i class="fa fa-check"></i> Friend</small>
+						<% elsif status == 'request' %>
+							<small class="text-muted"><i class="fa fa-spinner"></i> Pending</small>
+						<% else %>
+							<small class="text-danger"><i class="fa fa-heart"></i> Stranger</small>
+						<% end %>
 					<% end %>
-			  <% end %>
+					
+					<%= @user.hobby %>
+					<%= @user.DOB %>
+					<%= @user.gender %>
+					<%= @user.nationality %>
+					<%= @user.mobile %>
+					<%= @user.occupation %>
+					<%= @user.address %>
+					<%= @user.webpage %>
+					<%= @user.self_intro %>
+
+				  </div>
+				</div>
+					
+				
 			</div>
 		</div>
 	</div>

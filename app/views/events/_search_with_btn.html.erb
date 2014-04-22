@@ -1,35 +1,36 @@
 <div class="center-div">
 <%= form_tag( { :controller => 'events', :action => 'search' }, {:method => 'get', :class => 'navbar-form'} ) do %>
 	    <div id="what_field" class="col-md-3">
-			<%= text_field_tag :what, params[:what], :placeholder => "What", :class => "btn_margin", 
+			<%= text_field_tag :what, params[:what], :placeholder => "What", :class => "btn_margin form-control", 
     :width => "100%" %>
 		</div>
 
 		
 	    <!-- event date: START -->
 	    <div id="_when_field" class="col-md-3">
-			<%= text_field_tag :when, params[:when], :placeholder => "When", :class => "btn_margin", 
+			<%= text_field_tag :when, params[:when], :placeholder => "When", :class => "btn_margin form-control when_field", 
     :width => "100%", :readonly => true %>
 	    </div>
 
+		<script>
+		$(function(){
+			$('#when').datepicker({
+				format: 'yyyy-mm-dd',
+				showMeridian: true,
+				autoclose: true
+			});
+		});
+		</script>
 	    <%#= render 'shared/when_dialog' %>
 	    <!-- event date: END -->
 	    
 
 	    <div class="col-md-3">
-			<%= select_tag(:region, options_for_select([['Where', ""], ['Hong Kong Island', "Hong Kong Island"], ['Kowloon', "Kowloon"], ['New Territories', "New Territories"]], :selected => params[:region]), :class => "btn_margin", :id => "region_select") %>
+			<%= select_tag(:region, options_for_select([['Where', ""], ['Hong Kong Island', "Hong Kong Island"], ['Kowloon', "Kowloon"], ['New Territories', "New Territories"]], :selected => params[:region]), :class => "btn_margin") %>
 		</div>
-<script src="http://cdn.mosaicpro.biz/shared/components/common/forms/elements/select2/assets/lib/js/select2.js?v=v1.2.4-rc1&sv=v0.0.1.1"></script>
-<script>
-		$("#region_select").select2({
-		    placeholder: "Select a State",
-		    allowClear: true
-		});
-		
-</script>
 
 	    <div class="col-md-3">
-			<%= submit_tag "Search", :name => nil, :class=> "btn btn_margin" %>
+			<%= submit_tag "Search", :name => nil, :class=> "btn btn_margin form-control" %>
 		</div>
 
 	

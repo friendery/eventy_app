@@ -1,81 +1,157 @@
 <div class="hero-unit" >
   <% provide(:title, "Edit user") %>
-  <h1>Update your profile</h1>
+  
 
-  <div class="row">
-    <div class="span6 offset3">
-      <%= form_for(@user) do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
 
-        <%= f.label :name, class: 'required' %>
-        <%= f.text_field :name %>
+  <div class="row" id="list_items">
+    <div class="widget">
+    <h2 class="bg-primary innerAll half border-bottom margin-none">Update your profile</h2>
 
-        <%= f.label :email, class: 'required'  %>
-        <%= f.text_field :email %>
+      <div class="widget-body">
 
-        <%= f.label :password, class: 'required'  %>
-        <%= f.password_field :password %>
 
-        <%= f.label :password_confirmation, "Confirm Password",  class: 'required'  %>
-        <%= f.password_field :password_confirmation %>
-		
-		<%= f.label :photo %>
-		<%= f.file_field :photo %>
-		
-        <%= f.label :hobby %>
-        <%= f.text_field :hobby %>
-		
-        <%= f.label :date_of_birth %>
-        <div id="datetimepicker1" class="input-append date">
-          <!--<input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input> -->
-          <%= f.text_field :DOB, :as => :datetime_picker, :readonly => true %>
-          <span class="add-on">
-            <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphw">
-            </i>
-          </span>
-        </div>
-  	  <script type="text/javascript">
-          $(function() {
-            $('#datetimepicker1').datetimepicker({
-              language: 'pt-BR',
-              pickTime: false ,
-              pickSeconds: false,
-              format: 'yyyy-MM-dd',
-            });
-          });
-        </script>
-		
-        <%= f.label :gender %>
-		<div class="row-fluid">
-			<div class = "span3">
-        		<%= f.radio_button(:gender, "Male") %>
-				<%= label_tag(:gender_male, "Male") %>
-			</div>
-			<div class = "span3">
-       		 	<%= f.radio_button(:gender, "Female") %>
-				<%= label_tag(:gender_female, "Female") %>
-			</div>
-		</div>
-		
-        <%= f.label :address %>
-        <%= f.text_field :address %>
-		
-        <%= f.label :nationality %>
-        <%= f.text_field :nationality %>
-		
-        <%= f.label :mobile %>
-        <%= f.text_field :mobile %>
-		
-        <%= f.label :occupation %>
-        <%= f.text_field :occupation %>
-		
-        <%= f.label :personal_webpage %>
-        <%= f.text_field :webpage %>
-		
-        <%= f.label :self_introduction %>
-        <%= f.text_area :self_intro %>
 
-        <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
-      <% end %>
+        <%= form_for @user, :html => {:class => "form-horizontal", :role => "form"} do |f| %>
+          <%= render 'shared/error_messages', object: f.object %>
+
+<!--             <div class="form-group">
+                <label class="col-sm-4 control-label">User</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static">mosaicpro</p>
+                </div>
+            </div> -->
+
+
+            <div class="form-group">
+                <%= f.label :photo, class: 'required col-sm-4 control-label'  %>
+                <div class="col-sm-8">
+                    <%= image_tag(@user.photo_url(:standard), :class => "media-object") %>
+                    <%= f.file_field :photo %>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :name, class: 'required col-sm-4 control-label'  %>
+                <div class="col-sm-8">
+                    <%= f.text_field :name, :class => "form-control" %>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :email, class: 'required col-sm-4 control-label'  %>
+                <div class="col-sm-8">
+                    <%= f.email_field :email, :class => "form-control" %>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :password, class: 'required col-sm-4 control-label'  %>
+                <div class="col-sm-8">
+                    <%= f.password_field :password, :class => "form-control" %>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :password_confirmation, class: 'required col-sm-4 control-label'  %>
+                <div class="col-sm-8">
+                    <%= f.password_field :password_confirmation, :class => "form-control" %>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :hobby, class: 'required col-sm-4 control-label'  %>
+                <div class="col-sm-8">
+                    <%= f.text_field :hobby, :class => "form-control" %>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <%= f.label :date_of_birth, class: 'required col-sm-4 control-label'  %>
+                <div class="col-sm-8">
+                    <div id="dobPickerDiv" class="input-append date">
+                      <%= f.text_field :DOB, :readonly => true, :class => "form-control" %>
+                      <span class="add-on">
+                        <i data-time-icon="icon-time" data-date-icon="icon-calendar" class="glyphw">
+                        </i>
+                      </span>
+                    </div>
+                    <script type="text/javascript">
+                        $(function() {
+                          $('#user_DOB').datepicker({
+                            format: "yyyy-mm-dd"
+                          });
+                        });
+                    </script>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :gender, class: 'required col-sm-4 control-label'  %>
+                <div class="col-sm-8">
+                  <div class="row">
+                    <div class = "col-sm-2">
+                      <%= f.radio_button(:gender, "Male") %>
+                      <%= label_tag(:gender_male, "Male") %>
+                    </div>
+                    <div class = "col-sm-2">
+                      <%= f.radio_button(:gender, "Female") %>
+                      <%= label_tag(:gender_female, "Female") %>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :address, class: 'required col-sm-4 control-label'  %>
+                <div class="col-sm-8">
+                    <%= f.text_field :address, :class => "form-control" %>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <%= f.label :nationality, class: 'required col-sm-4 control-label'  %>
+                <div class="col-sm-8">
+                    <%= f.text_field :nationality, :class => "form-control" %>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :mobile, class: 'required col-sm-4 control-label'  %>
+                <div class="col-sm-8">
+                    <%= f.text_field :mobile, :class => "form-control" %>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :occupation, class: 'required col-sm-4 control-label'  %>
+                <div class="col-sm-8">
+                    <%= f.text_field :occupation, :class => "form-control" %>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <%= f.label :personal_webpage, class: 'required col-sm-4 control-label'  %>
+                <div class="col-sm-8">
+                    <%= f.text_field :webpage, :class => "form-control" %>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <%= f.label :self_introduction, class: 'required col-sm-4 control-label'  %>
+                <div class="col-sm-8">
+                    <%= f.text_area :self_intro, :class => "form-control" %>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-6">
+                    <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+                </div>
+            </div>
+        <% end %>
+      </div>
     </div>
   </div>
+
