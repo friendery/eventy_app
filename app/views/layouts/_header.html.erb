@@ -107,19 +107,31 @@
                 <%end%>
                 <ul class="dropdown-menu list pull-right">
                   <li>
+					<div class='row'>
                     <%= link_to(current_user) do%>
-                      Profile<i class="fa fa-user pull-right"></i>
+					  <div class="col-sm-1"></div>
+					  <div class="col-sm-7">Profile</div>
+					  <div class="col-sm-3"><i class="fa fa-user"></i></div>
                     <%end%>
+					</div>
                   </li>
                   <li>
+					<div class='row'>
                     <%= link_to(edit_user_path(current_user)) do%>
-                      Settings<i class="fa fa-pencil pull-right"></i>
+					  <div class="col-sm-1"></div>
+					  <div class="col-sm-7">Settings</div>
+					  <div class="col-sm-3"><i class="fa fa-pencil"></i></div>
                     <%end%>
+					</div>
                   </li>
                   <li>
+					 <div class='row'>
                      <%= link_to(signout_path, {method: "delete"}) do%>
-                      Sign out<i class="fa fa-sign-out pull-right"></i>
+					  <div class="col-sm-1"></div>
+ 					  <div class="col-sm-7">Sign out</div>
+ 					  <div class="col-sm-3"><i class="fa fa-sign-out"></i></div>
                     <%end%>
+					</div>
                   </li>
                 </ul>
             </li>
