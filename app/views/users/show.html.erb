@@ -1,47 +1,63 @@
 <div class="hero-unit" >
 	<% provide(:title, @user.name)%>
 
-  <div class="row" id="list_items">
-	  <div class="widget">
-		<h2 class="bg-primary innerAll half border-bottom margin-none"><%= @user.name %></h2>
+    <div class="row" id="list_items">
+  		<div class="widget">
+  		<h2 class="bg-primary innerAll half border-bottom margin-none"><%= @user.name %></h2>
 
-		  <div class="widget-body">
+  			<div class="widget-body">
 
-			  	<div class="media">
-				  <a class="pull-left" href="#">
-				  	<%= image_tag(@user.photo_url(:standard), :class => "media-object") %>
-				  </a>
-				  <div class="media-body">
-				    <h4 class="media-heading">Media heading</h4>
+  			  	<div class="media">
+  					<a class="pull-left" href="#">
+  						<%= image_tag(@user.photo_url(:standard), :class => "media-object") %>
+  					</a>
+  					<div class="media-body">
+  					    <h3 class="media-heading">Profile</h3>
 
-				    <% unless current_user?(@user) %>
-						<% status = @user.friend?(current_user.id) %>
-						<% if status == 'approved' %>
-					    	<small class="text-success"><i class="fa fa-check"></i> Friend</small>
-						<% elsif status == 'request' %>
-							<small class="text-muted"><i class="fa fa-spinner"></i> Pending</small>
-						<% else %>
-							<small class="text-danger"><i class="fa fa-heart"></i> Stranger</small>
-						<% end %>
-					<% end %>
-					
-					<%= @user.hobby %>
-					<%= @user.DOB %>
-					<%= @user.gender %>
-					<%= @user.nationality %>
-					<%= @user.mobile %>
-					<%= @user.occupation %>
-					<%= @user.address %>
-					<%= @user.webpage %>
-					<%= @user.self_intro %>
-
-				  </div>
-				</div>
-					
-				
-			</div>
-		</div>
-	</div>
+  					    <% unless current_user?(@user) %>
+  							<% status = @user.friend?(current_user.id) %>
+  							<% if status == 'approved' %>
+  						    	<div class="text-success"><i class="fa fa-check"></i> Friend</div>
+  							<% elsif status == 'request' %>
+  								<div class="text-muted"><i class="fa fa-spinner"></i> Pending</div>
+  							<% else %>
+								<%= link_to "Add Friend", friendships_path(:friend_id => @user.id), 
+														  class: 'btn btn-primary', :method => :post %>
+  							<% end %>
+  						<% end %>
+						<div class="row">
+							<div class="col-md-4"><i class="fa fa-heart fa-1x"></i> Hobby: <%= @user.hobby %></div>
+							<div class="col-md-4"><i class="fa fa-fw fa-calendar fa-1x"></i> Birthday: <%= @user.DOB %></div>
+							<div class="col-md-4">
+							<% if @user.gender == 'Female' %>
+								<i class="fa fa-female fa-1x"></i> Gender: <%= @user.gender %>
+							<% elsif @user.gender == 'Male' %>
+								<i class="fa fa-male fa-1x"></i> Gender: <%= @user.gender %>
+							<% else %>
+								<i class="fa fa-question fa-1x"></i> Gender: unknown
+							<% end %>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4"><i class="fa fa-globe fa-1x"></i> Nationality: <%= @user.nationality %></div>
+							<div class="col-md-4"><i class="fa fa-phone fa-1x"></i> Mobile: <%= @user.mobile %></div>
+							<div class="col-md-4"><i class="fa fa-trophy fa-1x"></i> Occupation: <%= @user.occupation %></div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4"><i class="fa fa-html5 fa-1x"></i> Website: <%= @user.webpage %></div>
+							<div class="col-md-8"><i class="fa fa-home fa-1x"></i> Address: <%= @user.address %></div>
+						</div>
+  						
+						<div clas="row">
+							<%= @user.self_intro %>
+  						</div>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
 
   <div class="relativeWrap">
   	<div class="widget widget-tabs widget-tabs-double-2 widget-tabs-responsive">
@@ -56,48 +72,59 @@
   			<div class="tab-content">
   				<div id="createdEvt" class="tab-pane widget-body-regular active">
   					<p>
-							<% if @user.events.any? %>
-								<ul class="timeline-activity list-unstyled">
-									<%@user.events.each do |event|%>
-										<li>
-											<i class="list-icon fa fa-share"></i>
-											<div class="block block-inline">
-												<div class="caret"></div>
-												<div class="box-generic">
-													<!--event title start-->
-													<div class="timeline-top-info content-filled border-bottom">
-														<div class="event-title"><%= link_to event.title, event%></div>
-														<div class="timeline-bottom">
-															<i class="fa fa-clock-o"></i> <%= time_ago_in_words(event.created_at) %> ago.
-															<% if current_user?(event.user) %>
-														  	<%= link_to "delete", event, method: :delete,
-																						 data: { confirm: "You sure?" },
-																						 title: event.title, class: 'btn btn-primary' %>
-														  <% end %>
-														</div>
-													</div>
-													<!--event title end-->
-													<!--event content start-->
-													<div class="media innerAll margin-none">
-												        <div class="row">
-													        <div class="col-md-4">
-													        	<div><%=image_tag 'evt-pic.jpg', width: '200', height: '200'%></div>
-													        	<%#=link_to image_tag(event.avatar_url(:thumbnail)), event, class: 'pull-left'%></div>
-													        <div class="col-md-8">
-													        	<div class="media-body">
-													          	<%= event.description %>
-													          </div>
-													        </div>
-												      	</div>
-												  </div>
-												  <!--event content end-->
+					<% if @user.events.any? %>
+						<ul class="timeline-activity list-unstyled">
+							<%@user.events.each do |event|%>
+								<li>
+									<i class="list-icon fa fa-share"></i>
+									<div class="block block-inline">
+										<div class="caret"></div>
+										<div class="box-generic" style="width: 600px">
+											<!--event title start-->
+											<div class="timeline-top-info content-filled border-bottom">
+												<div class="event-title"><%= link_to event.title, event%></div>
+												<div class="timeline-bottom">
+													<i class="fa fa-clock-o"></i> <%= time_ago_in_words(event.created_at) %> ago.
+													<% if current_user?(event.user) %>
+												  	<%= link_to "delete", event, method: :delete,
+																				 data: { confirm: "You sure?" },
+																				 title: event.title, class: 'btn btn-primary pull-right' %>
+												  <% end %>
 												</div>
 											</div>
-										</li>
-									<%end%>
-								</ul>
+											<!--event title end-->
+											<!--event content start-->
+											<div class="media innerAll margin-none">
+										        <div class="row">
+											        <div class="col-md-3 pull-left">
+											        	<%=link_to image_tag(event.avatar_url(:thumbnail)), event %>
+													</div>
+													<div class="col-md-9">
+														<div class="col-md-6">
+															<i class="fa fa-fw fa-calendar fa-1x"></i>
+															<%= event.date %>
+															<%= event.time %>
+														</div>
+														<div class="col-md-6">
+															<i class="fa fa-fw fa-map-marker fa-1x"></i>
+															<%= event.region %>
+														</div>
+														<div class="row" style="margin-left: 0px">
+															<div class="col-md-12">
+												    			<%= event.description%>
+															</div>
+														</div>
+													</div>
+										      	</div>
+										  </div>
+										  <!--event content end-->
+										</div>
+									</div>
+								</li>
 							<%end%>
-					  </p>
+						</ul>
+					<%end%>
+					</p>
 					</div>
 
 					<div id="joinedEvt" class="tab-pane widget-body-regular">
@@ -109,16 +136,16 @@
 											<i class="list-icon fa fa-share"></i>
 											<div class="block block-inline">
 												<div class="caret"></div>
-												<div class="box-generic">
+												<div class="box-generic" style="width: 600px">
 													<!--event title start-->
 													<div class="timeline-top-info content-filled border-bottom">
-														<div class="event-title"><%= link_to event.title, event%></div>
+														<div class="event-title" id="list_items"><%= link_to event.title, event%></div>
 														<div class="timeline-bottom">
 															<i class="fa fa-clock-o"></i> <%= time_ago_in_words(event.created_at) %> ago.
 															<% if current_user?(event.user) %>
 														  	<%= link_to "delete", event, method: :delete,
 																						 data: { confirm: "You sure?" },
-																						 title: event.title, class: 'btn btn-primary' %>
+																						 title: event.title, class: 'btn btn-primary pull-right' %>
 														  <% end %>
 														</div>
 													</div>
@@ -126,14 +153,25 @@
 													<!--event content start-->
 													<div class="media innerAll margin-none">
 												        <div class="row">
-													        <div class="col-md-4">
-													        	<div><%=image_tag 'evt-pic.jpg', width: '200', height: '200'%></div>
-													        	<%#=link_to image_tag(event.avatar_url(:thumbnail)), event, class: 'pull-left'%></div>
-													        <div class="col-md-8">
-													        	<div class="media-body">
-													          	<%= event.description %>
-													          </div>
-													        </div>
+													        <div class="col-md-3 pull-left">
+													        	<%=link_to image_tag(event.avatar_url(:thumbnail)), event %>
+															</div>
+															<div class="col-md-9">
+																<div class="col-md-6">
+																	<i class="fa fa-fw fa-calendar fa-1x"></i>
+																	<%= event.date %>
+																	<%= event.time %>
+																</div>
+																<div class="col-md-6">
+																	<i class="fa fa-fw fa-map-marker fa-1x"></i>
+																	<%= event.region %>
+																</div>
+																<div class="row" style="margin-left: 0px">
+																	<div class="col-md-12">
+														    			<%= event.description%>
+																	</div>
+																</div>
+															</div>
 												      	</div>
 												  </div>
 												  <!--event content end-->

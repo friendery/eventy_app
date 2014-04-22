@@ -11,19 +11,16 @@
       	  <% @friend = User.find_by(id: f.friend_id) %>
 			    <div class="col-md-6 bg-white border-bottom ">
 	     			<div class="row">
-
 					    <div class="col-sm-9">
 						    <div class="media">
 							    <a class="pull-left" href="#">
-								    <%=image_tag 'person.jpg', class:"media-object", width: "100", height: "109"%>
+								    <%= image_tag @friend.photo_url(:icon), class:"media-object", width: "100", height: "109" %>
 							    </a>
 							    <div class="media-body innerAll half">
+									<h4 class="media-heading padding-none"><%= link_to @friend.name, @friend %></h4>
+									<p><%= @friend.email%></p>
 							    	<%unless f.status == 'request'%>
-									    <h4 class="media-heading padding-none">
-									    	<%= link_to @friend.name, @friend %>
-									    </h4>
 									    <small class="text-success"><i class="fa fa-check"></i> Friend</small> 
-								      <p><%= @friend.email%></p>
 								    <%end%>
 
 							    </div>
@@ -31,13 +28,13 @@
 					    </div>
 
 					    <div class="col-sm-3 ">
-						    <div class="innerAll half text-right">
+						    <div class="innerAll half">
 						    	<% if f.status == 'request' %>
 								    <div class="innerT half">
-									    Pending for <%= link_to @friend.name, @friend, class: 'btn btn-info btn-xs' %> approval
+									    Pending.
 								    </div>
 							    <%else%>
-								    <div class="innerT half">
+								    <div class="innerT half  text-right">
 								    	<%= link_to "Unfriend", friendship_path(:inverse => 'false', :id => f.id), class: 'btn btn-primary btn-xs margin-top ', :method => :delete %>
 								    </div>
 							    <%end%>
@@ -58,11 +55,11 @@
 								    <%= image_tag @friend.photo_url(:icon), class:"media-object", width: "100", height: "109" %>
 							    </a>
 							    <div class="media-body innerAll half">
-									    <h4 class="media-heading padding-none">
-									    	<%= link_to @friend.name, @friend %>
-									    </h4>
-									    <small class="text-success"><i class="fa fa-check"></i> Friend</small> 
-								      <p><%= @friend.email%></p>
+								    <h4 class="media-heading padding-none"><%= link_to @friend.name, @friend %></h4>
+									<% if f.status == 'approved'%>
+								    <small class="text-success"><i class="fa fa-check"></i> Friend</small>
+									<% end %>
+							      	<p><%= @friend.email%></p>
 							    </div>
 						    </div>
 					    </div>
@@ -72,7 +69,7 @@
 						    	<% if f.status == 'request' %>
 								    <div class="innerT half">
 									    <%= link_to "Approve", friendship_path(:status => 'approved', :id => f.id), class: 'btn btn-info btn-xs', :method => :patch %>
-			                <%= link_to "Reject", friendship_path(:inverse => 'true', :id => f.id), class: 'btn btn-info btn-xs', :method => :delete %>
+			                			<%= link_to "Reject", friendship_path(:inverse => 'true', :id => f.id), class: 'btn btn-info btn-xs', :method => :delete %>
 								    </div>
 							    <%else%>
 								    <div class="innerT half">
