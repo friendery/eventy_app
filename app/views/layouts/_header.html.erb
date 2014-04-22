@@ -72,6 +72,7 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right hidden-xs">
+		  <li><%= link_to "Explore", explore_path, class: 'menu-icon' %></li>
           <% if signed_in? %>
             
             <li>
@@ -89,13 +90,13 @@
                 <%end%>
             </li>
           <% end %>
-          <li><%= link_to "Explore", explore_path, class: 'menu-icon' %></li>
+         
 
           <% if signed_in? %>
             <% if current_user.admin? %>
-              <li><%= link_to "Users", users_path, class: 'menu-icon' %></li>
+              <li><%= link_to "Users", users_path, class: 'menu-icon' %></i></li>
             <% end %>
-              <li><%= link_to "Friends", friendships_path, class: 'menu-icon' %></li>      
+              <li><%= link_to(friendships_path, {class: 'menu-icon'}) do %><i class="fa fa-users"></i><% end %></li>      
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% end %>

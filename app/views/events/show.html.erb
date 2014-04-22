@@ -7,11 +7,17 @@
     	<div class="col-md-6">
     		<div class="widget">
     			<h4 class="bg-primary innerAll half border-bottom margin-none"><%= @event.title %></h4>
-    			<div class="widget-body padding-none">
+    			<div class="widget-body padding-none row">
+					<div class="col-md-4">
 					<%= link_to image_tag(@event.avatar_url(:standard)), @event %>
 				    <%#=image_tag "event-pic.jpg", class:"img-responsive"%>
 				    <%#= link_to image_tag(@event.avatar_url(:standard)), @event %>
+					</div>
+					<div>
+						<small class="label label-default">Quota: <%= @event.capacity %></small>
+					</div>
 			    </div>
+				
     		</div>
 			
     		<div class="widget">
@@ -96,7 +102,7 @@
 							<p class="strong lead margin-none"><%= @event.region %></p>
 							<p class="strong margin-none"><%= @event.street  %></p>
 						</div>
-						<div class="map_canvas" style="width:365px; height:200px"></div>
+						<div class="map_canvas" style="margin-left: 0px; width:450px; height:200px"></div>
 					</div>
 				</div>
 
@@ -117,10 +123,7 @@
 
 	    <div class="row" id="event_comments">
 	    	<div class="widget">
-						<div class="innerAll half border-bottom">
-							<!-- <a href="" class="btn btn-primary btn-xs pull-right"><i class="fa fa-plus-circle"></i></a> -->
-							<h4 class="margin-none padding-none">Comments</h4>
-						</div>
+				<h4 class="bg-primary innerAll half border-bottom margin-none">Comments</h4>
 						<% if @event.comments.count > 0 %>
 					    <%@event.comments.each do |comment|%>
 						    <% @user = User.find_by(id: comment.user_id) %>
@@ -128,7 +131,7 @@
 									<%= link_to image_tag(@user.photo_url(:icon), class: 'img-responsive img-circle'), @user, class: 'pull-left' %>
 									<div class="media-body">
 										<small class="strong pull-right"><%= time_ago_in_words(comment.created_at) %> ago</small>
-										<h5><%= link_to @user.name, @user %></h5>
+										<div id="list_items"><h5><%= link_to @user.name, @user %></h5></div>
 										<p><%= comment.comment %></p>
 										<% if comment.user_id == current_user.id %>
 										  <p class="label label-info"><%= link_to 'Delete Comment', [comment.event, comment],method: :delete,data: { confirm: 'Are you sure?' } %></p>
