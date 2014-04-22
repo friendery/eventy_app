@@ -1,4 +1,4 @@
 <%= form_tag( { :controller => 'users', :action => 'search' }, {:method => 'get', :class => 'navbar-search'} ) do %>
-<%= text_field_tag :search, params[:search], :id => 'search_field', :class => 'search-query',  :placeholder => "Search"%>
+	<%= text_field_tag :search, params[:search], :id => 'search_field', :class => 'search-query',  :placeholder => "Search"%>
 <!--<%= submit_tag "Search", :name => nil %> -->
 <% end %>

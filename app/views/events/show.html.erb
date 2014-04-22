@@ -1,25 +1,61 @@
   <!-- load geocomplete api -->
-  <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&location_type=ROOFTOP&result_type=administrative_area_level_1&language=en"></script>-->
+  <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&location_type=ROOFTOP&result_type=administrative_area_level_1&language=en"></script>
 
   <div class="hero-unit" >
 	<% provide(:title, @event.title)%>
     <div class="row" id="event_detail">
     	<div class="col-md-6">
     		<div class="widget">
-    			<h4 class="innerAll half margin-none border-bottom"><%= @event.title %></h4>
+    			<h4 class="bg-primary innerAll half border-bottom margin-none"><%= @event.title %></h4>
     			<div class="widget-body padding-none">
-				    <%=image_tag "event-pic.jpg", class:"img-responsive"%>
+					<%= link_to image_tag(@event.avatar_url(:standard)), @event %>
+				    <%#=image_tag "event-pic.jpg", class:"img-responsive"%>
 				    <%#= link_to image_tag(@event.avatar_url(:standard)), @event %>
+			    </div>
+    		</div>
+			
+    		<div class="widget">
+    			<h4 class="bg-primary innerAll half border-bottom margin-none">Description</h4>
+    			<div class="widget-body padding-none">
 				    <div class="description">
 						  <p><%= @event.description %></p>					
 				    </div>
 			    </div>
     		</div>
+			
+    		<div class="widget">
+				<h4 class="bg-primary innerAll half border-bottom margin-none">Rate</h4>
+				<div class="border-bottom">
+			  		<div class="innerAll half">
+			  			<% if @event.eventjoinings.find_by(user_id: current_user.id) %>
+						  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
+							<% if @event.average_rate == 0%>
+									<span class="badge badge-primary pull-right">0</span>  <div id="event_star"></div>
+							<% else %>
+					  			<span class="badge badge-primary pull-right"><%= @event.rates.count%></span> <div id="event_star"></div>
+							<% end %>
+						  <% end %>
+						<% end %>		  			
+			  		</div>
+			  </div>
+			</div>
+			
+			<div class="widget">
+				<h4 class="bg-primary innerAll half border-bottom margin-none">Members</h4>
+				<div class="border-bottom">
+			  		<div class="innerAll half">
+			  			<%=link_to members_event_path(@event) do%>
+			  				<span class="badge badge-primary pull-right"><%= @event.eventjoinings.count %></span> Attending
+			  			<%end%>				  			
+			  		</div>
+			  </div>
+			</div>
     	</div>
+		
 
     	<div class="col-md-6 col-lg-6">
     		<div class="widget">
-					<h4 class="border-bottom margin-none innerAll half">Creator</h4>
+					<h4 class="bg-primary innerAll half border-bottom margin-none">Creator</h4>
 					<div class="border-bottom">
 				  		<div class="innerAll half">
 				  			<% @creator = User.find_by(id: @event.user_id)%>
@@ -31,74 +67,51 @@
 				  </div>
 				</div>
 
+    		
+
     		<div class="widget">
-					<h4 class="border-bottom margin-none innerAll half">Rate</h4>
-					<div class="border-bottom">
-				  		<div class="innerAll half">
-				  			<% if @event.eventjoinings.find_by(user_id: current_user.id) %>
-								  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
-												<% if @event.average_rate == 0%>
-														<span class="badge badge-primary pull-right">0</span>  <div id="event_star"></div>
-												<% else %>
-										  			<span class="badge badge-primary pull-right"><%= @event.rates.count%></span> <div id="event_star"></div>
-												<% end %>
-								  <% end %>
-								<% end %>		  			
-				  		</div>
-				  </div>
+				<h4 class="bg-primary innerAll half border-bottom margin-none">Event Date & Time</h4>
+				<div div class="media-body">
+					<div class="media innerAll half margin-none">
+						<div class="pull-left">
+							<i class="fa fa-fw fa-calendar fa-3x"></i>
+						</div>
+						<div class="media-body">
+							<p class="strong lead margin-none"><%= @event.date %></p>
+							<p class="strong margin-none"><%= @event.time %></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="widget">
+				<h4 class="bg-primary innerAll half border-bottom margin-none">Location</h4>
+				<div class="innerAll half bg-gray border-bottom">
+					<div class="media innerAll half margin-none">
+						<div class="pull-left">
+							<i class="fa fa-fw fa-map-marker fa-3x"></i>
+						</div>
+						<div class="media-body">
+							<input id="geocomplete" type="hidden" placeholder="Type in an address" size="90" />
+							<p class="strong lead margin-none"><%= @event.region %></p>
+							<p class="strong margin-none"><%= @event.street  %></p>
+						</div>
+						<div class="map_canvas" style="width:365px; height:200px"></div>
+					</div>
 				</div>
 
-    		<div class="widget">
-					<h4 class="bg-primary innerAll half border-bottom margin-none">Event</h4>
-					<div class="innerAll half bg-primary border-bottom">
-						<div class="media innerAll half margin-none">
-							<div class="pull-left">
-								<i class="fa fa-fw fa-calendar fa-3x"></i>
-							</div>
-							<div class="media-body">
-								<p class="strong lead margin-none"><%= @event.date %></p>
-								<p class="strong margin-none"><%= @event.time %></p>
-							</div>
-						</div>
-					</div>
-
-					<div class="innerAll half bg-gray border-bottom">
-						<div class="media innerAll half margin-none">
-							<div class="pull-left">
-								<i class="fa fa-fw fa-map-marker fa-3x"></i>
-							</div>
-							<div class="media-body">
-								<input id="geocomplete" type="hidden" placeholder="Type in an address" size="90" />
-								<p class="strong lead margin-none"><%= @event.region %></p>
-								<p class="strong margin-none"><%= @event.street  %></p>
-								<div class="map_canvas"></div>
-							</div>
-						</div>
-					</div>
-
-					<div class="innerAll text-center half">
-						<div class="btn-group">
-							<%= render 'join_form' if signed_in? %>
-							<% if current_user?(@event.user) %>
+				<div class="innerAll text-center half">
+					<div class="row">
+						<%= render 'join_form' if signed_in? %>
+						<% if current_user?(@event.user) %>
+						<div class="col-md-6">
 						  	<%= link_to "edit", edit_event_path, class: "btn btn-default" %>
-							<% end %>
 						</div>
+						<% end %>
 					</div>
 				</div>
-
-				<div class="widget">
-					<h4 class="border-bottom margin-none innerAll half">Members</h4>
-					<div class="border-bottom">
-				  		<div class="innerAll half">
-				  			<%=link_to members_event_path(@event) do%>
-				  				<span class="badge badge-primary pull-right"><%= @event.eventjoinings.count %></span> Attending
-				  			<%end%>				  			
-				  		</div>
-				  </div>
-				</div>
-
+			</div>
     	</div>
-
     </div>
     
 
@@ -155,11 +168,11 @@
 
       <% if @event.eventjoinings.find_by(user_id: current_user.id) %>
 			  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
-			    <div class="widget row widget-inverse">
+			    <div class="widget">
 						<!-- Widget heading -->
-						<div class="widget-head">
-							<h4 class="heading">Add a comment:</h4>
-						</div>
+						
+							<h4 class="bg-primary innerAll half border-bottom margin-none">Add a comment:</h4>
+						
 						<!-- // Widget heading END -->				
 						<div class="widget-body">
 							<%= form_for([@event, @event.comments.build(user_id: current_user.id, event_id: @event.id)], html: {class: "form-horizontal", role: "form"}) do |f| %>
@@ -198,7 +211,7 @@
 
 
 	$(function(){
-    var event_location = "<%= @event.street  %>";
+    var event_location = "<%= @event.street%>";
 		var available_regions = ["Kowloon", "Hong Kong Island", "New Territories"];
 		var trial = 0; // workaround for sometimes search by click doesn't work
 

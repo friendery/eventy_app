@@ -1,13 +1,13 @@
-<h3>Top Creators</h3>
 <% @user.each do |f| %>
 	<% if f.events.count >= 1 %>
-			<div class="row-fluid">
+			<div class="media innerLR border-bottom" style="padding-bottom: 20px;">
 				  <%= image_tag f.photo_url(:icon) %>
 				  <%= link_to f.name, f %>
-		  		Rate: 
-		  		<%= f.rate %>
+				<div class="pull-right">
+		  			Rate: 
+		  			<%= f.rate %>
+				</div>
 			</div>
 	<% else %>
 	<% end %>
-	<br>
 <% end %>

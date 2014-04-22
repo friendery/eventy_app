@@ -4,11 +4,19 @@
 	</div>
 	<br>
 	<br>
-<div class="row-fluid">
-	<div id="what_new" class="span8">
-		<%= render 'events/whatsnew' %>
+<div class="row" id="list_items">
+	<div id="what_new" class="col-md-8">
+		<div class="widget">
+			<h3 class="bg-primary innerAll half border-bottom margin-none">What's new</h4>
+			<%= render 'events/whatsnew' %>
+		</div>
 	</div>
-	<div id="top_creator" class="span4">
-		<%= render 'users/top_creator' %>
+	<div id="top_creator" class="col-md-4">
+		<div class="widget">
+			<h3 class="bg-primary innerAll half border-bottom margin-none">Top creator</h4>
+				
+			<%= render 'users/top_creator' %>
+			
+		</div>
 	</div>
 </div>

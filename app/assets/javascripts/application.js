@@ -22,6 +22,8 @@
 //= require raty.min.js
 //= require pusher.min.js
 //= require bootstrap-fileupload
+//= require select2.js
+//= require select2.init.js
 
 // today button
 $(function(){

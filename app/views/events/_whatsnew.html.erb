@@ -1,7 +1,6 @@
-<h3>What's new</h3>
 <% @event.each do |f| %>
 	  <%#= link_to image_tag(f.avatar_url(:thumbnail)), f %>
-	  <div>Image</div>
+	  <!-- <div>Image</div>
 	  <br>
 	  <%= link_to f.title, f %>
 	  <br>
@@ -10,6 +9,38 @@
 	  <span class="timestamp">
 	    Posted <%= time_ago_in_words(f.created_at) %> ago.
 	  </span>
-	  <br>
+	  <br> -->
+	<div class="media innerLR border-bottom">
+	  	<div class="pull-left media-object" style="width:100px">
+			<div class="text-center">
+				<a href="#" class="clearfix">
+					<%= link_to image_tag(f.avatar_url(:thumbnail), class:"rounded-none"), f %>
+					<%#= image_tag 'person.jpg', class: 'rounded-none'%>
+				</a>
+				<small class="text-small"><%= link_to f.title, f%></small>
+			</div>
+		</div>
+		<div class="media-body">
+			<small class="pull-right label label-default" style="margin-left: 3px"><%= time_ago_in_words(f.created_at) %> ago</small>
+			<small class="pull-right label label-default">Quota: <%= f.capacity %></small>
+			<h5><a href="" class="text-inverse"><%= link_to f.user.name, f.user%></a></h5>
+			<div class="row" style="margin-left: 0px">
+				<div class="col-md-6">
+					<i class="fa fa-fw fa-calendar fa-1x"></i>
+					<%= f.date %>
+					<%= f.time %>
+				</div>
+				<div class="col-md-6">
+					<i class="fa fa-fw fa-map-marker fa-1x"></i>
+					<%= f.region %>
+				</div>
+			</div>
+			<div class="row" style="margin-left: 0px">
+				<div class="col-md-12">
+	    			<%= f.description%>
+				</div>
+			</div>
+		</div>
+	</div>
 <% end %>
 <%= will_paginate @event %>

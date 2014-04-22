@@ -15,8 +15,8 @@ class Event < ActiveRecord::Base
   #validates :region,      presence: true
   
   belongs_to :user
-  #TODO
-  #mount_uploader :avatar, PictureUploader
+
+  mount_uploader :avatar, PictureUploader
   #mount_uploader :avatar, AvatarUploader
   
   def join?(join_user)

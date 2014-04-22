@@ -1,26 +1,32 @@
 <div class="media innerLR border-bottom">
-		  		  	<div class="pull-left media-object" style="width:100px">
-								<div class="text-center">
-									<a href="#" class="clearfix">
-										<%#= link_to image_tag(event.avatar_url(:thumbnail), class:"rounded-none"), event %>
-										<%= image_tag 'person.jpg', class: 'rounded-none'%>
-									</a>
-									<small class="text-small"><%= link_to event.title, event%></small>
-								</div>
-							</div>
-							<div class="media-body">
-								<small class="pull-right label label-default"><%= time_ago_in_words(event.created_at) %> ago</small>
-								<h5><a href="" class="text-inverse"><%= link_to event.user.name, event.user%></a> <span>wrote:</span></h5>
-								<p><%= event.description %></p>
-								<div class="innerB">
-									<small class="text-muted">
-										<% if current_user?(event.user) %>
-									  	<%= link_to "delete", event, method: :delete,
-																	 data: { confirm: "You sure?" },
-																	 title: event.title,
-																	 class: "btn btn-primary delete-event" %>
-									  <% end %>
-									</small>
-								</div>
-							</div>
+  	<div class="pull-left media-object" style="width:100px">
+		<div class="text-center">
+			<a href="#" class="clearfix">
+				<%= link_to image_tag(event.avatar_url(:thumbnail), class:"rounded-none"), event %>
+				<%#= image_tag 'person.jpg', class: 'rounded-none'%>
+			</a>
+			<small class="text-small"><%= link_to event.title, event%></small>
+		</div>
+	</div>
+	<div class="media-body">
+		<small class="pull-right label label-default" style="margin-left: 3px"><%= time_ago_in_words(event.created_at) %> ago</small>
+		<small class="pull-right label label-default">Quota: <%= event.capacity %></small>
+		<h5><a href="" class="text-inverse"><%= link_to event.user.name, event.user%></a></h5>
+		<div class="row" style="margin-left: 0px">
+			<div class="col-md-4">
+				<i class="fa fa-fw fa-calendar fa-1x"></i>
+				<%= event.date %>
+				<%= event.time %>
+			</div>
+			<div class="col-md-5">
+				<i class="fa fa-fw fa-map-marker fa-1x"></i>
+				<%= event.region %>
+			</div>
+		</div>
+		<div class="row" style="margin-left: 0px">
+			<div class="col-md-12">
+    			<%= event.description%>
+			</div>
+		</div>
+	</div>
 </div>
