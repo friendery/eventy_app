@@ -1,22 +1,33 @@
 <div class="hero-unit">
 	<% if signed_in? %>
+	<br>
 	  <div class="row">
-    	<section>
-       		<%= render 'shared/homepage_search' %>
-    	</section>
+		<section>
+		  <%= render 'shared/homepage_search' %>
+	  	</section>
 	  </div>
-		<div class="row">
-			<div class="col-md-4"></div>
+	  <br>
+	  <div class="row">
+		  <div class="col-md-4"></div>
 		  <div class="col-md-4" id="create_evt"><%= link_to "Create Event!", create_path, class: "btn btn-large centered"%></div>
 		  <div class="col-md-4"></div>
-			
-    </div>
+	  </div>
    	<% else %>
-      <%= render 'shared/homepage_search' %>
-		<br>
+	<br>
+	  <div class="row">
+		<section>
+		  <%= render 'shared/homepage_search' %>
+	  	</section>
+  	  </div>
+	  <br>
+	  <br>
 		<div class="row">
-			<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary centered offset4 span4"%>
-    	</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary centered offset4 span4"%>
+			<div class="col-md-4"></div>
+			<div class="col-md-4"></div>
+		</div>
 	<% end %>
 	
 	
