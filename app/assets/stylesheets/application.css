@@ -11,7 +11,7 @@
 html {
     -webkit-font-smoothing: antialiased !important;
     height: 100%;
-    background: url('/assets/home/home_page_cover_photo_1.jpg') no-repeat center center fixed; 
+    background: url('/assets/blur-bicyle-bg.jpg') no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -728,7 +728,7 @@ a.widget i.display-block {
     background: #fff;
     margin: 0 auto 15px;
     position: relative;
-    border: 1px solid #e6e6e6;
+    border: 2px solid #BA5D32;
 }
 .widget .tab-content {
     padding: 0;
@@ -4739,7 +4739,7 @@ body {
   font-weight: 200;
   line-height: 31.5px;
   color: inherit;
-  background-color: #eeeeee;
+  /*background-color: #eeeeee;*/
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
