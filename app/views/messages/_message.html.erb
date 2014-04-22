@@ -1,6 +1,34 @@
-<div class="message_item">
-  <h3><%= message.subject %></h3>
-  <p>From <%= message.sender.name %> <%= time_ago_in_words(message.created_at) %> ago</p>
-  <p><%= message.body %></p>
-  <%= link_to "Mark as read", message_path(:id => message.id), :method => :patch%>
+<div class="widget-body">
+  <div class="row row-merge">
+    <div class="bg-white border-bottom ">
+		<div class="row">
+		    <div class="col-md-12">
+			  	<div class="pull-left media-object" style="width:100px" id="list_items">
+					<div class="text-center">
+						<a href="#" class="clearfix">
+							<%= link_to image_tag(message.sender.photo_url(:thumbnail), class:"rounded-none"), message.sender %>
+							<%#= image_tag 'person.jpg', class: 'rounded-none'%>
+						</a>
+						<small class="text-small"><%= link_to message.sender.name, message.sender%></small>
+					</div>
+				</div>
+				<div class="media-body">
+					<small class="pull-right label label-default" style="margin-left: 3px">
+						<%= time_ago_in_words(message.created_at) %> ago
+					</small>
+					<div class="row" style="margin-left: 10px">
+						<h4 class="media-heading padding-none"><%= message.subject%></h4>
+					</div>
+					<div class="row" style="margin-left: 10px">
+						<%= message.body %>
+					</div>
+				    <div class="innerT half text-right">
+						<%= link_to "Reply", user_path(:id => message.sender.id, :anchor => "sendMsg"), class: 'btn btn-info btn-xs' %>
+				  	    <%= link_to "Delete", message_path(:id => message.id), class: 'btn btn-info btn-xs', :method => :patch%>
+				    </div>
+				</div>
+		    </div>
+	    </div><!--row-->
+    </div>
+  </div>
 </div>

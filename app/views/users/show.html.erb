@@ -63,10 +63,22 @@
   	<div class="widget widget-tabs widget-tabs-double-2 widget-tabs-responsive">
   		<div class="widget-head">
   			<ul>
-					<li class="active"><a class="glyphicons list" href="#createdEvt" data-toggle="tab"><i></i><span>Created Events (<%= @user.events.count %>):	</span></a></li>
-					<li class=""><a class="glyphicons user" href="#joinedEvt" data-toggle="tab"><i></i><span>Joined Events (<%= @user.joinedevents.count %>):</span></a></li>
-					<li class=""><a class="glyphicons user" href="#sendMsg" data-toggle="tab"><i></i><span>Send Message</span></a></li>
-				</ul>
+				<li class="active">
+					<a class="glyphicons list" href="#createdEvt" data-toggle="tab">
+						<span>Created Events (<%= @user.events.count %>):</span>
+					</a>
+				</li>
+				<li class="">
+					<a class="glyphicons user" href="#joinedEvt" data-toggle="tab">
+						<span>Joined Events (<%= @user.joinedevents.count %>):</span>
+					</a>
+				</li>
+				<li class="">
+					<a class="glyphicons user" href="#sendMsg" data-toggle="tab">
+						<span>Send Message</span>
+					</a>
+				</li>
+			</ul>
   		</div>
   		<div class="widget-body">
   			<div class="tab-content">

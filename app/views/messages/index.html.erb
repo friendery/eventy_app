@@ -1,8 +1,9 @@
 <div class="hero-unit">
-	<h2>Your messages</h2>
-
-<% if @messages.any? %>
-<%= render :partial => @messages %>
-<% else %>
-<p>How sad, you have no messages.</p>
-<% end %>
+	<div class="widget">
+  	<!-- Widget heading -->
+  	<h2 class="bg-primary innerAll half border-bottom margin-none">Your Messages</h2>
+	<% if @messages.any? %>
+		<%= render :partial => @messages %>
+	<% else %>
+		<p>How sad, you have no messages.</p>
+	<% end %>
