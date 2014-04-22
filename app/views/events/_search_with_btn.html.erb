@@ -17,9 +17,16 @@
 	    
 
 	    <div class="col-md-3">
-			<%= select_tag(:region, options_for_select([['Where', ""], ['Hong Kong Island', "Hong Kong Island"], ['Kowloon', "Kowloon"], ['New Territories', "New Territories"]], :selected => params[:region]), :class => "btn_margin") %>
+			<%= select_tag(:region, options_for_select([['Where', ""], ['Hong Kong Island', "Hong Kong Island"], ['Kowloon', "Kowloon"], ['New Territories', "New Territories"]], :selected => params[:region]), :class => "btn_margin", :id => "region_select") %>
 		</div>
-
+<script src="http://cdn.mosaicpro.biz/shared/components/common/forms/elements/select2/assets/lib/js/select2.js?v=v1.2.4-rc1&sv=v0.0.1.1"></script>
+<script>
+		$("#region_select").select2({
+		    placeholder: "Select a State",
+		    allowClear: true
+		});
+		
+</script>
 
 	    <div class="col-md-3">
 			<%= submit_tag "Search", :name => nil, :class=> "btn btn_margin" %>

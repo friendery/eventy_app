@@ -17,6 +17,7 @@
  *= require bootstrap-datepicker
  *= require bootstrap-timepicker
  *= require fileupload
+ *= require select2
  */
 
 html {
@@ -4894,4 +4895,8 @@ footer ul li {
     margin-left: 150px;
     margin-right: 150px;
     width: 1200px;
+}
+
+.btn_margin {
+    width: 100%;
 }
