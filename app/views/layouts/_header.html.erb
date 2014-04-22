@@ -73,14 +73,19 @@
 
       <ul class="nav navbar-nav navbar-right hidden-xs">
           <% if signed_in? %>
+            
             <li>
-                <%= link_to(notification_messages_path, {class: "menu-icon"}) do %>
-                  Notifications<span  id="notify-count" class="badge badge-primary <% if notify_count == 0 %>hidden<% end %>"><%= notify_count %></span>
+                <%= link_to(messages_path, {class: "menu-icon"}) do %>
+				  <i class="fa fa-fw fa-envelope-o"></i><span  id="message-count" class="badge badge-info <% if msg_count == 0 %>hidden<% end %>">
+					  <%= msg_count %>
+				  </span>
                 <%end%>
             </li>
             <li>
-                <%= link_to(messages_path, {class: "menu-icon"}) do %>
-                  Messages<span  id="message-count" class="badge badge-info <% if msg_count == 0 %>hidden<% end %>"><%= msg_count %></span>
+                <%= link_to(notification_messages_path, {class: "menu-icon"}) do %>
+				  <i class="fa fa-fw fa-exclamation-circle"></i><span  id="notify-count" class="badge badge-primary <% if notify_count == 0 %>hidden<% end %>">
+					  <%= notify_count %>
+				  </span>
                 <%end%>
             </li>
           <% end %>
