@@ -75,12 +75,12 @@
           <% if signed_in? %>
             <li>
                 <%= link_to(notification_messages_path, {class: "menu-icon"}) do %>
-                  Notifications<span class="badge badge-primary"><%= notify_count %></span>
+                  Notifications<span  id="notify-count" class="badge badge-primary <% if notify_count == 0 %>hidden<% end %>"><%= notify_count %></span>
                 <%end%>
             </li>
             <li>
                 <%= link_to(messages_path, {class: "menu-icon"}) do %>
-                  Messages<span class="badge badge-info"><%= msg_count %></span>
+                  Messages<span  id="message-count" class="badge badge-info <% if msg_count == 0 %>hidden<% end %>"><%= msg_count %></span>
                 <%end%>
             </li>
           <% end %>
