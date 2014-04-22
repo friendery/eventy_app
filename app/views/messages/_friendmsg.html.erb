@@ -1,4 +1,4 @@
-<div class="widget-body" id="list_items">
+<div class="widget-body">
   <div class="row row-merge">
   	<% @friendmsg.each do |f| %>
 		<% @friendship = Friendship.find_by(user_id: f.sender_id, friend_id: f.recipient_id)%>
@@ -10,31 +10,30 @@
 					    <a class="pull-left" href="#">
 						    <%= image_tag @friend.photo_url(:thumbnail) %>
 					    </a>
-					    <div class="media-body innerAll half">
-						    <h4 class="media-heading padding-none"><%= link_to @friend.name, @friend %></h4>
-					    </div>
+						<% if f.subject == 'request' %>
+						    <div class="media-body innerAll half", id="list_items">
+								<small class="pull-right label label-default" style="margin-left: 3px"><%= time_ago_in_words(f.created_at) %> ago</small>
+							    <h4 class="media-heading padding-none"><%= link_to @friend.name, @friend %></h4>
+								send you a friend request.
+						    </div>
+						    <div class="innerT half text-right">
+							    <%= link_to "Approve", friendship_path(:status => 'approved', :id => @friendship.id), 
+								                       class: 'btn btn-info btn-xs', :method => :patch %>
+				                <%= link_to "Reject", friendship_path(:inverse => 'true', :id => @friendship.id), 
+								                       class: 'btn btn-info btn-xs', :method => :delete %>
+						    </div>
+						<% else %>
+						    <div class="media-body innerAll half", id="list_items">
+								<small class="pull-right label label-default" style="margin-left: 3px"><%= time_ago_in_words(f.created_at) %> ago</small>
+							    <h4 class="media-heading padding-none"><%= link_to @friend.name, @friend %></h4>
+								has approved your friend request.
+						    </div>
+						<% end %>
+						<%= link_to "Delete", message_path(:id => f.id), class: 'btn btn-info btn-xs', :method => :patch%>
 				    </div>
 			    </div>
 		    </div><!--row-->
 	    </div>
-	  <% end %>
-	</div>
-</div>
-<% @friendmsg.each do |f| %>
-  <% @friendship = Friendship.find_by(user_id: f.sender_id, friend_id: f.recipient_id)%>
-  <div class="message_item">
-    <h3><%= f.subject %></h3>
-    <p>From <%= link_to f.sender.name, f.sender %> <%= time_ago_in_words(f.created_at) %> ago</p>
-	<% if @friendship != nil %>
-	  <% if @friendship.status == 'request' %>
-	    <%= link_to "Approve", friendship_path(:status => 'approved', :id => @friendship.id, :msg_id => f.id), 
-		                                       :method => :patch %>
-	    <%= link_to "Reject", friendship_path(:inverse => 'true', :id => @friendship.id, :msg_id => f.id), 
-		                                      :method => :delete %>
-	  <% else %>
-	    Already approved!
-	  <% end %>
 	<% end %>
-	<%= link_to "Mark as read", message_path(:id => f.id), :method => :patch%>
   </div>
-<% end %>
+</div>

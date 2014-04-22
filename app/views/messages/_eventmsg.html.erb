@@ -1,15 +1,54 @@
-<% @eventmsg.each do |f| %>
-  <% @eventjoining = Eventjoining.find_by(id: f.body) %>
-  <div class="message_item">
-    <h3><%= f.subject %></h3>
-    <p>From <%= link_to f.sender.name, f.sender %> <%= time_ago_in_words(f.created_at) %> ago</p>
-	<% if @eventjoining != nil %>
-	  <% if @eventjoining.status == 'pending' %>
-	    <%= link_to @eventjoining.user.name, @eventjoining.user %> is pending for your approval for <%= link_to @eventjoining.event.title, @eventjoining.event %>. 
-  	    <%= link_to "Approve", eventjoining_path(:status => 'approved', :id => @eventjoining.id), :method => :patch %>
-  	    <%= link_to "Reject", eventjoining_path(:user_id => f.sender_id, :id => @eventjoining.id), :method => :delete %>
-	  <% end %>
+<div class="widget-body">
+  <div class="row row-merge">
+  	<% @eventmsg.each do |f| %>
+		<% @eventjoining = Eventjoining.find_by(id: f.body) %>
+		<% if @eventjoining != nil %>
+		  <% @event = @eventjoining.event %>
+		    <div class="bg-white border-bottom ">
+	 			<div class="row">
+				    <div class="col-md-12">
+					    <div class="media">
+						    <a class="pull-left" href="#">
+							    <%= image_tag @event.avatar_url(:thumbnail) %>
+						    </a>
+							    <div class="media-body innerAll half", id="list_items">
+									<small class="pull-right label label-default" style="margin-left: 3px">
+										<%= time_ago_in_words(f.created_at) %> ago
+									</small>
+									<% if f.subject == 'request' %>
+									    <h4 class="media-heading padding-none">
+											<%= link_to @eventjoining.user.name, @eventjoining.user %>
+										</h4>
+										send a request for your 
+										<%= link_to @eventjoining.event.title, @eventjoining.event %>.
+									<% elsif f.subject == 'new_joiner' %>
+									    <h4 class="media-heading padding-none">
+											<%= link_to @eventjoining.user.name, @eventjoining.user %>
+										</h4>
+										join your
+										<%= link_to @eventjoining.event.title, @eventjoining.event %>.
+									<% else %>
+									    <h4 class="media-heading padding-none">
+											<%= link_to @eventjoining.event.user.name, @eventjoining.event.user %>
+											has approved your request for
+											<%= link_to @eventjoining.event.title, @eventjoining.event %>.
+										</h4>
+									<% end %>
+							    </div>
+							    <div class="innerT half text-right">
+									<% if f.subject == 'request' %>
+								  	    <%= link_to "Approve", eventjoining_path(:status => 'approved', :id => @eventjoining.id),
+											 				   class: 'btn btn-info btn-xs', :method => :patch %>
+								  	    <%= link_to "Reject", eventjoining_path(:user_id => f.sender_id, :id => @eventjoining.id),
+										                       class: 'btn btn-info btn-xs', :method => :delete %>
+									<% end %>
+							    </div>
+								<%= link_to "Delete", message_path(:id => f.id), class: 'btn btn-info btn-xs', :method => :patch%>
+					    </div>
+				    </div>
+			    </div><!--row-->
+		    </div>
+		<% end %>
 	<% end %>
-	<%= link_to "Mark as read", message_path(:id => f.id), :method => :patch%>
   </div>
-<% end %>
+</div>
