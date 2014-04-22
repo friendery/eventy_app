@@ -3,13 +3,14 @@ class FriendshipsController < ApplicationController
   
   def create
     @friendship = current_user.friendships.build(:friend_id => params[:friend_id])
+    @friend = User.find_by(id: params[:friend_id])
     if @friendship.save
       flash[:notice] = "Requested friendship"
       current_user.send_friend_request("request", params[:friend_id], @friendship.id)
-      redirect_to root_url
+      redirect_to @friend
     else
       flash[:error] = "Unable to request friendship."
-      redirect_to root_url
+      redirect_to @friend
     end
   end
   

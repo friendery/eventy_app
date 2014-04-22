@@ -4921,3 +4921,7 @@ color: inherit;
     cursor: default;
     background-color: #fff; 
 }
+
+.alert {
+background: #f5f5f5;
+}

@@ -1,16 +1,9 @@
 <div class="hero-unit" >
   <% provide(:title, "Edit user") %>
-  
-
-
   <div class="row" id="list_items">
     <div class="widget">
     <h2 class="bg-primary innerAll half border-bottom margin-none">Update your profile</h2>
-
       <div class="widget-body">
-
-
-
         <%= form_for @user, :html => {:class => "form-horizontal", :role => "form"} do |f| %>
           <%= render 'shared/error_messages', object: f.object %>
 
@@ -20,8 +13,6 @@
                     <p class="form-control-static">mosaicpro</p>
                 </div>
             </div> -->
-
-
             <div class="form-group">
                 <%= f.label :photo, class: 'required col-sm-4 control-label'  %>
                 <div class="col-sm-8">

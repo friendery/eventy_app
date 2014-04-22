@@ -10,7 +10,8 @@ class MessagesController < ApplicationController
   
     def create
       current_user.send_msg(params[:message][:subject], params[:message][:body], params[:message][:recipient_id])
-      redirect_to '/'
+      @user = User.find_by(id: params[:message][:recipient_id])
+      redirect_to @user
     end
     
     def notification
