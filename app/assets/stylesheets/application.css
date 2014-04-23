@@ -4958,3 +4958,7 @@ color: inherit;
 .ui-dialog .ui-dialog-titlebar-close {
     display:none;
 }
+
+.pagination {
+    margin-left:10px;
+}
