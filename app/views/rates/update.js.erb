@@ -1,8 +1,15 @@
 
 
 $('#event_star').raty({
-  score: <%= @event.average_rate %>,
+  readOnly: true,
   path: '/assets',
+  score: <%= @event.average_rate %>
+});
+
+
+$('#rate_event').raty({
+  path: '/assets',
+  score: <%= @rate.score %>,
   click: function(score, evt) {
     $.ajax({
       url: '/rates/' + <%= @rate.id %>,
@@ -11,3 +18,5 @@ $('#event_star').raty({
     }).done(function (data){});
   }
 });
+
+$('#rate_score').html(<%= @rate.score %>); 

@@ -30,12 +30,18 @@
 
 						<div class="innerAll text-center half">
 							<div class="row">
-								<%= render 'join_form' if signed_in? %>
-								<% if current_user?(@event.user) %>
-								<div class="col-md-6">
-								  	<%= link_to "edit", edit_event_path, class: "btn btn-default" %>
+								<div class="col-sm-7">
 								</div>
-								<% end %>
+								<div class="col-sm-2">
+									<% if current_user?(@event.user) %>
+										<div class="pull right">
+										  	<%= link_to "edit", edit_event_path, class: "btn btn-default" %>
+										</div>
+									<% end %>
+								</div>
+								<div class="col-sm-2">
+									<%= render 'join_form' if signed_in? %>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -119,22 +125,28 @@
 
     	<div class="col-md-6 col-lg-6">
 
-    		<div class="widget">
-				<h4 class="bg-primary innerAll half border-bottom margin-none">Rate</h4>
+			<div class="widget">
+				<h4 class="bg-primary innerAll half border-bottom margin-none">Event Rating</h4>
 				<div class="border-bottom">
 			  		<div class="innerAll half">
-			  			<% if @event.eventjoinings.find_by(user_id: current_user.id) %>
-						  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
-							<% if @event.average_rate == 0%>
-									<span class="badge badge-primary pull-right">0</span>  <div id="event_star"></div>
-							<% else %>
-					  			<span class="badge badge-primary pull-right"><%= @event.rates.count%></span> <div id="event_star"></div>
-							<% end %>
-						  <% end %>
-						<% end %>		  			
+			  			<span class="badge badge-primary pull-right">Number of rates: <%= @event.rates.count%></span> <div id="event_star"></div>		
 			  		</div>
 			  </div>
 			</div>
+
+
+  			<% if @event.eventjoinings.find_by(user_id: current_user.id) %>
+				  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
+			    		<div class="widget">
+							<h4 class="bg-primary innerAll half border-bottom margin-none">Rate This Event</h4>
+							<div class="border-bottom">
+						  		<div class="innerAll half">
+				  					<div id="rate_event"></div>	
+						  		</div>
+						  	</div>
+						</div> 
+				  <% end %>
+			<% end %>		
 
     		<div class="widget">
 				<h4 class="bg-primary innerAll half border-bottom margin-none">Event Date & Time</h4>
@@ -250,17 +262,25 @@
 			<% end %>
 	  </div>
 
-	<script>
+<script>
 	$('#event_star').raty({
-	       	   	score: <%= @event.average_rate %>,
-	       	 	path: '/assets',
-	       	 	click: function(score, evt) {
-	         	   $.ajax({
-	           		 url: '/rates/' + <%= @rate.id %>,
-	           	  	 type: 'PATCH',
-	           	  	 data: { score: score }
-	         		});
-	       	 	}
+  	  readOnly: true,
+	  path: '/assets',
+	  score: <%= @event.average_rate %>
+	});
+
+
+	$('#rate_event').raty({
+	  path: '/assets',
+  	  score: <%= @rate.score %>,
+	  click: function(score, evt) {
+	    $.ajax({
+	      url: '/rates/' + <%= @rate.id %>,
+	      type: 'PATCH',
+	      data: { score: score }
+	    }).done(function (data){});
+
+	  }
 	});
 
 
