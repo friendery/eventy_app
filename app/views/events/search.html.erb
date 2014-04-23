@@ -9,8 +9,9 @@
 		  		  <%= render :partial => 'searched_event', :locals => {event: event}%>
 				<%end%>
 	    	</div>
+			<%= will_paginate @events, renderer: BootstrapPagination::Rails %>
 		  </div>
 		</div>
 	</div>
-	<%= will_paginate @events, renderer: BootstrapPagination::Rails %>
+	
 

@@ -2,38 +2,40 @@
 	<% provide(:title, 'Result') %>
 	<div class="widget">
   	<!-- Widget heading -->
-  	<h2 class="bg-primary innerAll half border-bottom margin-none">All results  (<%= @users.count %>)</h2>
+	  	<h2 class="bg-primary innerAll half border-bottom margin-none">All results  (<%= @users.count %>)</h2>
 
-  	<div class="widget-body">
-      <div class="row row-merge">
-      	<% @users.each do |f| %>
-		    <div class="bg-white border-bottom ">
-     			<div class="row">
-				    <div class="col-md-12">
-					    <div class="media">
-						    <a class="pull-left" href="#">
-							    <%= image_tag f.photo_url(:thumbnail) %>
-						    </a>
-						    <div class="media-body innerAll half">
-							    <h4 class="media-heading padding-none">
-							    	<%= link_to f.name, f %>
-							    </h4>
-								<% status = f.friend?(current_user.id) %>
-								<% if status == 'approved' %>
-							    	<small class="text-success"><i class="fa fa-check"></i> Friend</small>
-								<% elsif status == 'request' %>
-									<small class="text-muted"><i class="fa fa-spinner"></i> Pending</small>
-								<% else %>
-									<small class="text-danger"><i class="fa fa-heart"></i> Stranger</small>
-								<% end %>
-						        <p><%= f.email%></p>
+	  	<div class="widget-body" id="list_items">
+	      <div class="row row-merge">
+	      	<% @users.each do |f| %>
+			    <div class="bg-white border-bottom ">
+	     			<div class="row">
+					    <div class="col-md-12">
+						    <div class="media">
+							    <a class="pull-left" href="#">
+								    <%= image_tag f.photo_url(:thumbnail) %>
+							    </a>
+							    <div class="media-body innerAll half">
+								    <h4 class="media-heading padding-none">
+								    	<%= link_to f.name, f %>
+								    </h4>
+									<% status = f.friend?(current_user.id) %>
+									<% if status == 'approved' %>
+								    	<small class="text-success"><i class="fa fa-check"></i> Friend</small>
+									<% elsif status == 'request' %>
+										<small class="text-muted"><i class="fa fa-spinner"></i> Pending</small>
+									<% else %>
+										<small class="text-danger"><i class="fa fa-heart"></i> Stranger</small>
+									<% end %>
+							        <p><%= f.email%></p>
+							    </div>
 						    </div>
 					    </div>
-				    </div>
-			    </div><!--row-->
-		    </div>
-		  <%end%>
+				    </div><!--row-->
+			    </div>
+			  <%end%>
+		  </div>
+		  <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
 		</div>
 	</div>
 	
-	<%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+	

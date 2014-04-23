@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   end
   
   def self.rank(page)
-    paginate :per_page =>5, :page => 1, :order => 'rate DESC'
+    paginate :per_page =>10, :page => 1, :order => 'rate DESC'
   end
   
   def send_event_request(subject, recipient_id, eventjoining_id)
