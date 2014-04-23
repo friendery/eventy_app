@@ -27,21 +27,23 @@
 						</div>
 
 						<div class="innerAll text-center half">
-							<div class="row">
-								<div class="col-sm-2">
-									<% if current_user?(@event.user) %>
-										<div class="pull right">
-										  	<%= link_to "edit", edit_event_path, class: "btn btn-default" %>
-										</div>
-									<% end %>
-								</div>
-								<div class="col-sm-7">
-									<%= render 'join_form' if signed_in? %>
-								</div>
-							</div>
+							
 						</div>
 					</div>
 			    </div>
+				<div class="row" style="padding-bottom: 10px">
+					<div class="col-sm-5"></div>
+					<div class="col-sm-3">
+						<% if current_user?(@event.user) %>
+							<div class="pull right">
+							  	<%= link_to "edit", edit_event_path, class: "btn btn-default" %>
+							</div>
+						<% end %>
+					</div>
+					<div class="col-sm-4">
+						<%= render 'join_form' if signed_in? %>
+					</div>
+				</div>
     		</div>
 			<div class="widget">
 				<h4 class="innerAll half border-bottom margin-none" id="list_items">Location</h4>
@@ -123,7 +125,8 @@
 															</h5>
 															Joined <%= time_ago_in_words(f.updated_at) %> ago.
 															<% if current_user?(@event.user) %>
-															  <%= link_to "Kiss his ass", eventjoining_path(:user_id => @user.id, :id => f.id), :method => :delete %>
+															<br>
+															  <%= link_to "Kick him out", eventjoining_path(:user_id => @user.id, :id => f.id), :method => :delete %>
 															<% end %>
 													    </div>
 													</div>
