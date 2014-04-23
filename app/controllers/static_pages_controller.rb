@@ -5,7 +5,7 @@ class StaticPagesController < ApplicationController
   
   def explore
     @user = User.rank(params[:page])
-    @event = Event.all.paginate(:page => params[:page], :per_page => 15)
+    @event = Event.all.paginate(:page => params[:page], :per_page => 10)
   end
   
   def help

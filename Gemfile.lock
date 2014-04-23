@@ -44,8 +44,6 @@ GEM
     bootstrap-datetimepicker-rails (0.0.11)
     bootstrap-sass (2.3.2.0)
       sass (~> 3.2)
-    bootstrap-will_paginate (0.0.9)
-      will_paginate
     bootswatch-rails (0.5.0)
       railties (>= 3.1)
     builder (3.1.4)
@@ -204,6 +202,8 @@ GEM
       multi_json (~> 1.0, >= 1.0.2)
     websocket (1.0.7)
     will_paginate (3.0.4)
+    will_paginate-bootstrap (1.0.0)
+      will_paginate (>= 3.0.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -215,7 +215,6 @@ DEPENDENCIES
   bcrypt-ruby (= 3.1.2)
   bootstrap-datetimepicker-rails
   bootstrap-sass (= 2.3.2.0)
-  bootstrap-will_paginate (= 0.0.9)
   bootswatch-rails
   capybara (= 2.1.0)
   carrierwave
@@ -242,3 +241,4 @@ DEPENDENCIES
   turbolinks (= 1.1.1)
   uglifier (= 2.1.1)
   will_paginate (= 3.0.4)
+  will_paginate-bootstrap

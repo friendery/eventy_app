@@ -2,11 +2,9 @@
 	<% provide(:title, 'All users') %>
 	<h1>All users  (<%= @users.count %>)</h1>
 
-	<%= will_paginate %>
-
 	<ul class="listItems" id="list_items">
 	    <%= render @users %>
 	</ul>
 
 
-	<%= will_paginate %>
+	<%= will_paginate, renderer: BootstrapPagination::Rails %>
