@@ -728,7 +728,7 @@ a.widget i.display-block {
     background: #fff;
     margin: 0 auto 15px;
     position: relative;
-    border: 2px solid #BA5D32;
+    border: 0px solid #BA5D32;
 }
 .widget .tab-content {
     padding: 0;

@@ -4,29 +4,25 @@
 <div class="hero-unit" >
 	<% provide(:title, @event.title)%>
     <div class="row" id="event_detail">
-    	<div class="col-md-6">
+    	<div class="col-md-8">
     		<div class="widget">
-    			<h4 class="bg-primary innerAll half border-bottom margin-none">Information</h4>
+    			<h3 class="bg-primary innerAll half border-bottom margin-none"><%= @event.title %></h3>
     			<div class="widget-body padding-none row">
-					<div class="col-md-4">
+					<div class="col-md-4" style="margin-left: 10px; margin-top: 10px">
 					<%= link_to image_tag(@event.avatar_url(:standard)), @event %>
 				    <%#=image_tag "event-pic.jpg", class:"img-responsive"%>
 				    <%#= link_to image_tag(@event.avatar_url(:standard)), @event %>
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-7">
 						<div class="row" style="margin-top:15px">
-							<div class="col-sm-8">
-								<h4 class="media-heading">
-									<%= @event.title %>
-								</h4>
-							</div>
-							<div class="col-sm-4">
-								<small class="label label-default" style="vertical-align: top; padding-right: 10px;">
+							<div class="col-sm-9"></div>
+							<div class="col-sm-3">
+								<small class="label label-default" style="vertical-align: top;">
 									Quota: <%= @event.capacity %>
 								</small>
 							</div>
 						</div>
-						<div class="row" style="margin-right: 10px">
+						<div class="row">
 							<p><%= @event.description %></p>	
 						</div>
 
@@ -47,8 +43,28 @@
 					</div>
 			    </div>
     		</div>
+			<div class="widget">
+				<h4 class="innerAll half border-bottom margin-none" id="list_items">Location</h4>
+				<div class="innerAll half border-bottom ">
+					<div class="media innerAll half margin-none">
+						<div class="pull-left">
+							<i class="fa fa-fw fa-map-marker fa-3x"></i>
+						</div>
+						<div class="media-body">
+							<input id="geocomplete" type="hidden" placeholder="Type in an address" size="90" />
+							<p class="strong lead margin-none"><%= @event.region %></p>
+							<p class="strong margin-none"><%= @event.street  %></p>
+						</div>
+						<div class="map_canvas" style="margin-left: 50px; margin-right: 50px; width:500px; height:200px"></div>
+					</div>
+				</div>
+			</div>
+    	</div>
+		
+
+    	<div class="col-md-4 col-lg-4">
     		<div class="widget">
-				<h4 class="bg-primary innerAll half border-bottom margin-none">Creator</h4>
+				<h4 class="innerAll half border-bottom margin-none" id="list_items">Creator</h4>
 				<div class="border-bottom">
 			  		<div class="innerAll half">
 						<div class="media">
@@ -61,9 +77,33 @@
 						</div>
 			  		</div>
 			  </div>
-			</div>			
+			</div>
+    		<div class="widget">
+				<h4 class="bg-primary innerAll half border-bottom margin-none">Event Date & Time</h4>
+				<div div class="media-body  bg-primary ">
+					<div class="media innerAll half margin-none">
+						<div class="pull-left">
+							<i class="fa fa-fw fa-calendar fa-3x"></i>
+						</div>
+						<div class="media-body">
+							<p class="strong lead margin-none"><%= @event.date %></p>
+							<p class="strong margin-none"><%= @event.time %></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="widget">
+				<h4 class="innerAll half border-bottom margin-none" id="list_items">Event Rating</h4>
+				<div class="border-bottom">
+			  		<div class="innerAll half">
+			  			<span class="badge badge-primary pull-right">
+							Number of rates: <%= @event.rates.count%>
+						</span><div id="event_star"></div>		
+			  		</div>
+			  </div>
+			</div>		
 			<div class="widget" id="member_widget">
-				<h4 class="bg-primary innerAll half border-bottom margin-none">Members
+				<h4 class="innerAll half border-bottom margin-none" id="list_items">Members
 					<span class="badge pull-right"><%= @event.eventjoinings.where(status: 'approved').count %></span>
 				</h4>
 				<div class="border-bottom">
@@ -96,57 +136,11 @@
 			  		</div>
 			  </div>
 			</div>
-    	</div>
-		
-
-    	<div class="col-md-6 col-lg-6">
-			<div class="widget">
-				<h4 class="bg-primary innerAll half border-bottom margin-none">Event Rating</h4>
-				<div class="border-bottom">
-			  		<div class="innerAll half">
-			  			<span class="badge badge-primary pull-right">
-							Number of rates: <%= @event.rates.count%>
-						</span><div id="event_star"></div>		
-			  		</div>
-			  </div>
-			</div>		
-
-    		<div class="widget">
-				<h4 class="bg-primary innerAll half border-bottom margin-none">Event Date & Time</h4>
-				<div div class="media-body">
-					<div class="media innerAll half margin-none">
-						<div class="pull-left">
-							<i class="fa fa-fw fa-calendar fa-3x"></i>
-						</div>
-						<div class="media-body">
-							<p class="strong lead margin-none"><%= @event.date %></p>
-							<p class="strong margin-none"><%= @event.time %></p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="widget">
-				<h4 class="bg-primary innerAll half border-bottom margin-none">Location</h4>
-				<div class="innerAll half bg-gray border-bottom">
-					<div class="media innerAll half margin-none">
-						<div class="pull-left">
-							<i class="fa fa-fw fa-map-marker fa-3x"></i>
-						</div>
-						<div class="media-body">
-							<input id="geocomplete" type="hidden" placeholder="Type in an address" size="90" />
-							<p class="strong lead margin-none"><%= @event.region %></p>
-							<p class="strong margin-none"><%= @event.street  %></p>
-						</div>
-						<div class="map_canvas" style="margin-left: 0px; width:450px; height:200px"></div>
-					</div>
-				</div>
-			</div>
-			
+						
   			<% if @event.eventjoinings.find_by(user_id: current_user.id) %>
 				  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
 			    		<div class="widget">
-							<h4 class="bg-primary innerAll half border-bottom margin-none">Rate This Event</h4>
+							<h4 class="innerAll half border-bottom margin-none" id="list_items">Rate This Event</h4>
 							<div class="border-bottom">
 						  		<div class="innerAll half">
 				  					<div id="rate_event"></div>	
