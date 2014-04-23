@@ -1,7 +1,7 @@
   <!-- load geocomplete api -->
   <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&location_type=ROOFTOP&result_type=administrative_area_level_1&language=en"></script>
 
-  <div class="hero-unit" >
+<div class="hero-unit" >
 	<% provide(:title, @event.title)%>
     <div class="row" id="event_detail">
     	<div class="col-md-6">
@@ -61,11 +61,10 @@
 						</div>
 			  		</div>
 			  </div>
-			</div>
-			
+			</div>			
 			<div class="widget" id="member_widget">
 				<h4 class="bg-primary innerAll half border-bottom margin-none">Members
-					<span class="badge pull-right"><%= @event.eventjoinings.count %></span>
+					<span class="badge pull-right"><%= @event.eventjoinings.where(status: 'approved').count %></span>
 				</h4>
 				<div class="border-bottom">
 			  		<div class="innerAll half">
@@ -74,32 +73,20 @@
 									  <% @user = User.find_by(id: f.user_id) %>
 									   <% if f.id != nil %>
 											  <% if f.status == 'approved' %>
-					  				 
 													<div class="media">
 													    <a class="pull-left" href="#">
 													    	<%= image_tag @user.photo_url(:icon), :class=>"media-object"%>
 													    </a>
 													    <div class="media-body innerAll half">
-														    <h5 class="media-heading padding-none"><%= link_to @user.name, @user %></h5>
+														    <h5 class="media-heading padding-none">
+																<%= link_to @user.name, @user %>
+															</h5>
 															Joined <%= time_ago_in_words(f.updated_at) %> ago.
 															<% if current_user?(@event.user) %>
 															  <%= link_to "Kiss his ass", eventjoining_path(:user_id => @user.id, :id => f.id), :method => :delete %>
 															<% end %>
 													    </div>
 													</div>
-
-											  <% elsif f.status == 'pending' %>
-
-													<div class="media">
-													    <a class="pull-left" href="#">
-													    	<%= image_tag @user.photo_url(:icon), :class=>"media-object"%>
-													    </a>
-													    <div class="media-body innerAll half">
-														    <h5 class="media-heading padding-none"><%= link_to @user.name, @user %></h5>
-															Sent request <%= time_ago_in_words(f.created_at) %> ago.
-													    </div>
-													</div>
-
 											  <% end %>
 										<% end %>
 							    <% end %>
@@ -171,8 +158,6 @@
     	</div>
     </div>
 	
-    
-
 	<% if @event.comments.count > 0 %>
 	    <div class="row" id="event_comments">
 	    	<div class="widget">
@@ -182,7 +167,7 @@
 						<div class="media innerAll half border-bottom margin-none">
 							<%= link_to image_tag(@user.photo_url(:icon), class: 'img-responsive img-circle'), @user, class: 'pull-left' %>
 							<div class="media-body">
-								<small class="strong pull-right"><%= time_ago_in_words(comment.created_at) %> ago</small>
+								<small class="pull-right label label-default"><%= time_ago_in_words(comment.created_at) %> ago</small>
 								<div id="list_items"><h5><%= link_to @user.name, @user %></h5></div>
 								<p><%= comment.comment %></p>
 								<% if comment.user_id == current_user.id %>
@@ -195,61 +180,69 @@
 		</div>
 	<% end %>
 
-	  <div class="row" id="event_comment">
-	  	<% if current_user?(@event.user) && @event.eventjoinings.where(status: 'pending').count > 0 %>
-				<br>
-				<label>Pending List:</label>
-				<br>
-				<% if @event.eventjoinings.where(status: 'approved').count < @event.capacity%>
-				  <% @event.eventjoinings.each do |f| %>
-				    <% if f.status == 'pending' %>
-				      <% @user = User.find_by(id: f.user_id) %>
-					  <%= link_to image_tag(@user.photo_url(:icon)), @user %>
+	  
+  	<% if current_user?(@event.user) && @event.eventjoinings.where(status: 'pending').count > 0 %>
+	<div class="row" id="event_comments">
+		<div class="widget">
+			<h4 class="bg-primary innerAll half border-bottom margin-none">Pending List</h4>
+			<% if @event.eventjoinings.where(status: 'approved').count < @event.capacity %>
+			  <% @event.eventjoinings.each do |f| %>
+			  <div class="media innerAll half border-bottom margin-none">
+			    <% if f.status == 'pending' %>
+			      <% @user = User.find_by(id: f.user_id) %>
+				  <%= link_to image_tag(@user.photo_url(:icon), class: 'img-responsive img-circle'), @user, class: 'pull-left' %>
+				  <div class="media-body" id="list_items">
+					  <small class="pull-right label label-default"><%= time_ago_in_words(f.created_at) %> ago</small>
 				      <%= link_to @user.name, @user %> is pending for your approval.
-					  <%= link_to "Approve", eventjoining_path(:status => 'approved', :id => f.id), :method => :patch %>
-					  <%= link_to "Reject", eventjoining_path(:user_id => @user.id, :id => f.id), :method => :delete %>
-					  <br>
-				    <% else %>
-				    <% end %>
-				  <% end %>
-				<% else %>
-				  <% if @event.eventjoinings.where(status: 'pending').count > 0 %>
-				    <p>Someone is pending for approval. However, this event is already full.</p>
-				  <% else %>
-				    <p>Nobody is pending for approval.</p>
-			      <% end %>
-				<% end %>
-			<% end %>
-
-      <% if @event.eventjoinings.find_by(user_id: current_user.id) %>
-			  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
-			    <div class="widget">
-						<!-- Widget heading -->
-						
-							<h4 class="bg-primary innerAll half border-bottom margin-none">Add a comment:</h4>
-						
-						<!-- // Widget heading END -->				
-						<div class="widget-body">
-							<%= form_for([@event, @event.comments.build(user_id: current_user.id, event_id: @event.id)], html: {class: "form-horizontal", role: "form"}) do |f| %>
-								<div class="form-group">
-						        <label for="inputEmail3" class="col-sm-2 control-label">Comment</label>
-						        <div class="col-sm-10">
-						            <%= f.text_area :comment, class: "form-control", placeholder: "Say something..." %>
-						        </div>
-						    </div>
-                <%= f.hidden_field :user_id %>
-				        <%= f.hidden_field :event_id %>
-				        <div class="form-group">
-						        <div class="col-sm-offset-2 col-sm-10">
-						            <button type="submit" class="btn btn-primary">Create Comment</button>
-						        </div>
-						    </div>
-							<%end%>
-						</div>
-			    </div>
+				  </div>
+			      <div class="innerT half text-right">
+			  	      <%= link_to "Approve", eventjoining_path(:status => 'approved', :id => f.id),
+						 				   class: 'btn btn-info btn-xs', :method => :patch %>
+			  	      <%= link_to "Reject", eventjoining_path(:user_id => f.user_id, :id => f.id),
+					                       class: 'btn btn-info btn-xs', :method => :delete %>
+				  </div>
+			    <% end %>
+			  </div>
 			  <% end %>
+			<% else %>
+			  <% if @event.eventjoinings.where(status: 'pending').count > 0 %>
+			    <p>Someone is pending for approval. However, this event is already full.</p>
+			  <% else %>
+			    <p>Nobody is pending for approval.</p>
+		      <% end %>
 			<% end %>
-	  </div>
+		</div>
+	</div>
+	<% end %>
+      
+	<% if @event.eventjoinings.find_by(user_id: current_user.id) %>
+		  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved' %>
+		  <div class="row" id="event_comments">
+		    <div class="widget">
+				<h4 class="bg-primary innerAll half border-bottom margin-none">Add a comment:</h4>			
+				<div class="widget-body">
+					<%= form_for([@event, @event.comments.build(user_id: current_user.id, event_id: @event.id)], 
+					              html: {class: "form-horizontal", role: "form"}) do |f| %>
+						<div class="form-group">
+					        <label for="inputEmail3" class="col-sm-2 control-label">Comment</label>
+					        <div class="col-sm-10">
+					            <%= f.text_area :comment, class: "form-control", placeholder: "Say something..." %>
+					        </div>
+					    </div>
+		    			<%= f.hidden_field :user_id %>
+			        	<%= f.hidden_field :event_id %>
+				        <div class="form-group">
+					        <div class="col-sm-offset-2 col-sm-10">
+					            <button type="submit" class="btn btn-primary">Create Comment</button>
+					        </div>
+					    </div>
+					<%end%>
+				</div>
+		    </div>
+		  </div>
+		  <% end %>
+	<% end %>
+</div>
 
 <script>
 	$('#event_star').raty({
