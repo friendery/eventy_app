@@ -1,4 +1,4 @@
-<div class="center-div">
+<div class="center-div" id="search_div">
 <%= form_tag( { :controller => 'events', :action => 'search' }, {:method => 'get', :class => 'navbar-form'} ) do %>
 	    <div id="what_field" class="col-md-3">
 			<%= text_field_tag :what, params[:what], :placeholder => "What", :class => "btn_margin form-control", 

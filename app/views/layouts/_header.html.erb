@@ -75,27 +75,28 @@
 		  <li><%= link_to "Explore", explore_path, class: 'menu-icon' %></li>
           <% if signed_in? %>
             
-            <li>
-                <%= link_to(messages_path, {class: "menu-icon"}) do %>
-				  <i class="fa fa-fw fa-envelope-o"></i><span  id="message-count" class="badge badge-info <% if msg_count == 0 %>hidden<% end %>">
-					  <%= msg_count %>
-				  </span>
-                <%end%>
-            </li>
-            <li>
-                <%= link_to(notification_messages_path, {class: "menu-icon"}) do %>
-				  <i class="fa fa-fw fa-exclamation-circle"></i><span  id="notify-count" class="badge badge-primary <% if notify_count == 0 %>hidden<% end %>">
-					  <%= notify_count %>
-				  </span>
-                <%end%>
-            </li>
-          <% end %>
-         
-
-          <% if signed_in? %>
             <% if current_user.admin? %>
               <li><%= link_to "Users", users_path, class: 'menu-icon' %></i></li>
             <% end %>
+            <li>
+                  <%= link_to(messages_path, {class: "menu-icon"}) do %>
+          				  <i class="fa fa-fw fa-envelope-o"></i>
+                    <span  id="message-count" class="badge badge-info <% if msg_count == 0 %>hidden<% end %>">
+          					  <%= msg_count %>
+          				  </span>
+                  <%end%>
+            </li>
+            <li>
+                <%= link_to(notification_messages_path, {class: "menu-icon"}) do %>
+        				  <i class="fa fa-fw fa-exclamation-circle"></i>
+                  <span  id="notify-count" class="badge badge-primary <% if notify_count == 0 %>hidden<% end %>">
+        					  <%= notify_count %>
+        				  </span>
+                <%end%>
+            </li>
+          <% end %>
+
+          <% if signed_in? %>
               <li><%= link_to(friendships_path, {class: 'menu-icon'}) do %><i class="fa fa-users"></i><% end %></li>      
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>

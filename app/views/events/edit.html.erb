@@ -44,7 +44,7 @@
 			<div class="col-md-11">
 		      <h5>Event location</h5>
 	  	      <div class="innerB" id="location_fields">
-		        <input id="geocomplete" type="text" class="form-control" placeholder="Type in an address" size="90" />
+		        <input id="geocomplete" type="text" class="form-control" placeholder="<%= @event.street %>" size="90" />
 		        <input name="country" type="hidden" value="" />
 	  		  </div>
 		    </div>
@@ -68,16 +68,23 @@
 			
 			<div class="col-md-6">
 			    <h5>Picture</h5>
-			    <div class="innerB fileupload fileupload-new margin-none" data-provides="fileupload">
-					  	<span class="btn btn-default btn-file">
-					  		<span class="fileupload-new">Select file</span>
-					  		<span class="fileupload-exists">Change</span>
-					  		<%#= f.hidden_field(:avatar_cache)%>
-			  		    <%= f.file_field :avatar, class: "margin-none"   %>
-					  	</span>
-					  	<span class="fileupload-preview"></span>
-					  	<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+			    <div class="row">
+					<div class="col-md-4">
+			    		<%= image_tag(@event.avatar_url(:standard)) %>
 					</div>
+					<div class="col-md-6	">
+						 <div class="innerB fileupload fileupload-new margin-none" data-provides="fileupload">
+						  	<span class="btn btn-default btn-file">
+						  		<span class="fileupload-new">Select file</span>
+						  		<span class="fileupload-exists">Change</span>
+						  		<%#= f.hidden_field(:avatar_cache)%>
+				  		    <%= f.file_field :avatar, class: "margin-none"   %>
+						  	</span>
+						  	<span class="fileupload-preview"></span>
+						  	<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+						</div>
+					</div>
+			    </div>
 			</div>
 		</div>
 		
@@ -115,56 +122,60 @@ $(function() {
     showMeridian: false
   });
   
-  // google map
-  var available_regions = ["Kowloon", "Hong Kong Island", "New Territories"];
-  var trial = 0; // workaround for sometimes search by click doesn't work
 
-  var options = {
-    map: ".map_canvas",
-    details: "form"
-  };
-  
-  $("#geocomplete").geocomplete(options)
-    .bind("geocode:result", function(event, result){
 
-	// put values into input elements
-	for (var i=0; i< result.address_components.length; i++) {
-		var component = result.address_components[i];
-		if (component.types[0] == "administrative_area_level_1")
-			$("input[name='event[region]']").val(component.long_name);
-	}
-  $("input[name='event[street]']").val(result.formatted_address);
-	// $("input[name='event[lat]']").val(result.geometry.location.lat());
-	// $("input[name='event[lng]']").val(result.geometry.location.lng());
+  	// google map initialization
+	fn_init_map = function(){
+		  var available_regions = ["Kowloon", "Hong Kong Island", "New Territories"];
+		  var trial = 0; // workaround for sometimes search by click doesn't work
+		  var event_location = "<%= @event.street%>";
+		  var options = {
+		    map: ".map_canvas",
+			location: event_location,
+		    details: "form"
+		  };
 	
+		$("#geocomplete").geocomplete(options)
+		    .bind("geocode:result", function(event, result){
 
-      trial++;
-      // check if input address is in Hong Kong
-      if ($("input[name='country']").val() != "Hong Kong" ) {
-        alert("Please input an address inside Hong Kong.");
-        $('#location_fields').find("input").not("#find").val('');
-      }
-      // check if region is either Kowloon, Hong Kong Island or New Territories
-      else {
-        matched = $.inArray($("input[name='event[region]']").val(), available_regions);
-        if (matched == -1) {
-          if (trial == 1) {
-            $("#find").click();
-          }
-          else {
-            alert("Please input an address with either Kowloon, Hong Kong Island or New Territories as region.");
-            $('#location_fields').find("input").not("#find").val('');
+				// put values into input elements
+				for (var i=0; i< result.address_components.length; i++) {
+					var component = result.address_components[i];
+					if (component.types[0] == "administrative_area_level_1")
+						$("input[name='event[region]']").val(component.long_name);
+				}
+			  	
+			  	$("input[name='event[street]']").val(result.formatted_address);
+				
+				trial++;
+				// check if input address is in Hong Kong
+				if ($("input[name='country']").val() != "Hong Kong" ) {
+			        alert("Please input an address inside Hong Kong.");
+			        $('#location_fields').find("input").not("#find").val('');
+			 	}
+				// check if region is either Kowloon, Hong Kong Island or New Territories
+				else {
+			        matched = $.inArray($("input[name='event[region]']").val(), available_regions);
+			        if (matched == -1) {
+				        if (trial == 1) {
+				        	$("#find").click();
+				        }
+			        	else {
+				            alert("Please input an address with either Kowloon, Hong Kong Island or New Territories as region.");
+				            $('#location_fields').find("input").not("#find").val('');
 
-            trial = 0;
-          }
-        }
-        else {
-          trial = 0;
-        }
-      }
+				            trial = 0;
+			        	}
+			        }
+			        else {
+			        	trial = 0;
+			        }
+				}
+			}
+		);
+	};
+	setTimeout(fn_init_map, 1000);
 
-    });
-  
   $("#find").click(function(){
     $("#geocomplete").trigger("geocode");
   });

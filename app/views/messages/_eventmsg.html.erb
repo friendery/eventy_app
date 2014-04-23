@@ -8,9 +8,7 @@
 	 			<div class="row">
 				    <div class="col-md-12">
 					    <div class="media">
-						    <a class="pull-left" href="#">
-							    <%= image_tag @event.avatar_url(:thumbnail) %>
-						    </a>
+					    	<%= link_to image_tag(@event.avatar_url(:thumbnail), class:"rounded-none pull-left"), @event %>
 							    <div class="media-body innerAll half", id="list_items">
 									<small class="pull-right label label-default" style="margin-left: 3px">
 										<%= time_ago_in_words(f.created_at) %> ago
@@ -30,9 +28,9 @@
 									<% else %>
 									    <h4 class="media-heading padding-none">
 											<%= link_to @eventjoining.event.user.name, @eventjoining.event.user %>
-											has approved your request for
-											<%= link_to @eventjoining.event.title, @eventjoining.event %>.
 										</h4>
+										has approved your request for
+										<%= link_to @eventjoining.event.title, @eventjoining.event %>.
 									<% end %>
 							    </div>
 							    <div class="innerT half text-right">
@@ -43,7 +41,7 @@
 										                       class: 'btn btn-info btn-xs', :method => :delete %>
 									<% end %>
 							    </div>
-								<%= link_to "Delete", message_path(:id => f.id), class: 'btn btn-info btn-xs', :method => :patch%>
+								<%= link_to "Delete Notification", message_path(:id => f.id), class: 'btn btn-info btn-xs pull-right', :method => :patch%>
 					    </div>
 				    </div>
 			    </div><!--row-->

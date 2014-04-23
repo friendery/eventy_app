@@ -7,9 +7,7 @@
  			<div class="row">
 			    <div class="col-md-12">
 				    <div class="media">
-					    <a class="pull-left" href="#">
-						    <%= image_tag @friend.photo_url(:thumbnail) %>
-					    </a>
+					    <%= link_to image_tag(@friend.photo_url(:thumbnail), class:"rounded-none pull-left"), @friend %>
 						<% if f.subject == 'request' %>
 						    <div class="media-body innerAll half", id="list_items">
 								<small class="pull-right label label-default" style="margin-left: 3px"><%= time_ago_in_words(f.created_at) %> ago</small>
@@ -29,7 +27,7 @@
 								has approved your friend request.
 						    </div>
 						<% end %>
-						<%= link_to "Delete", message_path(:id => f.id), class: 'btn btn-info btn-xs', :method => :patch%>
+						<%= link_to "Delete Notification", message_path(:id => f.id), class: 'btn btn-info btn-xs pull-right', :method => :patch%>
 				    </div>
 			    </div>
 		    </div><!--row-->

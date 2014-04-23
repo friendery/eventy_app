@@ -6,29 +6,119 @@
     <div class="row" id="event_detail">
     	<div class="col-md-6">
     		<div class="widget">
-    			<h4 class="bg-primary innerAll half border-bottom margin-none"><%= @event.title %></h4>
+    			<h4 class="bg-primary innerAll half border-bottom margin-none">Information</h4>
     			<div class="widget-body padding-none row">
 					<div class="col-md-4">
 					<%= link_to image_tag(@event.avatar_url(:standard)), @event %>
 				    <%#=image_tag "event-pic.jpg", class:"img-responsive"%>
 				    <%#= link_to image_tag(@event.avatar_url(:standard)), @event %>
 					</div>
-					<div>
-						<small class="label label-default">Quota: <%= @event.capacity %></small>
+					<div class="col-md-8">
+						<div class="row" style="margin-top:15px">
+							<div class="col-sm-9">
+								<h4 class="media-heading">
+									<%= @event.title %>
+								</h4>
+							</div>
+							<div class="col-sm-3">
+								<small class="label label-default" style="vertical-align: top;">Quota: <%= @event.capacity %></small>
+							</div>
+						</div>
+						<div class="row">
+							<p><%= @event.description %></p>	
+						</div>
+
+						<div class="innerAll text-center half">
+							<div class="row">
+								<%= render 'join_form' if signed_in? %>
+								<% if current_user?(@event.user) %>
+								<div class="col-md-6">
+								  	<%= link_to "edit", edit_event_path, class: "btn btn-default" %>
+								</div>
+								<% end %>
+							</div>
+						</div>
 					</div>
 			    </div>
 				
     		</div>
 			
+
     		<div class="widget">
-    			<h4 class="bg-primary innerAll half border-bottom margin-none">Description</h4>
-    			<div class="widget-body padding-none">
-				    <div class="description">
-						  <p><%= @event.description %></p>					
-				    </div>
-			    </div>
-    		</div>
+				<h4 class="bg-primary innerAll half border-bottom margin-none">Creator</h4>
+				<div class="border-bottom">
+			  		<div class="innerAll half">
+
+						<div class="media">
+							<% @creator = User.find_by(id: @event.user_id)%>
+						    <%= link_to image_tag(@creator.photo_url(:icon)), @creator, :class => "pull-left" %>
+						    <div class="media-body innerAll half">
+							    <h5 class="media-heading padding-none"><%= link_to @creator.name, @creator %></h5>
+								Created <%= time_ago_in_words(@event.created_at) %> ago.	
+						    </div>
+						</div>
+
+
+
+			  			
+			  		</div>
+			  </div>
+			</div>
 			
+			<div class="widget" id="member_widget">
+				<h4 class="bg-primary innerAll half border-bottom margin-none">Members
+					<span class="badge pull-right"><%= @event.eventjoinings.count %></span>
+				</h4>
+				<div class="border-bottom">
+			  		<div class="innerAll half">
+
+
+
+			  				<% if @event.eventjoinings.any? %>
+							    <% @event.eventjoinings.each do |f| %>
+									  <% @user = User.find_by(id: f.user_id) %>
+									   <% if f.id != nil %>
+											  <% if f.status == 'approved' %>
+					  				 
+													<div class="media">
+													    <a class="pull-left" href="#">
+													    	<%= image_tag @user.photo_url(:icon), :class=>"media-object"%>
+													    </a>
+													    <div class="media-body innerAll half">
+														    <h5 class="media-heading padding-none"><%= link_to @user.name, @user %></h5>
+															Joined <%= time_ago_in_words(f.updated_at) %> ago.
+															<% if current_user?(@event.user) %>
+															  <%= link_to "Kick his ass", eventjoining_path(:user_id => @user.id, :id => f.id), :method => :delete %>
+															<% end %>
+													    </div>
+													</div>
+
+											  <% elsif f.status == 'pending' %>
+
+													<div class="media">
+													    <a class="pull-left" href="#">
+													    	<%= image_tag @user.photo_url(:icon), :class=>"media-object"%>
+													    </a>
+													    <div class="media-body innerAll half">
+														    <h5 class="media-heading padding-none"><%= link_to @user.name, @user %></h5>
+															Sent request <%= time_ago_in_words(f.created_at) %> ago.
+													    </div>
+													</div>
+
+											  <% end %>
+										<% end %>
+							    <% end %>
+							<% else %>
+							  	No one has joined yet...
+							<% end %>		
+			  		</div>
+			  </div>
+			</div>
+    	</div>
+		
+
+    	<div class="col-md-6 col-lg-6">
+
     		<div class="widget">
 				<h4 class="bg-primary innerAll half border-bottom margin-none">Rate</h4>
 				<div class="border-bottom">
@@ -45,35 +135,6 @@
 			  		</div>
 			  </div>
 			</div>
-			
-			<div class="widget">
-				<h4 class="bg-primary innerAll half border-bottom margin-none">Members</h4>
-				<div class="border-bottom">
-			  		<div class="innerAll half">
-			  			<%=link_to members_event_path(@event) do%>
-			  				<span class="badge badge-primary pull-right"><%= @event.eventjoinings.count %></span> Attending
-			  			<%end%>				  			
-			  		</div>
-			  </div>
-			</div>
-    	</div>
-		
-
-    	<div class="col-md-6 col-lg-6">
-    		<div class="widget">
-					<h4 class="bg-primary innerAll half border-bottom margin-none">Creator</h4>
-					<div class="border-bottom">
-				  		<div class="innerAll half">
-				  			<% @creator = User.find_by(id: @event.user_id)%>
-				  			<%= link_to @creator do%>
-				  				<span class="badge badge-primary pull-right"><%= @creator.name%></span>
-				  			<%end%>
-								<%= link_to image_tag(@creator.photo_url(:icon)), @creator %>	
-				  		</div>
-				  </div>
-				</div>
-
-    		
 
     		<div class="widget">
 				<h4 class="bg-primary innerAll half border-bottom margin-none">Event Date & Time</h4>
@@ -105,43 +166,33 @@
 						<div class="map_canvas" style="margin-left: 0px; width:450px; height:200px"></div>
 					</div>
 				</div>
-
-				<div class="innerAll text-center half">
-					<div class="row">
-						<%= render 'join_form' if signed_in? %>
-						<% if current_user?(@event.user) %>
-						<div class="col-md-6">
-						  	<%= link_to "edit", edit_event_path, class: "btn btn-default" %>
-						</div>
-						<% end %>
-					</div>
-				</div>
 			</div>
+
     	</div>
     </div>
     
 
+	<% if @event.comments.count > 0 %>
 	    <div class="row" id="event_comments">
 	    	<div class="widget">
 				<h4 class="bg-primary innerAll half border-bottom margin-none">Comments</h4>
-						<% if @event.comments.count > 0 %>
-					    <%@event.comments.each do |comment|%>
-						    <% @user = User.find_by(id: comment.user_id) %>
-								<div class="media innerAll half border-bottom margin-none">
-									<%= link_to image_tag(@user.photo_url(:icon), class: 'img-responsive img-circle'), @user, class: 'pull-left' %>
-									<div class="media-body">
-										<small class="strong pull-right"><%= time_ago_in_words(comment.created_at) %> ago</small>
-										<div id="list_items"><h5><%= link_to @user.name, @user %></h5></div>
-										<p><%= comment.comment %></p>
-										<% if comment.user_id == current_user.id %>
-										  <p class="label label-info"><%= link_to 'Delete Comment', [comment.event, comment],method: :delete,data: { confirm: 'Are you sure?' } %></p>
-										<% end %>
-									</div>
-								</div>
-						  <%end%>
-    				<% end %>
-					</div>
-	    </div>
+			    <%@event.comments.each do |comment|%>
+				    <% @user = User.find_by(id: comment.user_id) %>
+						<div class="media innerAll half border-bottom margin-none">
+							<%= link_to image_tag(@user.photo_url(:icon), class: 'img-responsive img-circle'), @user, class: 'pull-left' %>
+							<div class="media-body">
+								<small class="strong pull-right"><%= time_ago_in_words(comment.created_at) %> ago</small>
+								<div id="list_items"><h5><%= link_to @user.name, @user %></h5></div>
+								<p><%= comment.comment %></p>
+								<% if comment.user_id == current_user.id %>
+								  <p class="label label-info pull-right"><%= link_to 'Delete Comment', [comment.event, comment],method: :delete,data: { confirm: 'Are you sure?' } %></p>
+								<% end %>
+							</div>
+						</div>
+				  <%end%>
+			</div>
+		</div>
+	<% end %>
 
 	  <div class="row" id="event_comment">
 	  	<% if current_user?(@event.user) && @event.eventjoinings.where(status: 'pending').count > 0 %>
@@ -213,8 +264,8 @@
 	});
 
 
-	$(function(){
-    var event_location = "<%= @event.street%>";
+	fn_init_map = function(){
+    	var event_location = "<%= @event.street%>";
 		var available_regions = ["Kowloon", "Hong Kong Island", "New Territories"];
 		var trial = 0; // workaround for sometimes search by click doesn't work
 
@@ -223,8 +274,10 @@
 		  details: "form",
 		  location: event_location
 		};
+		
+		$('#geocomplete').geocomplete(options);
+	};
 
-    $("#geocomplete").geocomplete(options);
+	setTimeout(fn_init_map, 1000);
 
-	});
 	</script>

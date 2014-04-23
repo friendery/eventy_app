@@ -412,7 +412,7 @@ a, a:hover {
     bottom: 0;
 }
 div.row, ul.row {
-    margin: 0 -7.5px;
+    margin: -1px -7.5px;
 }
 .row-merge {
     margin: 0 !important;
@@ -4924,4 +4924,18 @@ color: inherit;
 
 .alert {
 background: #f5f5f5;
+}
+
+.media {
+    padding-bottom: 10px;    
+}
+
+.navbar.main .nav>li>a .badge {
+    position: absolute;
+    right: 5px;
+}
+
+#member_widget .media {
+    margin-top: 0px;
+    padding-bottom: 0px;
 }

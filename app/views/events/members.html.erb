@@ -4,25 +4,25 @@
     <h2>Members joined already:</h2>
     <br>
     <% @eventjoinings.each do |f| %>
-	  <% @user = User.find_by(id: f.user_id) %>
-	  <% if f.status == 'approved' %>
-	    <%= image_tag @user.photo_url(:icon) %>
-  	    <%= link_to @user.name, @user %>
-  	    <br>
-        Joined <%= time_ago_in_words(f.updated_at) %> ago.
-		<% if current_user?(@event.user) %>
-		  <%= link_to "Kick out", eventjoining_path(:user_id => @user.id, :id => f.id), :method => :delete %>
-		<% end %>
+    <% @user = User.find_by(id: f.user_id) %>
+    <% if f.status == 'approved' %>
+      <%= image_tag @user.photo_url(:icon) %>
+        <%= link_to @user.name, @user %>
         <br>
-  	    <br>
-	  <% else %>
-	    <%= image_tag @user.photo_url(:icon) %>
-  	    <%= link_to @user.name, @user %>
-  	    <br>
+        Joined <%= time_ago_in_words(f.updated_at) %> ago.
+    <% if current_user?(@event.user) %>
+      <%= link_to "Kick out", eventjoining_path(:user_id => @user.id, :id => f.id), :method => :delete %>
+    <% end %>
+        <br>
+        <br>
+    <% else %>
+      <%= image_tag @user.photo_url(:icon) %>
+        <%= link_to @user.name, @user %>
+        <br>
         Sent request <%= time_ago_in_words(f.created_at) %> ago.
         <br>
-  	    <br>
-	  <% end %>
+        <br>
+    <% end %>
     <% end %>
     <br>
     <br>
@@ -30,6 +30,6 @@
     Created by: 
     <%= User.find_by(id: @event.user_id).name %>
   <% else %>
-  	no one join now
+    no one join now
   <% end %>
 </div>
