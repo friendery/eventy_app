@@ -15,23 +15,23 @@
 					</div>
 					<div class="col-md-8">
 						<div class="row" style="margin-top:15px">
-							<div class="col-sm-9">
+							<div class="col-sm-8">
 								<h4 class="media-heading">
 									<%= @event.title %>
 								</h4>
 							</div>
-							<div class="col-sm-3">
-								<small class="label label-default" style="vertical-align: top;">Quota: <%= @event.capacity %></small>
+							<div class="col-sm-4">
+								<small class="label label-default" style="vertical-align: top; padding-right: 10px;">
+									Quota: <%= @event.capacity %>
+								</small>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row" style="margin-right: 10px">
 							<p><%= @event.description %></p>	
 						</div>
 
 						<div class="innerAll text-center half">
 							<div class="row">
-								<div class="col-sm-7">
-								</div>
 								<div class="col-sm-2">
 									<% if current_user?(@event.user) %>
 										<div class="pull right">
@@ -39,22 +39,18 @@
 										</div>
 									<% end %>
 								</div>
-								<div class="col-sm-2">
+								<div class="col-sm-7">
 									<%= render 'join_form' if signed_in? %>
 								</div>
 							</div>
 						</div>
 					</div>
 			    </div>
-				
     		</div>
-			
-
     		<div class="widget">
 				<h4 class="bg-primary innerAll half border-bottom margin-none">Creator</h4>
 				<div class="border-bottom">
 			  		<div class="innerAll half">
-
 						<div class="media">
 							<% @creator = User.find_by(id: @event.user_id)%>
 						    <%= link_to image_tag(@creator.photo_url(:icon)), @creator, :class => "pull-left" %>
@@ -63,10 +59,6 @@
 								Created <%= time_ago_in_words(@event.created_at) %> ago.	
 						    </div>
 						</div>
-
-
-
-			  			
 			  		</div>
 			  </div>
 			</div>
@@ -77,9 +69,6 @@
 				</h4>
 				<div class="border-bottom">
 			  		<div class="innerAll half">
-
-
-
 			  				<% if @event.eventjoinings.any? %>
 							    <% @event.eventjoinings.each do |f| %>
 									  <% @user = User.find_by(id: f.user_id) %>
@@ -94,7 +83,7 @@
 														    <h5 class="media-heading padding-none"><%= link_to @user.name, @user %></h5>
 															Joined <%= time_ago_in_words(f.updated_at) %> ago.
 															<% if current_user?(@event.user) %>
-															  <%= link_to "Kick his ass", eventjoining_path(:user_id => @user.id, :id => f.id), :method => :delete %>
+															  <%= link_to "Kiss his ass", eventjoining_path(:user_id => @user.id, :id => f.id), :method => :delete %>
 															<% end %>
 													    </div>
 													</div>
@@ -124,29 +113,16 @@
 		
 
     	<div class="col-md-6 col-lg-6">
-
 			<div class="widget">
 				<h4 class="bg-primary innerAll half border-bottom margin-none">Event Rating</h4>
 				<div class="border-bottom">
 			  		<div class="innerAll half">
-			  			<span class="badge badge-primary pull-right">Number of rates: <%= @event.rates.count%></span> <div id="event_star"></div>		
+			  			<span class="badge badge-primary pull-right">
+							Number of rates: <%= @event.rates.count%>
+						</span><div id="event_star"></div>		
 			  		</div>
 			  </div>
-			</div>
-
-
-  			<% if @event.eventjoinings.find_by(user_id: current_user.id) %>
-				  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
-			    		<div class="widget">
-							<h4 class="bg-primary innerAll half border-bottom margin-none">Rate This Event</h4>
-							<div class="border-bottom">
-						  		<div class="innerAll half">
-				  					<div id="rate_event"></div>	
-						  		</div>
-						  	</div>
-						</div> 
-				  <% end %>
-			<% end %>		
+			</div>		
 
     		<div class="widget">
 				<h4 class="bg-primary innerAll half border-bottom margin-none">Event Date & Time</h4>
@@ -179,9 +155,22 @@
 					</div>
 				</div>
 			</div>
-
+			
+  			<% if @event.eventjoinings.find_by(user_id: current_user.id) %>
+				  <% if @event.eventjoinings.find_by(user_id: current_user.id).status == 'approved'%>
+			    		<div class="widget">
+							<h4 class="bg-primary innerAll half border-bottom margin-none">Rate This Event</h4>
+							<div class="border-bottom">
+						  		<div class="innerAll half">
+				  					<div id="rate_event"></div>	
+						  		</div>
+						  	</div>
+						</div> 
+				  <% end %>
+			<% end %>
     	</div>
     </div>
+	
     
 
 	<% if @event.comments.count > 0 %>

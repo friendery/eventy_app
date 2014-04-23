@@ -8,7 +8,7 @@
 	<% else %>
 	  <% if @event.eventjoinings.where(status: 'approved').count < @event.capacity%>
         <% if status == 'pending' %>
-          Pending for event creator's approval!
+          Pending for approval!
         <% else %>
           <%= render 'join' %>
         <% end %>

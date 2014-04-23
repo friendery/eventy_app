@@ -5,22 +5,29 @@
 				<%= link_to image_tag(event.avatar_url(:thumbnail), class:"rounded-none"), event %>
 				<%#= image_tag 'person.jpg', class: 'rounded-none'%>
 			</a>
-			<small class="text-small"><%= link_to event.title, event%></small>
 		</div>
 	</div>
 	<div class="media-body">
 		<small class="pull-right label label-default" style="margin-left: 3px"><%= time_ago_in_words(event.created_at) %> ago</small>
-		<small class="pull-right label label-default">Quota: <%= event.capacity %></small>
-		<h5><a href="" class="text-inverse"><%= link_to event.user.name, event.user%></a></h5>
+		<small class="pull-right label label-default">Remaining seats: <%= event.capacity - event.eventjoinings.count %></small>
+		<h4><a href="" class="text-inverse"></a><%= link_to event.title, event%></h4>
 		<div class="row" style="margin-left: 0px">
-			<div class="col-md-4">
+			<div class="col-md-3">
+				<i class="fa fa-fw fa-user fa-1x"></i>
+				<%= link_to event.user.name, event.user%>
+			</div>
+			<div class="col-md-3">
 				<i class="fa fa-fw fa-calendar fa-1x"></i>
 				<%= event.date %>
 				<%= event.time %>
 			</div>
-			<div class="col-md-5">
+			<div class="col-md-3">
 				<i class="fa fa-fw fa-map-marker fa-1x"></i>
 				<%= event.region %>
+			</div>
+			<div class="col-md-3">
+				<i class="fa fa-fw fa-star fa-1x"></i>
+				<%= event.average_rate.round(1) %>
 			</div>
 		</div>
 		<div class="row" style="margin-left: 0px">

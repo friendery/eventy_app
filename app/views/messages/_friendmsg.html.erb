@@ -1,37 +1,37 @@
-<div class="widget-body">
-  <div class="row row-merge">
-  	<% @friendmsg.each do |f| %>
-		<% @friendship = Friendship.find_by(user_id: f.sender_id, friend_id: f.recipient_id)%>
-		<% @friend = User.find_by(id: f.sender_id)%>
-	    <div class="bg-white border-bottom ">
- 			<div class="row">
-			    <div class="col-md-12">
-				    <div class="media">
-					    <%= link_to image_tag(@friend.photo_url(:thumbnail), class:"rounded-none pull-left"), @friend %>
-						<% if f.subject == 'request' %>
-						    <div class="media-body innerAll half", id="list_items">
-								<small class="pull-right label label-default" style="margin-left: 3px"><%= time_ago_in_words(f.created_at) %> ago</small>
-							    <h4 class="media-heading padding-none"><%= link_to @friend.name, @friend %></h4>
-								send you a friend request.
-						    </div>
-						    <div class="innerT half text-right">
-							    <%= link_to "Approve", friendship_path(:status => 'approved', :id => @friendship.id), 
-								                       class: 'btn btn-info btn-xs', :method => :patch %>
-				                <%= link_to "Reject", friendship_path(:inverse => 'true', :id => @friendship.id), 
-								                       class: 'btn btn-info btn-xs', :method => :delete %>
-						    </div>
-						<% else %>
-						    <div class="media-body innerAll half", id="list_items">
-								<small class="pull-right label label-default" style="margin-left: 3px"><%= time_ago_in_words(f.created_at) %> ago</small>
-							    <h4 class="media-heading padding-none"><%= link_to @friend.name, @friend %></h4>
-								has approved your friend request.
-						    </div>
-						<% end %>
-						<%= link_to "Delete Notification", message_path(:id => f.id), class: 'btn btn-info btn-xs pull-right', :method => :patch%>
+<% @friendmsg.each do |f| %>
+<% @friendship = Friendship.find_by(user_id: f.sender_id, friend_id: f.recipient_id)%>
+<% @friend = User.find_by(id: f.sender_id)%>
+	<div class="widget-body">
+	  <div class="row row-merge">
+		    <div class="bg-white border-bottom ">
+	 			<div class="row">
+				    <div class="col-md-12">
+					    <div class="media">
+						    <%= link_to image_tag(@friend.photo_url(:thumbnail), class:"rounded-none pull-left"), @friend %>
+							<% if f.subject == 'request' %>
+							    <div class="media-body innerAll half", id="list_items">
+									<small class="pull-right label label-default" style="margin-left: 3px"><%= time_ago_in_words(f.created_at) %> ago</small>
+								    <h4 class="media-heading padding-none"><%= link_to @friend.name, @friend %></h4>
+									send you a friend request.
+							    </div>
+							    <div class="innerT half text-right">
+								    <%= link_to "Approve", friendship_path(:status => 'approved', :id => @friendship.id), 
+									                       class: 'btn btn-info btn-xs', :method => :patch %>
+					                <%= link_to "Reject", friendship_path(:inverse => 'true', :id => @friendship.id), 
+									                       class: 'btn btn-info btn-xs', :method => :delete %>
+							    </div>
+							<% else %>
+							    <div class="media-body innerAll half", id="list_items">
+									<small class="pull-right label label-default" style="margin-left: 3px"><%= time_ago_in_words(f.created_at) %> ago</small>
+								    <h4 class="media-heading padding-none"><%= link_to @friend.name, @friend %></h4>
+									has approved your friend request.
+							    </div>
+							<% end %>
+							<%= link_to "Delete Notification", message_path(:id => f.id), class: 'btn btn-info btn-xs pull-right', :method => :patch%>
+					    </div>
 				    </div>
-			    </div>
-		    </div><!--row-->
-	    </div>
-	<% end %>
-  </div>
-</div>
+			    </div><!--row-->
+		    </div>
+	  </div>
+	</div>
+<% end %>

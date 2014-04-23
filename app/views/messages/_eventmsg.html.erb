@@ -1,9 +1,9 @@
+<% @eventmsg.each do |f| %>
+<% @eventjoining = Eventjoining.find_by(id: f.body) %>
+<% if @eventjoining != nil %>
+  <% @event = @eventjoining.event %>
 <div class="widget-body">
   <div class="row row-merge">
-  	<% @eventmsg.each do |f| %>
-		<% @eventjoining = Eventjoining.find_by(id: f.body) %>
-		<% if @eventjoining != nil %>
-		  <% @event = @eventjoining.event %>
 		    <div class="bg-white border-bottom ">
 	 			<div class="row">
 				    <div class="col-md-12">
@@ -46,7 +46,7 @@
 				    </div>
 			    </div><!--row-->
 		    </div>
-		<% end %>
-	<% end %>
   </div>
 </div>
+		<% end %>
+<% end %>

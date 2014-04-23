@@ -1,38 +1,46 @@
-<div class="center-div" id="search_div">
+<div class="center-div">
 <%= form_tag( { :controller => 'events', :action => 'search' }, {:method => 'get', :class => 'navbar-form'} ) do %>
-	    <div id="what_field" class="col-md-3">
-			<%= text_field_tag :what, params[:what], :placeholder => "What", :class => "btn_margin form-control", 
-    :width => "100%" %>
-		</div>
+		<div class="col-md-8">
+			<div class="row">
+			    <div id="what_field" class="col-md-4">
+					<%= text_field_tag :what, params[:what], :placeholder => "What", :class => "btn_margin form-control", 
+		    :width => "100%" %>
+				</div>
 
 		
-	    <!-- event date: START -->
-	    <div id="_when_field" class="col-md-3">
-			<%= text_field_tag :when, params[:when], :placeholder => "When", :class => "btn_margin form-control when_field", 
-    :width => "100%", :readonly => true %>
-	    </div>
+			    <!-- event date: START -->
+			    <div id="_when_field" class="col-md-4">
+					<%= text_field_tag :when, params[:when], :placeholder => "When", :class => "btn_margin form-control when_field", 
+		    :width => "100%", :readonly => true %>
+			    </div>
 
-		<script>
-		$(function(){
-			$('#when').datepicker({
-				format: 'yyyy-mm-dd',
-				showMeridian: true,
-				autoclose: true
-			});
-		});
-		</script>
-	    <%#= render 'shared/when_dialog' %>
-	    <!-- event date: END -->
+				<script>
+				$(function(){
+					$('#when').datepicker({
+						format: 'yyyy-mm-dd',
+						showMeridian: true,
+						autoclose: true
+					});
+				});
+				</script>
+			    <%#= render 'shared/when_dialog' %>
+			    <!-- event date: END -->
 	    
 
-	    <div class="col-md-3">
-			<%= select_tag(:region, options_for_select([['Where', ""], ['Hong Kong Island', "Hong Kong Island"], ['Kowloon', "Kowloon"], ['New Territories', "New Territories"]], :selected => params[:region]), :class => "btn_margin") %>
+			    <div class="col-md-4">
+					<%= select_tag(:region, options_for_select([['Where', ""], ['Hong Kong Island', "Hong Kong Island"], ['Kowloon', "Kowloon"], ['New Territories', "New Territories"]], :selected => params[:region]), :class => "btn_margin") %>
+				</div>
+			</div>
 		</div>
-
-	    <div class="col-md-3">
-			<%= submit_tag "Search", :name => nil, :class=> "btn btn_margin form-control" %>
+		
+		<div class="col-md-4">
+			<div class="row">
+			    <div class="col-md-6">
+					<%= submit_tag "Search", :name => nil, :class=> "btn btn_margin btn-primary btn-search form-control" %>
+				</div>
+		
+				<div class="col-md-6"  id="search_div"><%= link_to "Create Event!", create_path, class: "btn btn-margin  form-control"%></div>
+			</div>
 		</div>
-
-	
 <% end %>
 </div>
