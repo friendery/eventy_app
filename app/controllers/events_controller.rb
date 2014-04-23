@@ -47,7 +47,7 @@ class EventsController < ApplicationController
       pos = datetime.index('|')
       if !pos.blank?
         date = datetime.from(0).to(9)
-        time_period = datetime.from(11).to(-1)
+        time_period = datetime.from(13).to(-1)
       else
         if datetime.length == 10
           date = datetime

@@ -9,22 +9,13 @@
 
 		
 			    <!-- event date: START -->
-			    <div id="_when_field" class="col-md-4">
+			    <div id="when_field" class="col-md-4">
+
 					<%= text_field_tag :when, params[:when], :placeholder => "When", :class => "btn_margin form-control when_field", 
 		    :width => "100%", :readonly => true %>
-			    </div>
-
-				<script>
-				$(function(){
-					$('#when').datepicker({
-						format: 'yyyy-mm-dd',
-						showMeridian: true,
-						autoclose: true
-					});
-				});
-				</script>
-			    <%#= render 'shared/when_dialog' %>
-			    <!-- event date: END -->
+			    	<%= render 'shared/when_dialog' %>
+			 	</div>
+			   	 <!-- event date: END -->
 	    
 
 			    <div class="col-md-4">

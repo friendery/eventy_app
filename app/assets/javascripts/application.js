@@ -22,12 +22,3 @@
 //= require raty.min.js
 //= require pusher.min.js
 //= require bootstrap-fileupload
-
-// today button
-$(function(){
-	$('#when').datepicker({
-		format: 'yyyy-mm-dd',
-		showMeridian: true,
-		autoclose: true
-	});
-});
