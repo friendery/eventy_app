@@ -6,7 +6,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   process :convert => 'png'
   
   version :standard do
-    process :resize_to_fill => [150, 150, :north]
+    process :resize_to_fill => [200, 200, :north]
   end
   
   version :thumbnail do

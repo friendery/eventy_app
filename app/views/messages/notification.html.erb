@@ -6,6 +6,9 @@
 				<h3 class="bg-primary innerAll half border-bottom margin-none">Friendship notifications:</h3>
 				<% if @friendmsg.any? %>
 				<%= render :partial => 'messages/friendmsg' %>
+				<% else %>
+				<h3>No friendship notifications.</h3>
+				<br>
 				<% end %>
 			</div>
 		</div>
@@ -14,6 +17,9 @@
 				<h3 class="bg-primary innerAll half border-bottom margin-none">Event notifications:</h3>
 				<% if @eventmsg.any? %>
 				<%= render :partial => 'messages/eventmsg' %>
+				<% else %>
+				<h3>No event notifications.</h3>
+				<br>
 				<% end %>
 			</div>
 		</div>
