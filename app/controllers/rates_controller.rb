@@ -7,14 +7,10 @@ class RatesController < ApplicationController
         if f.events.count > 0
           @createdevent = f.events
           sum = 0
-          count = 0
           @createdevent.each do |s|
-            if(s.average_rate > 0)
-              sum += s.average_rate
-              count++
-            end
+            sum += s.average_rate
           end
-          ave = sum / count
+          ave = sum / @createdevent.count
           rate = (1 + Math.log(@createdevent.count))*ave
           f.update_attribute(:rate, rate)
         else
