@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
   end
   
   def explore
-    @user = User.rank(params[:page])
+    @user = User.find(:all, :order => "rate DESC", :limit => 10)
     @event = Event.all.paginate(:page => params[:page], :per_page => 10)
   end
   
