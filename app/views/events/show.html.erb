@@ -99,7 +99,7 @@
 				<div class="border-bottom">
 			  		<div class="innerAll half">
 			  			<span class="badge badge-primary pull-right">
-							Number of rates: <%= @event.rates.count%>
+							Number of rates: <%= @event.rates.where("score > 0").count%>
 						</span><div id="event_star"></div>		
 			  		</div>
 			  </div>
