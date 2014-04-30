@@ -18,10 +18,10 @@
 							    </a>
 							    <div class="media-body innerAll half">
 									<h4 class="media-heading padding-none"><%= link_to @friend.name, @friend %></h4>
-									<p><%= @friend.email%></p>
 							    	<%unless f.status == 'request'%>
 									    <small class="text-success"><i class="fa fa-check"></i> Friend</small> 
 								    <%end%>
+									<p><%= @friend.email%></p>
 
 							    </div>
 						    </div>

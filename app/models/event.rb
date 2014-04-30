@@ -9,10 +9,9 @@ class Event < ActiveRecord::Base
   validates :description, presence: true
   validates :title,       presence: true, length: { maximum: 30 }
   validates :user_id,     presence: true
-  validates :capacity,    presence: true, numericality: { only_integer: true }
+  validates :capacity,    presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :date,        presence: true
   validates :time,        presence: true
-  validates_numericality_of :capacity,     :greater_than => 0
   #validates :region,      presence: true
   
   belongs_to :user
