@@ -10,7 +10,7 @@
 	</div>
 	<div class="media-body">
 		<small class="pull-right label label-default" style="margin-left: 3px"><%= time_ago_in_words(f.created_at) %> ago</small>
-		<small class="pull-right label label-default">Remaining seats: <%= f.capacity - f.eventjoinings.count %></small>
+		<small class="pull-right label label-default">Remaining seats: <%= f.capacity - f.eventjoinings.where(status: 'approved').count %></small>
 		<h4><a href="" class="text-inverse"><%= link_to f.title, f%></a></h4>
 		<div class="row" style="margin-left: 0px">
 			<div class="col-md-4">
