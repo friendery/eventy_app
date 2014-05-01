@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
   end
   
   def explore
-    @users = User.joins(:events).group("users.id").having("count(events.id) >= 3")
+    @users = User.joins(:events).group("users.id").having("count(events.id) >= 2")
     @user = @users.find(:all, :order => "rate DESC", :limit => 10)
     @event = Event.all.paginate(:page => params[:page], :per_page => 10)
   end
