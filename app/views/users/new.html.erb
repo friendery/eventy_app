@@ -14,7 +14,7 @@
                 </div>
             </div> -->
             <div class="form-group">
-                <%= f.label :photo, class: 'required col-sm-4 control-label'  %>
+                <%= f.label :photo, class: 'col-sm-4 control-label'  %>
                 <div class="col-sm-6">
                     <%= image_tag(@user.photo_url(:standard), :class => "media-object") %>
                     <%= f.file_field :photo %>
@@ -50,7 +50,7 @@
             </div>
 
             <div class="form-group">
-                <%= f.label :hobby, class: 'required col-sm-4 control-label'  %>
+                <%= f.label :hobby, class: 'col-sm-4 control-label'  %>
                 <div class="col-sm-6">
                     <%= f.text_field :hobby, :class => "form-control" %>
                 </div>
@@ -58,7 +58,7 @@
 
 
             <div class="form-group">
-                <%= f.label :date_of_birth, class: 'required col-sm-4 control-label'  %>
+                <%= f.label :date_of_birth, class: 'col-sm-4 control-label'  %>
                 <div class="col-sm-6">
                     <div id="dobPickerDiv" class="input-append date">
                       <%= f.text_field :DOB, :readonly => true, :class => "form-control" %>
@@ -78,7 +78,7 @@
             </div>
 
             <div class="form-group">
-                <%= f.label :gender, class: 'required col-sm-4 control-label'  %>
+                <%= f.label :gender, class: 'col-sm-4 control-label'  %>
                 <div class="col-sm-6">
                   <div class="row">
                     <div class = "col-sm-2">
@@ -94,42 +94,42 @@
             </div>
 
             <div class="form-group">
-                <%= f.label :address, class: 'required col-sm-4 control-label'  %>
+                <%= f.label :address, class: 'col-sm-4 control-label'  %>
                 <div class="col-sm-6">
                     <%= f.text_field :address, :class => "form-control" %>
                 </div>
             </div>
         
             <div class="form-group">
-                <%= f.label :nationality, class: 'required col-sm-4 control-label'  %>
+                <%= f.label :nationality, class: 'col-sm-4 control-label'  %>
                 <div class="col-sm-6">
                     <%= f.text_field :nationality, :class => "form-control" %>
                 </div>
             </div>
 
             <div class="form-group">
-                <%= f.label :mobile, class: 'required col-sm-4 control-label'  %>
+                <%= f.label :mobile, class: 'col-sm-4 control-label'  %>
                 <div class="col-sm-6">
                     <%= f.text_field :mobile, :class => "form-control" %>
                 </div>
             </div>
 
             <div class="form-group">
-                <%= f.label :occupation, class: 'required col-sm-4 control-label'  %>
+                <%= f.label :occupation, class: 'col-sm-4 control-label'  %>
                 <div class="col-sm-6">
                     <%= f.text_field :occupation, :class => "form-control" %>
                 </div>
             </div>
         
             <div class="form-group">
-                <%= f.label :personal_webpage, class: 'required col-sm-4 control-label'  %>
+                <%= f.label :personal_webpage, class: 'col-sm-4 control-label'  %>
                 <div class="col-sm-6">
                     <%= f.text_field :webpage, :class => "form-control" %>
                 </div>
             </div>
 
             <div class="form-group">
-                <%= f.label :self_introduction, class: 'required col-sm-4 control-label'  %>
+                <%= f.label :self_introduction, class: 'col-sm-4 control-label'  %>
                 <div class="col-sm-6">
                     <%= f.text_area :self_intro, :class => "form-control" %>
                 </div>

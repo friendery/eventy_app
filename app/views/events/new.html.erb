@@ -15,12 +15,12 @@
 	    </div>
 	    <div class="row">
 			<div class="col-md-6">
-			    <h5>Title</h5>
+			    <h5 class="required">Title</h5>
 		  	    <div class="innerB">
 				  <%= f.text_field :title, placeholder: "title...", class: "form-control" %>
 		  		</div>
 				
-			    <h5>Event date</h5>
+			    <h5 class="required">Event date</h5>
 		  	    <div class="innerB date" id="datetimepicker2">
 				  <%= f.text_field :date, placeholder: "event date...", class: "form-control" %>
 		  		</div>
@@ -28,11 +28,11 @@
 			</div>
 			
 			<div class="col-md-6">
-			    <h5>Number of participants</h5>
+			    <h5 class="required">Number of participants</h5>
 		  	  <div class="innerB">
 				  <%= f.text_field :capacity, placeholder: "capacity...", class: "form-control" %>
 		  		</div>
-			    <h5>Event time</h5>
+			    <h5 class="required">Event time</h5>
 		  	    <div class="innerB bootstrap-timepicker">
 				    <%= f.text_field :time, placeholder: "event time...", class: "form-control" %>
 		  		</div>
@@ -89,7 +89,7 @@
 		</div>
 		
 	    <div class="row">
-		    <h5>Description</h5>
+		    <h5 class="required">Description</h5>
 	  	    <div class="innerB">
 	  	   	  <%= f.text_area :description, class: "form-control"    %><br>
 	  		</div>

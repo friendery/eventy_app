@@ -3,6 +3,12 @@ SampleApp::Application.routes.draw do
     collection do
       get :search
     end
+    member do
+      get :editdetails
+    end
+    member do
+      patch :updatedetails
+    end
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :events do

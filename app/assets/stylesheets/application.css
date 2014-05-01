@@ -4962,3 +4962,5 @@ color: inherit;
 .pagination {
     margin-left:10px;
 }
+
+.required:before { content:"*"; color:red }

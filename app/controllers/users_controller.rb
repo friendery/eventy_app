@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(user_params)
+    if @user.update_attributes(basic_params)
       flash[:success] = "Profile updated"
       redirect_to @user
     else
@@ -50,6 +50,20 @@ class UsersController < ApplicationController
     @users = User.search(params[:search], params[:page])
   end
   
+  def editdetails
+    @user = User.find_by(params[:id])
+  end
+  
+  def updatedetails
+    @user = User.find_by(params[:id])
+    if @user.update_attributes(detail_params)
+      flash[:success] = "Profile updated"
+      redirect_to @user
+    else
+      render 'editdetails'
+    end
+  end
+  
   def friendlist
   end
 
@@ -61,6 +75,17 @@ class UsersController < ApplicationController
                                    :hobby, :DOB, :gender, :nationality,
                                    :mobile, :occupation, :address,
                                    :webpage, :self_intro)
+    end
+    
+    def basic_params
+      params.require(:user).permit(:name, :email, :password,
+                                   :password_confirmation)
+    end
+    
+    def detail_params
+      params.require(:user).permit(:photo, :hobby, :DOB, :gender, 
+                                   :nationality, :mobile, :occupation, 
+                                   :address, :webpage, :self_intro)
     end
 
     # Before filters

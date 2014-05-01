@@ -6,13 +6,13 @@
       <%= form_for(:session, url: sessions_path, :html => {:class => "form-horizontal", :role => "form"}) do |f| %>
 	  	<br>
         <div class="form-group">
-            <%= f.label :email, class: 'required col-sm-4 control-label'  %>
+            <%= f.label :email, class: 'col-sm-4 control-label'  %>
             <div class="col-sm-4">
                 <%= f.text_field :email, :class => "form-control" %>
             </div>
         </div>
         <div class="form-group">
-            <%= f.label :password, class: 'required col-sm-4 control-label'  %>
+            <%= f.label :password, class: 'col-sm-4 control-label'  %>
             <div class="col-sm-4">
                 <%= f.password_field :password, :class => "form-control" %>
             </div>

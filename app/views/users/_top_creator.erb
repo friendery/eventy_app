@@ -1,5 +1,5 @@
 <% @user.each do |f| %>
-	<% if f.events.count >= 1 %>
+	<% if f.events.count >= 5 %>
 			<div class="media innerLR border-bottom" style="padding-bottom: 20px;">
 				  <%= image_tag f.photo_url(:icon) %>
 				  <%= link_to f.name, f %>
