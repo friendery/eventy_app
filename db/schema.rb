@@ -40,14 +40,17 @@ ActiveRecord::Schema.define(version: 20140501101347) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image_uid"
+    t.string   "image_name"
     t.string   "avatar"
     t.string   "date"
-    t.integer  "capacity"
+    t.integer  "capacity",                    default: 0
+    t.text     "administrative_area_level_1"
     t.text     "region"
     t.text     "street"
     t.string   "time"
     t.string   "time_period"
-    t.string   "privacy",     default: "medium"
+    t.string   "privacy",                     default: "medium"
   end
 
   add_index "events", ["user_id", "created_at"], name: "index_events_on_user_id_and_created_at"
@@ -95,7 +98,7 @@ ActiveRecord::Schema.define(version: 20140501101347) do
     t.datetime "updated_at"
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",                                   default: false
+    t.boolean  "admin",                                    default: false
     t.string   "photo"
     t.string   "hobby"
     t.string   "DOB"
@@ -106,7 +109,11 @@ ActiveRecord::Schema.define(version: 20140501101347) do
     t.string   "address"
     t.string   "webpage"
     t.string   "self_intro"
-    t.decimal  "rate",            precision: 6, scale: 3
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
+    t.decimal  "rate",             precision: 6, scale: 3
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
