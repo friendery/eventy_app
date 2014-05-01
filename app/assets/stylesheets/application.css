@@ -4854,8 +4854,8 @@ footer {
     padding-left: 50px;
     padding-right: 50px;
     border-radius: 5px;
-/*    filter:alpha(opacity=60);
-    opacity:.6;*/
+	filter:alpha(opacity=80);
+    opacity:.80;
 }
 footer a {
   color: #BA5D32;
