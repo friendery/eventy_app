@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140430174554) do
+ActiveRecord::Schema.define(version: 20140501101347) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -95,9 +95,8 @@ ActiveRecord::Schema.define(version: 20140430174554) do
     t.datetime "updated_at"
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",           default: false
+    t.boolean  "admin",                                   default: false
     t.string   "photo"
-    t.integer  "rate"
     t.string   "hobby"
     t.string   "DOB"
     t.string   "gender"
@@ -107,6 +106,7 @@ ActiveRecord::Schema.define(version: 20140430174554) do
     t.string   "address"
     t.string   "webpage"
     t.string   "self_intro"
+    t.decimal  "rate",            precision: 6, scale: 3
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

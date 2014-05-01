@@ -10,9 +10,16 @@
 	<div class="media-body">
 		<small class="pull-right label label-default" style="margin-left: 3px"><%= time_ago_in_words(event.created_at) %> ago</small>
 		<% if (event.capacity - event.eventjoinings.where(status: 'approved').count) <= 0 %>
-			<small class="pull-right label label-default">Full</small>
+			<small class="pull-right label label-default" style="margin-left: 3px">Full</small>
 		<% else %>
-			<small class="pull-right label label-default">Remaining seats: <%= event.capacity - event.eventjoinings.where(status: 'approved').count %></small>
+			<small class="pull-right label label-default" style="margin-left: 3px">Remaining seats: <%= event.capacity - event.eventjoinings.where(status: 'approved').count %></small>
+		<% end %>
+		<% if event.privacy == 'high' %>
+			<small class="pull-right label label-default">All on request</small>
+		<% elsif event.privacy == 'medium' %>
+			<small class="pull-right label label-default">Strangers on request</small>
+		<% elsif event.privacy == 'low' %>
+			<small class="pull-right label label-default">Open to all</small>
 		<% end %>
 		<h4><a href="" class="text-inverse"></a><%= link_to event.title, event%></h4>
 		<div class="row" style="margin-left: 0px">
