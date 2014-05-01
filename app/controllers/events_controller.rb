@@ -14,7 +14,7 @@ class EventsController < ApplicationController
       flash[:success] = "Event created!"
       redirect_to @event
     else
-      render 'static_pages/home'
+      render 'new'
     end
   end
   
