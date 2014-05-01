@@ -2,6 +2,9 @@ class EventsController < ApplicationController
   before_action :signed_in_user, except: [:search]
   before_action :correct_user,  only: [:edit, :update, :destroy]
 
+  def index
+  end
+
   def new
     @event = Event.new
   end
