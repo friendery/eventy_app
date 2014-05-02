@@ -7,7 +7,7 @@
 				<% if @friendmsg.any? %>
 				<%= render :partial => 'messages/friendmsg' %>
 				<% else %>
-				<h3>No friendship notifications.</h3>
+				<h5>  No friendship notifications.</h5>
 				<br>
 				<% end %>
 			</div>
@@ -18,7 +18,7 @@
 				<% if @eventmsg.any? %>
 				<%= render :partial => 'messages/eventmsg' %>
 				<% else %>
-				<h3>No event notifications.</h3>
+				<h5>  No event notifications.</h5>
 				<br>
 				<% end %>
 			</div>
