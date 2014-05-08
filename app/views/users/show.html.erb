@@ -51,9 +51,11 @@
 						<div clas="row">
 							<%= @user.self_intro %>
   						</div>
+						<% if current_user?(@user) %>
 						<div class="row" style="padding: 20px">
 							<%= link_to "Edit profiles", editdetails_user_path(current_user), class: 'btn btn-primary' %>
 						</div>
+						<% end %>
   					</div>
   				</div>
   			</div>
